@@ -21,16 +21,19 @@ const ORIGINAL_THEME_IDS: ThemeId[] = ["atelier", "harvest", "gallery", "botanic
 // All 10 themes for the platform showcase (loads after opener)
 const ALL_THEME_IDS: ThemeId[] = [...ORIGINAL_THEME_IDS, "brutalist", "zen", "maximalist", "neon", "vintage"];
 
+// Outstretched hand against light — the one we had (DJ/concert)
+const HAND_AGAINST_LIGHT = "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=1000&fit=crop";
+
 const THEME_PREVIEWS: Record<ThemeId, { image: string; tagline: string }> = {
   atelier: { image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=1000&fit=crop", tagline: "Luxury fashion. Editorial elegance." },
   harvest: { image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=800&h=600&fit=crop", tagline: "Farm-to-table. Warm and inviting." },
   gallery: { image: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=800&h=1000&fit=crop", tagline: "White walls. Minimal. Precise." },
   botanica: { image: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&h=600&fit=crop", tagline: "Wellness. Nature. Organic flow." },
-  soiree: { image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=1000&fit=crop", tagline: "Dark. Gold. Intimate nights." },
-  brutalist: { image: "https://images.unsplash.com/photo-1513584684374-8b748c0e6c4a?w=800&h=600&fit=crop", tagline: "Raw. Bold. Unapologetic." },
+  soiree: { image: HAND_AGAINST_LIGHT, tagline: "Dark. Gold. Intimate nights." },
+  brutalist: { image: HAND_AGAINST_LIGHT, tagline: "Raw. Bold. Unapologetic." },
   zen: { image: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&h=1000&fit=crop", tagline: "Wabi-sabi. Vast space. Calm." },
-  maximalist: { image: "https://images.unsplash.com/photo-1513519245088-0e12902e35a6?w=800&h=600&fit=crop", tagline: "Rich. Layered. Joyful chaos." },
-  neon: { image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=1000&fit=crop", tagline: "Electric nights. Glow. Energy." },
+  maximalist: { image: HAND_AGAINST_LIGHT, tagline: "Rich. Layered. Joyful chaos." },
+  neon: { image: HAND_AGAINST_LIGHT, tagline: "Electric nights. Glow. Energy." },
   vintage: { image: "https://images.unsplash.com/photo-1531685250784-7569952593d2?w=800&h=600&fit=crop", tagline: "Nostalgia. Warmth. Handmade." },
 };
 
