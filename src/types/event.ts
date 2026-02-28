@@ -26,13 +26,13 @@ export interface EventData {
   whatsNotIncluded?: string[];
   dietaryNote?: string;
   artistBio?: string;
-  featuredWorks?: { title: string; desc?: string }[];
+  featuredWorks?: { title: string; desc?: string; image?: string; medium?: string; dimensions?: string; artist?: string }[];
   exhibitionDates?: string;
   relatedProgramming?: { title: string; when?: string }[];
-  journey?: { step: string; desc: string }[];
+  journey?: { step: string; desc: string; image?: string }[];
   whatToBring?: string[];
   whatsProvided?: string[];
-  testimonials?: { quote: string; author?: string }[];
+  testimonials?: { quote: string; author?: string; image?: string }[];
   vendors?: { name: string; category: string; image?: string }[];
   whatsHappening?: string[];
   gettingThere?: string;

@@ -123,6 +123,7 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
           <Image src={event.heroImage} alt="" fill className="object-cover event-hero-image" sizes="100vw" priority />
         </div>
         <div className="absolute inset-0" style={{ background: heroGradient }} />
+        {cat === "wellness" && <div className="absolute inset-0 pointer-events-none wellness-hero-pattern" />}
         {cat === "music" && (
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
             {[...Array(5)].map((_, i) => (
@@ -146,9 +147,10 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
             transition={{ duration: 0.6, staggerChildren: 0.2 }}
           >
             <motion.h1
-              className="font-light leading-tight mb-4"
+              className="font-light leading-tight mb-4 flex items-start gap-3"
               style={{ fontFamily: "var(--theme-display-font)", fontSize: "clamp(2.5rem, 6vw, 4.5rem)" }}
             >
+              {cat === "art" && <span className="w-2 h-2 rounded-full shrink-0 mt-4" style={{ backgroundColor: "#E63946" }} />}
               {event.name}
             </motion.h1>
             <motion.p className="text-lg md:text-xl mb-6 max-w-2xl" style={{ color: theme.colors.textMuted }} transition={{ delay: 0.2 }}>
@@ -215,7 +217,7 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
       )}
 
       {/* About / Highlights */}
-      <section id="experience" className="section-luxury px-6" style={{ backgroundColor: theme.colors.bgAlt }}>
+      <section id="experience" className={`px-6 ${cat === "art" ? "py-[140px]" : "section-luxury"}`} style={{ backgroundColor: theme.colors.bgAlt }}>
         <div className="max-w-[1200px] mx-auto">
           <SectionReveal><h2 className="font-light mb-16" style={{ fontFamily: "var(--theme-display-font)", fontSize: "clamp(2rem, 4vw, 4rem)" }}>{labels.about}</h2></SectionReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -255,7 +257,7 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
 
       {/* People: Hosts / Brands / Chef / Artist / Guide / Vendors */}
       {(hosts.length > 0 || (cat === "market" && vendors.length > 0)) && (
-        <section className="section-luxury px-6" style={{ backgroundColor: theme.colors.bg }}>
+        <section className={`px-6 ${cat === "art" ? "py-[140px]" : "section-luxury"}`} style={{ backgroundColor: theme.colors.bg }}>
           <div className="max-w-[1200px] mx-auto">
             <SectionReveal>
               <div className="mb-16">
@@ -361,15 +363,14 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
         </section>
       )}
 
-      {/* Artist bio (art only) - gallery red dot */}
+      {/* Artist bio (art only) - gallery press release style */}
       {cat === "art" && event.artistBio && (
-        <section className="section-luxury px-6" style={{ backgroundColor: theme.colors.bgAlt }}>
-          <div className="max-w-[640px] mx-auto">
+        <section className="py-[140px] px-6" style={{ backgroundColor: theme.colors.bgAlt }}>
+          <div className="max-w-[560px] mx-auto">
             <SectionReveal>
-              <div className="flex items-start gap-3">
-                <span className="w-2 h-2 rounded-full shrink-0 mt-2" style={{ backgroundColor: "#E63946" }} />
-                <p className="text-xl font-light leading-relaxed italic" style={{ fontFamily: "var(--theme-display-font)" }}>{event.artistBio}</p>
-              </div>
+              <div className="w-20 h-px mb-8" style={{ backgroundColor: theme.colors.text }} />
+              <p className="text-xs tracking-[0.2em] uppercase mb-6" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.textMuted }}>About the Collective</p>
+              <p className="text-lg leading-[1.8]" style={{ fontFamily: "var(--theme-body-font)" }}>{event.artistBio}</p>
             </SectionReveal>
           </div>
         </section>
@@ -393,6 +394,34 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
                           <span style={{ fontSize: "14px" }}>🍷</span> {m.pairing}
                         </p>
                       )}
+                    </div>
+                  </SectionReveal>
+                ))}
+              </div>
+            ) : journey.length > 0 && cat === "wellness" ? (
+              <div className="max-w-4xl mx-auto space-y-16">
+                {journey.map((j, i) => (
+                  <SectionReveal key={i}>
+                    {i > 0 && (
+                      <div className="flex justify-center py-8">
+                        <div className="w-3 h-3 rounded-full breathe-pulse" style={{ backgroundColor: "#5C7C50" }} />
+                      </div>
+                    )}
+                    <div className={`flex flex-col md:flex-row gap-8 md:gap-12 items-center ${i % 2 === 1 ? "md:flex-row-reverse" : ""}`}>
+                      {j.image && (
+                        <div className="shrink-0 w-full md:w-[250px]">
+                          <div className="relative aspect-[3/2] rounded-lg overflow-hidden">
+                            <Image src={j.image} alt={j.step} fill className="object-cover" sizes="250px" />
+                          </div>
+                        </div>
+                      )}
+                      <div className="flex-1 relative">
+                        <span className="absolute -top-2 -left-2 text-6xl font-light opacity-20" style={{ fontFamily: "var(--theme-display-font)", color: "#5C7C50" }}>
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <h3 className="text-2xl font-light mb-4 relative" style={{ fontFamily: "var(--theme-display-font)" }}>{j.step}</h3>
+                        <p className="text-lg leading-relaxed relative" style={{ color: theme.colors.textMuted }}>{j.desc}</p>
+                      </div>
                     </div>
                   </SectionReveal>
                 ))}
@@ -450,44 +479,62 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
 
       {/* Exhibition dates (art) - generous letter-spacing */}
       {cat === "art" && event.exhibitionDates && (
-        <section className="py-12 px-6" style={{ backgroundColor: theme.colors.bg }}>
+        <section className="py-[140px] px-6" style={{ backgroundColor: theme.colors.bg }}>
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-sm tracking-[0.3em] uppercase" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.textMuted }}>{event.exhibitionDates}</p>
           </div>
         </section>
       )}
 
-      {/* Featured works (art) - white frame effect */}
+      {/* Featured works (art) - gallery wall layout */}
       {cat === "art" && event.featuredWorks && event.featuredWorks.length > 0 && (
-        <section className="py-20 md:py-28 px-6" style={{ backgroundColor: theme.colors.bgAlt }}>
+        <section className="py-[140px] px-6" style={{ backgroundColor: theme.colors.bgAlt }}>
           <div className="max-w-6xl mx-auto">
-            <SectionReveal><h2 className="text-3xl md:text-4xl font-light mb-16" style={{ fontFamily: "var(--theme-display-font)" }}>Featured Works</h2></SectionReveal>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {event.featuredWorks.map((w, i) => (
-                <SectionReveal key={i}>
-                  <div className="p-6" style={{ backgroundColor: theme.colors.card, border: "1px solid #E0E0E0", padding: "12px" }}>
-                    <h3 className="font-light mb-2" style={{ fontFamily: "var(--theme-display-font)" }}>{w.title}</h3>
-                    {w.desc && <p className="text-sm" style={{ color: theme.colors.textMuted }}>{w.desc}</p>}
-                  </div>
-                </SectionReveal>
-              ))}
+            <SectionReveal><h2 className="text-3xl md:text-4xl font-light mb-20" style={{ fontFamily: "var(--theme-display-font)" }}>Featured Works</h2></SectionReveal>
+            <div className="flex flex-wrap gap-8 md:gap-12 items-start justify-center md:justify-start">
+              {event.featuredWorks.map((w, i) => {
+                const widths = [500, 350, 280];
+                const wpx = widths[i] || 350;
+                return (
+                  <SectionReveal key={i}>
+                    <div
+                      className="art-gallery-work transition-all duration-300 cursor-default"
+                      style={{
+                        width: "100%",
+                        maxWidth: `${wpx}px`,
+                        padding: "16px",
+                        backgroundColor: "#fff",
+                        border: "1px solid #E0E0E0",
+                      }}
+                    >
+                      <div className="relative aspect-[6/5] overflow-hidden mb-4">
+                        {w.image && <Image src={w.image} alt={w.title} fill className="object-cover" sizes={`${wpx}px`} />}
+                      </div>
+                      <p className="font-light italic text-lg mb-1" style={{ fontFamily: "var(--theme-display-font)" }}>{w.title}</p>
+                      {(w.medium || w.dimensions) && (
+                        <p className="text-sm mb-1" style={{ color: theme.colors.textMuted }}>{[w.medium, w.dimensions].filter(Boolean).join(" · ")}</p>
+                      )}
+                      {w.artist && <p className="text-sm" style={{ color: theme.colors.textMuted }}>{w.artist}</p>}
+                    </div>
+                  </SectionReveal>
+                );
+              })}
             </div>
           </div>
         </section>
       )}
 
-      {/* Related programming (art) - times bold, descriptions lighter */}
+      {/* Related programming (art) - minimal timeline */}
       {cat === "art" && event.relatedProgramming && event.relatedProgramming.length > 0 && (
-        <section className="py-12 px-6" style={{ backgroundColor: theme.colors.bg }}>
-          <div className="max-w-3xl mx-auto">
-            <h3 className="text-lg font-light mb-6" style={{ fontFamily: "var(--theme-display-font)" }}>Related Programming</h3>
-            <div className="space-y-2">
+        <section className="py-[140px] px-6" style={{ backgroundColor: theme.colors.bg }}>
+          <div className="max-w-2xl mx-auto">
+            <h3 className="text-lg font-light mb-12" style={{ fontFamily: "var(--theme-display-font)" }}>Related Programming</h3>
+            <div className="space-y-8">
               {event.relatedProgramming.map((r, i) => (
-                <p key={i}>
-                  {r.when && <span className="font-bold" style={{ color: theme.colors.text }}>{r.when}</span>}
-                  {r.when && <span style={{ color: theme.colors.textMuted }}> — </span>}
-                  <span style={{ color: theme.colors.textMuted }}>{r.title}</span>
-                </p>
+                <div key={i} className="pl-6 border-l-2" style={{ borderColor: theme.colors.text }}>
+                  {r.when && <p className="font-bold text-lg mb-1" style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>{r.when}</p>}
+                  <p className="text-lg" style={{ color: theme.colors.textMuted }}>{r.title}</p>
+                </div>
               ))}
             </div>
           </div>
@@ -531,29 +578,53 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
       {/* Wellness: What to bring / provided / testimonials */}
       {cat === "wellness" && (
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: theme.colors.bg }}>
-          <div className="max-w-2xl mx-auto space-y-12">
+          <div className="max-w-4xl mx-auto space-y-16">
             {event.whatToBring && event.whatToBring.length > 0 && (
               <div>
-                <h3 className="text-sm tracking-widest uppercase mb-4" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.textMuted }}>What to Bring</h3>
-                <ul className="space-y-2">
-                  {event.whatToBring.map((w, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <span style={{ color: "#5C7C50" }}>🍃</span> {w}
-                    </li>
+                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.textMuted }}>What to Bring</h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {["🧘", "💧", "📓", "🧥", "☀️", "💚"].slice(0, event.whatToBring.length).map((icon, i) => (
+                    <div
+                      key={i}
+                      className="p-6 flex items-center gap-4 transition-all duration-300 hover:scale-[1.02]"
+                      style={{ border: "1px solid rgba(92,124,80,0.4)", borderRadius: "8px" }}
+                    >
+                      <span className="text-2xl">{icon}</span>
+                      <span className="font-light" style={{ fontFamily: "var(--theme-display-font)" }}>{event.whatToBring![i]}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             )}
             {event.whatsProvided && event.whatsProvided.length > 0 && (
               <div>
-                <h3 className="text-sm tracking-widest uppercase mb-4" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.textMuted }}>What&apos;s Provided</h3>
-                <p>{event.whatsProvided.join(" · ")}</p>
+                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.textMuted }}>What&apos;s Provided</h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {event.whatsProvided.map((w, i) => (
+                    <div
+                      key={i}
+                      className="p-6 transition-all duration-300 hover:scale-[1.02]"
+                      style={{ backgroundColor: "rgba(92,124,80,0.08)", border: "1px solid rgba(92,124,80,0.2)", borderRadius: "8px" }}
+                    >
+                      <span className="font-light" style={{ fontFamily: "var(--theme-display-font)" }}>{w}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
             {event.testimonials && event.testimonials.length > 0 && (
-              <div className="border-l-2 pl-8 p-6 rounded" style={{ borderColor: theme.colors.accent, backgroundColor: "#F0EBE0" }}>
-                <p className="text-lg font-light italic mb-4" style={{ fontFamily: "var(--theme-display-font)", color: "#5C7C50" }}>&ldquo;{event.testimonials[0].quote}&rdquo;</p>
-                {event.testimonials[0].author && <p className="text-sm" style={{ color: theme.colors.textMuted }}>{event.testimonials[0].author}</p>}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {event.testimonials.map((t, i) => (
+                  <div key={i} className="p-8 rounded-lg flex gap-6" style={{ backgroundColor: "#F0EBE0", borderLeft: "4px solid #5C7C50" }}>
+                    <div className="shrink-0 w-16 h-16 rounded-full overflow-hidden">
+                      {t.image ? <Image src={t.image} alt="" width={64} height={64} className="object-cover w-full h-full" /> : null}
+                    </div>
+                    <div>
+                      <p className="text-lg font-light italic mb-3" style={{ fontFamily: "var(--theme-display-font)", color: "#5C7C50" }}>&ldquo;{t.quote}&rdquo;</p>
+                      {t.author && <p className="text-sm" style={{ color: theme.colors.textMuted }}>{t.author}</p>}
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>
@@ -639,7 +710,16 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
                   <h3 className="text-xl font-light mb-2" style={{ fontFamily: "var(--theme-display-font)" }}>{ticket.name}</h3>
                   <p className="text-2xl font-light mb-4" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent }}>{ticket.price === 0 ? "Free" : `$${ticket.price}`}</p>
                   <p className="text-sm mb-6 flex-1" style={{ color: theme.colors.textMuted }}>{ticket.desc}</p>
-                  <Link href={`/e/${event.slug}/tickets?tier=${i}`} className="inline-block text-center py-3 font-medium tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(26,23,20,0.08)]" style={{ border: `2px solid ${theme.colors.accent}`, borderRadius: `${theme.buttonRadius}px`, color: theme.colors.text }}>Select →</Link>
+                  <Link
+                    href={`/e/${event.slug}/tickets?tier=${i}`}
+                    className="inline-block text-center py-3 font-medium tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(26,23,20,0.08)]"
+                    style={{
+                      ...(cat === "art" ? { backgroundColor: theme.colors.text, color: "#fff", border: "2px solid transparent" } : { border: `2px solid ${theme.colors.accent}`, color: theme.colors.text }),
+                      borderRadius: `${theme.buttonRadius}px`,
+                    }}
+                  >
+                    {cat === "art" && ticket.price === 0 ? "RSVP" : "Select"} →
+                  </Link>
                 </motion.div>
               </SectionReveal>
             ))}
