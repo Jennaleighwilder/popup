@@ -34,11 +34,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    supabase.auth.getSession().then(({ data: { session: initialSession } }) => {
-      setSession(initialSession ?? null);
-      setUser(initialSession?.user ?? null);
+    const timeout = setTimeout(() => {
       setLoading(false);
-    });
+    }, 8000);
+
+    supabase.auth.getSession()
+      .then(({ data: { session: initialSession } }) => {
+        setSession(initialSession ?? null);
+        setUser(initialSession?.user ?? null);
+      })
+      .catch(() => {
+        setSession(null);
+        setUser(null);
+      })
+      .finally(() => {
+        clearTimeout(timeout);
+        setLoading(false);
+      });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (_event, session) => {

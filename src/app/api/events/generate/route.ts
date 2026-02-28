@@ -66,11 +66,11 @@ function templateEvent(params: {
     ? `${params.dateStart} – ${params.dateEnd}`
     : params.dateStart;
 
-  return {
+  const base = {
     slug,
     name,
     tagline: `${params.vibe} ${params.category} experience in ${params.city}`,
-    category: params.category.toLowerCase(),
+    category: mapKey,
     theme: theme.id,
     city: params.city,
     venue: params.venue || "Venue TBA",
@@ -79,32 +79,145 @@ function templateEvent(params: {
     time: params.time,
     heroImage,
     venueImage,
-    highlights: [
-      { title: "Curated Experience", desc: `A carefully crafted ${params.vibe.toLowerCase()} experience for ${params.capacity} guests.` },
-      { title: "Community", desc: "Connect with like-minded creators and attendees." },
-      { title: "Memorable Moments", desc: "Designed to create lasting impressions." },
-    ],
-    hosts: [
-      { name: "Host One", role: "Organizer", bio: "Passionate about bringing people together.", image: "https://ui-avatars.com/api/?name=Host+One&size=200&background=C4956A&color=ffffff" },
-      { name: "Host Two", role: "Curator", bio: "Creating meaningful experiences.", image: "https://ui-avatars.com/api/?name=Host+Two&size=200&background=8C8578&color=ffffff" },
-    ],
-    schedule: [
-      { time: "10:00 AM", title: "Doors Open & Welcome" },
-      { time: "11:00 AM", title: "Main Program" },
-      { time: "1:00 PM", title: "Break & Networking" },
-      { time: "2:00 PM", title: "Afternoon Session" },
-      { time: "4:00 PM", title: "Closing & Farewell" },
-    ],
-    tickets: [
-      { name: "General Admission", price: 0, desc: "Full access to the event" },
-      { name: "VIP", price: 49, desc: "Early access + exclusive perks" },
-    ],
-    faqs: [
-      { q: "What is the dress code?", a: "Smart casual. Dress to impress." },
-      { q: "Is parking available?", a: "Street parking and nearby options." },
-      { q: "Can I get a refund?", a: "Full refunds up to 7 days before." },
-    ],
   };
+
+  switch (mapKey) {
+    case "fashion":
+      return {
+        ...base,
+        highlights: [
+          { title: "200+ Designer Pieces", desc: "Curated selection at up to 70% off retail." },
+          { title: "Complimentary Styling", desc: "Personal styling sessions with our experts." },
+          { title: "Cocktails & DJ", desc: "Shop to a curated soundtrack." },
+        ],
+        hosts: [
+          { name: "Maison Noir", role: "Featured Designer", bio: "Independent luxury from NYC.", image: "https://ui-avatars.com/api/?name=Maison+Noir&size=200&background=C4956A&color=ffffff" },
+          { name: "Webb Gallery", role: "Featured Designer", bio: "Contemporary fashion curation.", image: "https://ui-avatars.com/api/?name=Webb+Gallery&size=200&background=8C8578&color=ffffff" },
+        ],
+        schedule: [],
+        brands: ["Maison Noir", "Webb Gallery", "Park Studio"],
+        shoppingRules: ["All sales final", "No try-ons", "Cash & card accepted"],
+        scarcityMessage: "Limited quantities · First come, first served",
+        tickets: [{ name: "Free RSVP", price: 0, desc: "General admission" }, { name: "VIP Early Access", price: 45, desc: "One hour early entry" }],
+        faqs: [{ q: "What is the dress code?", a: "Smart casual." }, { q: "Are refunds available?", a: "All sales final." }],
+      };
+    case "food":
+      return {
+        ...base,
+        capacity: params.capacity,
+        highlights: [
+          { title: "Five-Course Journey", desc: "A carefully crafted tasting menu." },
+          { title: "Wine Pairing", desc: "Each course paired with a curated selection." },
+          { title: "Intimate Setting", desc: `Limited to ${params.capacity} guests.` },
+        ],
+        hosts: [
+          { name: "Chef Alexandra Chen", role: "Executive Chef", bio: "Former Michelin-starred chef.", image: "https://ui-avatars.com/api/?name=Alexandra+Chen&size=200&background=C4956A&color=ffffff" },
+        ],
+        schedule: [
+          { time: "6:30 PM", title: "Welcome drinks" },
+          { time: "7:00 PM", title: "First course" },
+          { time: "7:45 PM", title: "Second course" },
+          { time: "8:30 PM", title: "Main" },
+          { time: "9:45 PM", title: "Dessert" },
+        ],
+        menu: [
+          { course: "Seasonal crudo", pairing: "Champagne" },
+          { course: "Handmade pasta", pairing: "Barolo" },
+          { course: "Grilled ribeye", pairing: "Cabernet" },
+          { course: "Chocolate soufflé", pairing: "Dessert wine" },
+        ],
+        whatsIncluded: ["Five-course menu", "Wine pairing", "Welcome cocktail"],
+        whatsNotIncluded: ["Additional drinks at the bar"],
+        dietaryNote: "Please note dietary requirements at booking.",
+        tickets: [{ name: "Tasting Menu", price: 85, desc: "Five courses" }, { name: "With Wine Pairing", price: 125, desc: "Full experience" }],
+        faqs: [{ q: "Dress code?", a: "Smart casual." }, { q: "Dietary needs?", a: "Note at booking." }],
+      };
+    case "art":
+      return {
+        ...base,
+        highlights: [
+          { title: "New Works", desc: "A collection of recent pieces." },
+          { title: "Artist Statement", desc: "An intimate look at the creative process." },
+          { title: "Opening Reception", desc: "Join us for an evening with the artist." },
+        ],
+        hosts: [
+          { name: "Elena Rivera", role: "Artist", bio: "Exhibited at Tate Modern, MoMA PS1.", image: "https://ui-avatars.com/api/?name=Elena+Rivera&size=200&background=C4956A&color=ffffff" },
+        ],
+        schedule: [],
+        artistBio: "Elena Rivera's work explores the boundaries between object and space.",
+        featuredWorks: [{ title: "Untitled (Light Study)", desc: "Mixed media, 2024" }, { title: "Threshold", desc: "Installation, 2024" }],
+        exhibitionDates: dateStr,
+        relatedProgramming: [{ title: "Artist talk", when: "Saturday 3pm" }],
+        tickets: [{ name: "Opening Reception", price: 0, desc: "Free admission" }, { name: "Patron's Preview", price: 150, desc: "Private viewing" }],
+        faqs: [{ q: "Is the opening free?", a: "Yes." }, { q: "Gallery hours?", a: "Tue–Sat, 11am–6pm." }],
+      };
+    case "wellness":
+      return {
+        ...base,
+        highlights: [
+          { title: "Grounding Breathwork", desc: "We begin by settling into the space." },
+          { title: "Gentle Movement", desc: "A slow vinyasa flow." },
+          { title: "Cacao & Journaling", desc: "We close with intention-setting." },
+        ],
+        hosts: [
+          { name: "Sophie Laurent", role: "Guide", bio: "Certified yoga and breathwork facilitator.", image: "https://ui-avatars.com/api/?name=Sophie+Laurent&size=200&background=C4956A&color=ffffff" },
+        ],
+        schedule: [],
+        journey: [
+          { step: "Arrival & settling", desc: "Find your place." },
+          { step: "Grounding breathwork", desc: "15 minutes of breath." },
+          { step: "Gentle vinyasa flow", desc: "45-minute practice." },
+          { step: "Cacao ceremony", desc: "Set intentions." },
+        ],
+        whatToBring: ["Yoga mat", "Water bottle", "Journal"],
+        whatsProvided: ["Herbal tea", "Light snacks", "Bolsters & blankets"],
+        testimonials: [{ quote: "A morning that changed how I move through my week.", author: "— Past attendee" }],
+        tickets: [{ name: "Drop-in", price: 45, desc: "Single session" }, { name: "Full Day", price: 120, desc: "All sessions + lunch" }],
+        faqs: [{ q: "Beginners?", a: "Yes. All levels welcome." }, { q: "What to wear?", a: "Comfortable clothing." }],
+      };
+    case "market":
+      return {
+        ...base,
+        highlights: [
+          { title: "50+ Makers", desc: "Independent artisans in ceramics, jewelry, textiles." },
+          { title: "Live Music", desc: "Curated soundtrack throughout the day." },
+          { title: "Street Food", desc: "Local vendors and refreshments." },
+        ],
+        hosts: [],
+        schedule: [],
+        vendors: [
+          { name: "Clay & Co", category: "Ceramics", image: "https://ui-avatars.com/api/?name=Clay&size=120&background=C4956A&color=ffffff" },
+          { name: "Gold Thread", category: "Jewelry", image: "https://ui-avatars.com/api/?name=Gold+Thread&size=120&background=8C8578&color=ffffff" },
+          { name: "Linen House", category: "Textiles", image: "https://ui-avatars.com/api/?name=Linen&size=120&background=5C7C50&color=ffffff" },
+        ],
+        whatsHappening: ["Live music", "Street food", "Workshops"],
+        gettingThere: "Street parking. 5 min from transit. Bike racks on site.",
+        vendorApplication: "Want to sell? Apply by the 1st. Email apply@market.com",
+        tickets: [{ name: "Free Entry", price: 0, desc: "Suggested $5 donation" }],
+        faqs: [{ q: "Parking?", a: "Street parking and nearby lots." }, { q: "Free?", a: "Free entry. $5 suggested donation." }],
+      };
+    case "music":
+    default:
+      return {
+        ...base,
+        highlights: [
+          { title: "Curated Sound", desc: "An evening of carefully selected music." },
+          { title: "Intimate Setting", desc: "Limited capacity." },
+          { title: "Cocktails & Conversation", desc: "Welcome drinks and mingling." },
+        ],
+        hosts: [
+          { name: "DJ Marcus Webb", role: "Resident", bio: "Curating sound for over a decade.", image: "https://ui-avatars.com/api/?name=Marcus+Webb&size=200&background=C4956A&color=ffffff" },
+          { name: "Elena Rivera", role: "Host", bio: "Creating memorable nights.", image: "https://ui-avatars.com/api/?name=Elena+Rivera&size=200&background=8C8578&color=ffffff" },
+        ],
+        schedule: [
+          { time: "9:00 PM", title: "Doors open" },
+          { time: "9:30 PM", title: "Opening set" },
+          { time: "11:00 PM", title: "Main set" },
+        ],
+        tickets: [{ name: "General Admission", price: 25, desc: "Full night access" }, { name: "VIP", price: 75, desc: "Reserved seating" }],
+        faqs: [{ q: "Dress code?", a: "Smart casual." }, { q: "Age requirement?", a: "21+." }],
+      };
+  }
 }
 
 async function generateWithAI(params: {

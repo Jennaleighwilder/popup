@@ -24,7 +24,11 @@ export default function DashboardPage() {
   }
 
   if (!user && !demoMode) {
-    return null;
+    return (
+      <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center">
+        <p className="font-[family-name:var(--font-body)] text-[#8C8578]">Redirecting to login...</p>
+      </div>
+    );
   }
 
   return (

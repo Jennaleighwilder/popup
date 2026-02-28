@@ -26,8 +26,29 @@ body::after {
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.025;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Warm selection highlight */
+::selection {
+  background: rgba(196, 149, 106, 0.25);
+}
+
+/* Custom scrollbar - thin, warm-toned */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(196, 149, 106, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(196, 149, 106, 0.5);
 }
 
 body {
@@ -79,9 +100,9 @@ body {
   width: 100%;
 }
 
-/* Ken Burns zoom effect for event hero */
+/* Ken Burns zoom effect for event hero - subtle 1.0 → 1.03 over 15s */
 .ken-burns {
-  animation: ken-burns-zoom 20s ease-out forwards;
+  animation: ken-burns-zoom 15s ease-out forwards;
 }
 
 @keyframes ken-burns-zoom {
@@ -89,6 +110,31 @@ body {
     transform: scale(1);
   }
   to {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
+}
+
+/* Warm color grade on event images */
+.event-hero-image {
+  filter: sepia(0.05) saturate(1.05);
+}
+
+/* Section padding - luxury whitespace */
+.section-luxury {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+@media (min-width: 768px) {
+  .section-luxury {
+    padding-top: 7.5rem;
+    padding-bottom: 7.5rem;
+  }
+}
+
+/* Form input focus - warm glow, not blue default */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(196, 149, 106, 0.3);
 }

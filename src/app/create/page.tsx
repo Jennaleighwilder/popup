@@ -4,30 +4,32 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { Shirt, Wine, Palette, Leaf, Music2, Store, Check } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
 import { EventPreview } from "@/components/EventPreview";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { themes } from "@/lib/themes";
+import { buildEventFromForm } from "@/lib/buildEvent";
 import type { EventData } from "@/types/event";
 
 const CATEGORIES = [
-  { id: "fashion", label: "Fashion & Retail", subtitle: "Pop-ups, sample sales, trunk shows", icon: "🧵" },
-  { id: "food", label: "Food & Drink", subtitle: "Supper clubs, tastings, chef's tables", icon: "🍷" },
-  { id: "art", label: "Art & Exhibition", subtitle: "Gallery openings, art walks, installations", icon: "🎨" },
-  { id: "wellness", label: "Wellness & Beauty", subtitle: "Retreats, workshops, spa events", icon: "🌿" },
-  { id: "music", label: "Music & Nightlife", subtitle: "Listening parties, DJ nights, concerts", icon: "🎵" },
-  { id: "market", label: "Markets & Craft", subtitle: "Artisan markets, vintage fairs, makers", icon: "🛍️" },
+  { id: "fashion", label: "Fashion & Retail", subtitle: "Pop-ups, sample sales, trunk shows", Icon: Shirt },
+  { id: "food", label: "Food & Drink", subtitle: "Supper clubs, tastings, chef's tables", Icon: Wine },
+  { id: "art", label: "Art & Exhibition", subtitle: "Gallery openings, art walks, installations", Icon: Palette },
+  { id: "wellness", label: "Wellness & Beauty", subtitle: "Retreats, workshops, spa events", Icon: Leaf },
+  { id: "music", label: "Music & Nightlife", subtitle: "Listening parties, DJ nights, concerts", Icon: Music2 },
+  { id: "market", label: "Markets & Craft", subtitle: "Artisan markets, vintage fairs, makers", Icon: Store },
 ];
 
 const VIBES = ["Curated", "Luxe", "Casual", "Underground", "Festive"];
 
 const GENERATING_STAGES = [
-  { id: "story", label: "Writing your story...", icon: "✨" },
-  { id: "aesthetic", label: "Choosing your aesthetic...", icon: "🎨" },
-  { id: "hosts", label: "Curating your hosts...", icon: "👤" },
-  { id: "program", label: "Building your program...", icon: "📋" },
-  { id: "tickets", label: "Setting up tickets...", icon: "🎟️" },
-  { id: "ready", label: "Your event is ready", icon: "✅" },
+  { id: "story", label: "Writing your story" },
+  { id: "aesthetic", label: "Choosing your aesthetic" },
+  { id: "hosts", label: "Curating your hosts" },
+  { id: "program", label: "Building your program" },
+  { id: "tickets", label: "Setting up tickets" },
+  { id: "ready", label: "Your event is ready" },
 ];
 
 export default function CreatePage() {
@@ -38,11 +40,13 @@ export default function CreatePage() {
   const [formData, setFormData] = useState({
     name: "",
     aiName: true,
-    city: "",
+    tagline: "",
+    city: "New York",
     dateStart: "",
     dateEnd: "",
-    time: "",
+    time: "7:00 PM",
     venue: "",
+    address: "",
     capacity: 100,
     vibe: "Curated",
     extra: "",
@@ -50,56 +54,49 @@ export default function CreatePage() {
   const [generatingStage, setGeneratingStage] = useState(0);
   const [generatedEvent, setGeneratedEvent] = useState<EventData | null>(null);
   const [error, setError] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
 
   useEffect(() => {
     if (!loading && !user && !demoMode) router.push("/login");
   }, [user, loading, demoMode, router]);
 
-  const handleGenerate = async () => {
+  useEffect(() => {
+    if (step === 2 && !formData.dateStart) {
+      const today = new Date().toISOString().slice(0, 10);
+      setFormData((f) => ({ ...f, dateStart: today }));
+    }
+  }, [step, formData.dateStart]);
+
+  const handleGenerate = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isGenerating) return;
+    const cat = selectedCategory || "fashion";
+    const city = (formData.city || "").trim();
+    const date = formData.dateStart || new Date().toISOString().slice(0, 10);
+    const time = (formData.time || "").trim() || "7:00 PM";
+    if (!city) {
+      setError("Please enter a city.");
+      return;
+    }
     setError("");
+    setIsGenerating(true);
     setStep(3);
     setGeneratingStage(0);
 
+    const filledForm = { ...formData, city, dateStart: date, time };
     const stageInterval = setInterval(() => {
       setGeneratingStage((s) => Math.min(s + 1, GENERATING_STAGES.length - 1));
-    }, 2500);
+    }, 400);
 
-    try {
-      const categoryLabel = CATEGORIES.find((c) => c.id === selectedCategory)?.label || selectedCategory || "Event";
-      const res = await fetch("/api/events/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          category: categoryLabel,
-          categoryId: selectedCategory,
-          name: formData.aiName ? undefined : formData.name,
-          city: formData.city,
-          dateStart: formData.dateStart,
-          dateEnd: formData.dateEnd || undefined,
-          time: formData.time,
-          venue: formData.venue || undefined,
-          capacity: formData.capacity,
-          vibe: formData.vibe.toLowerCase(),
-          extra: formData.extra || undefined,
-          userId: user?.id,
-        }),
-      });
-
+    setTimeout(() => {
       clearInterval(stageInterval);
       setGeneratingStage(GENERATING_STAGES.length - 1);
-
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Generation failed");
-      }
-
-      const data = await res.json();
-      setGeneratedEvent(data);
+      const event = buildEventFromForm(filledForm, cat);
+      setGeneratedEvent(event);
       setStep(4);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
-      setStep(2);
-    }
+      setIsGenerating(false);
+    }, 2400);
   };
 
   if (loading) {
@@ -110,10 +107,19 @@ export default function CreatePage() {
     );
   }
 
-  if (!user && !demoMode) return null;
+  if (!user && !demoMode) {
+    return (
+      <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center">
+        <p className="font-[family-name:var(--font-body)] text-[#8C8578]">Redirecting to login...</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2]">
+    <div className="min-h-screen bg-[#FAF7F2] overflow-x-hidden">
+      <div className="fixed top-6 right-6 z-40 font-[family-name:var(--font-mono)] text-xs text-[#8C8578] tracking-widest uppercase">
+        {step} / 4
+      </div>
       <AnimatePresence mode="wait">
         {step === 1 && (
           <motion.div
@@ -124,22 +130,28 @@ export default function CreatePage() {
             className="min-h-screen flex flex-col justify-center px-6 py-24"
           >
             <div className="w-10 h-px bg-[#C4956A] mb-8" />
-            <h1 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl font-light text-[#1A1714] mb-4">
-              What are you creating?
+            <h1 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl font-light text-[#1A1714] mb-4 tracking-tight">
+              What will you create?
             </h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 max-w-4xl">
-              {CATEGORIES.map((cat) => (
+            <p className="font-[family-name:var(--font-body)] text-[#8C8578] text-sm tracking-widest uppercase mb-16">
+              Select a category
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl">
+              {CATEGORIES.map((cat) => {
+                const Icon = cat.Icon;
+                return (
                 <motion.button
                   key={cat.id}
+                  type="button"
                   onClick={() => {
                     setSelectedCategory(cat.id);
                     setStep(2);
                   }}
-                  className="p-8 text-left bg-white border-2 border-[#E8E2D9] hover:border-[#C4956A] transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-                  whileHover={{ scale: 1.02 }}
+                  className="group p-8 text-left bg-white border border-[#E8E2D9] hover:border-[#C4956A] transition-all duration-300"
+                  whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span className="text-3xl mb-4 block">{cat.icon}</span>
+                  <Icon className="w-6 h-6 text-[#C4956A] mb-6 opacity-60 group-hover:opacity-100 transition-opacity" strokeWidth={1.25} />
                   <h3 className="font-[family-name:var(--font-display)] text-xl font-light text-[#1A1714]">
                     {cat.label}
                   </h3>
@@ -147,7 +159,8 @@ export default function CreatePage() {
                     {cat.subtitle}
                   </p>
                 </motion.button>
-              ))}
+                );
+              })}
             </div>
           </motion.div>
         )}
@@ -161,19 +174,23 @@ export default function CreatePage() {
             className="min-h-screen flex flex-col justify-center px-6 py-24"
           >
             <div className="max-w-xl mx-auto w-full">
-              <button onClick={() => setStep(1)} className="text-[#8C8578] hover:text-[#1A1714] text-sm mb-8 transition-colors">
+              <button type="button" onClick={() => setStep(1)} className="text-[#8C8578] hover:text-[#1A1714] text-sm mb-8 transition-colors">
                 ← Back
               </button>
               <div className="w-10 h-px bg-[#C4956A] mb-8" />
-              <h1 className="font-[family-name:var(--font-display)] text-4xl font-light text-[#1A1714] mb-12">
-                Tell us about your event
+              <h1 className="font-[family-name:var(--font-display)] text-4xl font-light text-[#1A1714] mb-4 tracking-tight">
+                The details
               </h1>
+              <p className="font-[family-name:var(--font-body)] text-[#8C8578] text-sm tracking-widest uppercase mb-12">
+                Tell us about your event
+              </p>
 
               {error && <p className="text-[#C7402D] text-sm mb-6">{error}</p>}
 
               <div className="space-y-8">
                 <div className="flex items-center gap-4">
                   <button
+                    type="button"
                     onClick={() => setFormData((f) => ({ ...f, aiName: !f.aiName }))}
                     className={`w-12 h-6 rounded-full transition-colors ${formData.aiName ? "bg-[#C4956A]" : "bg-[#E8E2D9]"}`}
                   >
@@ -182,7 +199,7 @@ export default function CreatePage() {
                       animate={{ x: formData.aiName ? 26 : 2 }}
                     />
                   </button>
-                  <span className="font-[family-name:var(--font-body)] text-sm">Let AI name it</span>
+                  <span className="font-[family-name:var(--font-body)] text-sm tracking-wide">Curated naming</span>
                 </div>
 
                 {!formData.aiName && (
@@ -197,6 +214,17 @@ export default function CreatePage() {
                     />
                   </div>
                 )}
+
+                <div>
+                  <label className="block font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#8C8578] mb-2">Tagline (optional)</label>
+                  <input
+                    type="text"
+                    value={formData.tagline}
+                    onChange={(e) => setFormData((f) => ({ ...f, tagline: e.target.value }))}
+                    className="w-full px-4 py-3 bg-white border border-[#E8E2D9] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                    placeholder="Three days of designer fashion at up to 70% off"
+                  />
+                </div>
 
                 <div>
                   <label className="block font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#8C8578] mb-2">City</label>
@@ -251,7 +279,18 @@ export default function CreatePage() {
                     value={formData.venue}
                     onChange={(e) => setFormData((f) => ({ ...f, venue: e.target.value }))}
                     className="w-full px-4 py-3 bg-white border border-[#E8E2D9] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
-                    placeholder="We'll suggest one"
+                    placeholder="The Loft on Spring"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#8C8578] mb-2">Address (optional)</label>
+                  <input
+                    type="text"
+                    value={formData.address}
+                    onChange={(e) => setFormData((f) => ({ ...f, address: e.target.value }))}
+                    className="w-full px-4 py-3 bg-white border border-[#E8E2D9] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                    placeholder="161 Spring Street, SoHo"
                   />
                 </div>
 
@@ -274,6 +313,7 @@ export default function CreatePage() {
                     {VIBES.map((v) => (
                       <button
                         key={v}
+                        type="button"
                         onClick={() => setFormData((f) => ({ ...f, vibe: v }))}
                         className={`px-4 py-2 text-sm font-[family-name:var(--font-body)] transition-colors ${
                           formData.vibe === v ? "bg-[#C4956A] text-white" : "bg-white border border-[#E8E2D9] text-[#1A1714] hover:border-[#C4956A]"
@@ -291,16 +331,23 @@ export default function CreatePage() {
                     value={formData.extra}
                     onChange={(e) => setFormData((f) => ({ ...f, extra: e.target.value }))}
                     className="w-full px-4 py-3 bg-white border border-[#E8E2D9] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A] min-h-[100px]"
-                    placeholder="Special instructions for the AI..."
+                    placeholder="Additional notes for your event..."
                   />
                 </div>
 
                 <button
-                  onClick={handleGenerate}
-                  disabled={!formData.city || !formData.dateStart || !formData.time}
-                  className="w-full px-8 py-4 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#A67B52] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleGenerate(e);
+                  }}
+                  onMouseDown={(e) => e.stopPropagation()}
+                  disabled={isGenerating}
+                  className="w-full px-8 py-4 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#A67B52] disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
+                  style={{ touchAction: "manipulation" }}
                 >
-                  Create my event →
+                  {isGenerating ? "Creating..." : "Create my event →"}
                 </button>
               </div>
             </div>
@@ -315,22 +362,28 @@ export default function CreatePage() {
             exit={{ opacity: 0 }}
             className="min-h-screen flex flex-col justify-center items-center px-6 py-24"
           >
-            <h1 className="font-[family-name:var(--font-display)] text-3xl font-light text-[#1A1714] mb-12">
-              Creating your event...
+            <div className="w-10 h-px bg-[#C4956A] mb-12" />
+            <h1 className="font-[family-name:var(--font-display)] text-3xl md:text-4xl font-light text-[#1A1714] mb-16 tracking-tight">
+              Creating your event
             </h1>
-            <div className="space-y-6 max-w-md w-full">
+            <div className="space-y-8 max-w-sm w-full">
               {GENERATING_STAGES.map((stage, i) => (
                 <div
                   key={stage.id}
-                  className={`flex items-center gap-4 transition-opacity ${i <= generatingStage ? "opacity-100" : "opacity-40"}`}
+                  className={`flex items-center gap-6 transition-all duration-300 ${i <= generatingStage ? "opacity-100" : "opacity-30"}`}
                 >
-                  <span className="text-2xl">{stage.icon}</span>
-                  <span className="font-[family-name:var(--font-body)] text-[#1A1714]">{stage.label}</span>
-                  {i < generatingStage && <span className="text-[#5C7C50] ml-auto">✓</span>}
+                  <div className={`w-8 h-8 flex items-center justify-center flex-shrink-0 border transition-colors ${i < generatingStage ? "border-[#C4956A] bg-[#C4956A]" : "border-[#E8E2D9]"}`}>
+                    {i < generatingStage ? (
+                      <Check className="w-4 h-4 text-white" strokeWidth={2.5} />
+                    ) : (
+                      <div className="w-1.5 h-1.5 bg-[#E8E2D9]" />
+                    )}
+                  </div>
+                  <span className="font-[family-name:var(--font-body)] text-[#1A1714] tracking-wide">{stage.label}</span>
                 </div>
               ))}
             </div>
-            <div className="w-full max-w-md h-1 bg-[#E8E2D9] mt-12 overflow-hidden rounded-full">
+            <div className="w-full max-w-sm h-px bg-[#E8E2D9] mt-16 overflow-hidden">
               <motion.div
                 className="h-full bg-[#C4956A]"
                 initial={{ width: "0%" }}
@@ -341,44 +394,61 @@ export default function CreatePage() {
           </motion.div>
         )}
 
-        {step === 4 && generatedEvent && (
+        {step === 4 && (
           <motion.div
             key="step4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="relative"
+            className="relative min-h-screen"
           >
-            <div className="fixed top-0 left-0 right-0 z-50 bg-[#FAF7F2]/95 backdrop-blur-sm border-b border-[#E8E2D9] px-6 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-6">
-                <Link href="/dashboard" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
-                  ← Dashboard
-                </Link>
-                <span className="font-[family-name:var(--font-mono)] text-xs text-[#8C8578]">Preview</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <Link
-                  href={`/edit/${generatedEvent.slug}`}
-                  className="px-4 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm hover:border-[#C4956A] transition-colors"
+            {generatedEvent ? (
+              <>
+                <div className="fixed top-0 left-0 right-0 z-50 bg-[#FAF7F2]/95 backdrop-blur-sm border-b border-[#E8E2D9] px-6 py-4 flex items-center justify-between">
+                  <div className="flex items-center gap-6">
+                    <Link href="/dashboard" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
+                      ← Dashboard
+                    </Link>
+                    <span className="font-[family-name:var(--font-mono)] text-xs text-[#8C8578]">Preview</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <Link
+                      href={`/edit/${generatedEvent.slug}`}
+                      className="px-4 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm hover:border-[#C4956A] transition-colors"
+                    >
+                      Edit
+                    </Link>
+                    <span className="px-4 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#8C8578]">
+                      Change Theme
+                    </span>
+                    <Link
+                      href={`/publish/${generatedEvent.slug}`}
+                      className="px-6 py-2 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#A67B52] transition-colors"
+                    >
+                      Publish →
+                    </Link>
+                  </div>
+                </div>
+                <div className="pt-16">
+                  <ThemeProvider theme={themes[generatedEvent.theme as keyof typeof themes] || themes.atelier}>
+                    <EventPreview event={generatedEvent} showFooter={true} />
+                  </ThemeProvider>
+                </div>
+              </>
+            ) : (
+              <div className="min-h-screen flex flex-col items-center justify-center px-6">
+                <div className="w-10 h-px bg-[#C4956A] mb-8" />
+                <h1 className="font-[family-name:var(--font-display)] text-2xl font-light text-[#1A1714] mb-4">Something went wrong</h1>
+                <p className="font-[family-name:var(--font-body)] text-[#8C8578] text-sm mb-8">Your event could not be generated. Please try again.</p>
+                <button
+                  type="button"
+                  onClick={() => { setStep(2); setGeneratedEvent(null); setError(""); }}
+                  className="px-8 py-4 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#A67B52]"
                 >
-                  Edit
-                </Link>
-                <span className="px-4 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#8C8578]">
-                  Change Theme
-                </span>
-                <Link
-                  href={`/publish/${generatedEvent.slug}`}
-                  className="px-6 py-2 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#A67B52] transition-colors"
-                >
-                  Publish →
-                </Link>
+                  Try again
+                </button>
               </div>
-            </div>
-            <div className="pt-16">
-              <ThemeProvider theme={themes[generatedEvent.theme as keyof typeof themes] || themes.atelier}>
-                <EventPreview event={generatedEvent} showFooter={true} />
-              </ThemeProvider>
-            </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
