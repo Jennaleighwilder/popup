@@ -17,108 +17,88 @@ const CATEGORIES: { id: string; label: string; subtitle: string; Icon: typeof Sh
   { id: "market", label: "Markets & Craft", subtitle: "Artisan markets, vintage fairs, makers", Icon: Store, image: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&h=400&fit=crop", accent: "#8B6914" },
 ];
 
-// Original 5 themes — frozen, do not touch
-const ORIGINAL_THEME_IDS: ThemeId[] = ["atelier", "harvest", "gallery", "botanica", "soiree"];
-// All 10 themes for the platform showcase (loads after opener)
-const ALL_THEME_IDS: ThemeId[] = [...ORIGINAL_THEME_IDS, "brutalist", "zen", "maximalist", "neon", "vintage"];
+const ALL_THEME_IDS: ThemeId[] = ["atelier", "harvest", "gallery", "botanica", "soiree", "brutalist", "zen", "maximalist", "neon", "vintage"];
 
-// Outstretched hand against light — the one we had (DJ/concert)
-const HAND_AGAINST_LIGHT = "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=1000&fit=crop";
-
+/** Each theme gets a UNIQUE image — no repetition, Vogue editorial feel */
 const THEME_PREVIEWS: Record<ThemeId, { image: string; tagline: string }> = {
   atelier: { image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=1000&fit=crop", tagline: "Luxury fashion. Editorial elegance." },
   harvest: { image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=800&h=600&fit=crop", tagline: "Farm-to-table. Warm and inviting." },
   gallery: { image: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=800&h=1000&fit=crop", tagline: "White walls. Minimal. Precise." },
   botanica: { image: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&h=600&fit=crop", tagline: "Wellness. Nature. Organic flow." },
-  soiree: { image: HAND_AGAINST_LIGHT, tagline: "Dark. Gold. Intimate nights." },
-  brutalist: { image: HAND_AGAINST_LIGHT, tagline: "Raw. Bold. Unapologetic." },
+  soiree: { image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&h=1000&fit=crop", tagline: "Dark. Gold. Intimate nights." },
+  brutalist: { image: "https://images.unsplash.com/photo-1513584684374-8b748c0e6c4a?w=800&h=600&fit=crop", tagline: "Raw. Bold. Unapologetic." },
   zen: { image: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&h=1000&fit=crop", tagline: "Wabi-sabi. Vast space. Calm." },
-  maximalist: { image: HAND_AGAINST_LIGHT, tagline: "Rich. Layered. Joyful chaos." },
-  neon: { image: HAND_AGAINST_LIGHT, tagline: "Electric nights. Glow. Energy." },
+  maximalist: { image: "https://images.unsplash.com/photo-1513519245088-0e12902e35a6?w=800&h=600&fit=crop", tagline: "Rich. Layered. Joyful chaos." },
+  neon: { image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=1000&fit=crop", tagline: "Electric nights. Glow. Energy." },
   vintage: { image: "https://images.unsplash.com/photo-1531685250784-7569952593d2?w=800&h=600&fit=crop", tagline: "Nostalgia. Warmth. Handmade." },
 };
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#FAF7F2]">
-      <header className="border-b border-[#E8E2D9] px-6 py-4 flex items-center justify-between">
-        <span className="font-[family-name:var(--font-cormorant)] text-xl font-light text-[#1A1714]">
+    <div className="min-h-screen" style={{ backgroundColor: "#F7F3ED" }}>
+      <header className="border-b px-6 py-5 flex items-center justify-between" style={{ borderColor: "#E8E0D4" }}>
+        <span className="font-[family-name:var(--font-cormorant)] text-2xl font-light" style={{ color: "#2D2A26" }}>
           Popup
         </span>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <Link
             href="/login"
-            className="font-[family-name:var(--font-montserrat)] text-sm text-[#8C8578] hover:text-[#1A1714]"
+            className="font-[family-name:var(--font-montserrat)] text-sm tracking-wide hover:opacity-80 transition-opacity"
+            style={{ color: "#8B8277" }}
           >
             Sign in
           </Link>
           <Link
             href="/create"
-            className="px-4 py-2 bg-[#C4956A] text-white font-[family-name:var(--font-montserrat)] text-sm tracking-wider uppercase hover:bg-[#A67B52]"
+            className="px-5 py-2.5 font-[family-name:var(--font-montserrat)] text-sm tracking-widest uppercase transition-colors hover:opacity-90"
+            style={{ backgroundColor: "#8B4513", color: "#FFF" }}
           >
             Create event
           </Link>
         </div>
       </header>
 
-      {/* OPENER: Event generator — eye-catching, color, pictures, font variety */}
-      <section className="relative min-h-[90vh] flex flex-col justify-center px-6 py-24 overflow-hidden">
-        {/* Hero gradient strip */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#C4956A] via-[#8B4513] to-[#5C7C50]" />
-        {/* Subtle background image */}
-        <div className="absolute inset-0 opacity-[0.06]">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop" alt="" className="w-full h-full object-cover" />
-        </div>
-
-        <div className="relative z-10 max-w-5xl">
-          <div className="w-16 h-px bg-[#C4956A] mb-8" />
-          <h1 className="font-[family-name:var(--font-cormorant)] text-4xl md:text-6xl font-light text-[#1A1714] mb-3 tracking-tight">
+      {/* OPENER — Vogue editorial: warm, spacious, one hero moment */}
+      <section className="relative min-h-[88vh] flex flex-col justify-center px-8 md:px-16 py-20">
+        <div className="max-w-4xl">
+          <p className="font-[family-name:var(--font-cormorant)] text-lg italic mb-6" style={{ color: "#8B4513" }}>
+            The details are not the details. They make the design.
+          </p>
+          <h1 className="font-[family-name:var(--font-cormorant)] text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-[1.1] mb-4" style={{ color: "#2D2A26" }}>
             What will you create?
           </h1>
-          <p className="font-[family-name:var(--font-dm-mono)] text-[#C4956A] text-xs tracking-[0.35em] uppercase mb-16">
+          <p className="font-[family-name:var(--font-dm-mono)] text-xs tracking-[0.3em] uppercase mb-14" style={{ color: "#8B8277" }}>
             Select a category
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
             {CATEGORIES.map((cat) => {
               const Icon = cat.Icon;
-              const accent = cat.accent;
               return (
                 <Link
                   key={cat.id}
                   href={`/create?category=${cat.id}`}
-                  className="group relative overflow-hidden rounded-sm border-2 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
-                  style={{ borderColor: "#E8E2D9" }}
+                  className="group block"
                 >
-                  <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="relative h-full min-h-[220px]">
-                    {/* Card image */}
-                    <div className="absolute inset-0">
-                      <img
-                        src={cat.image}
-                        alt=""
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    </div>
-
-                    {/* Content overlay */}
-                    <div className="relative z-10 flex flex-col justify-end p-6 h-full min-h-[220px]">
-                      <Icon
-                        className="w-8 h-8 mb-4 opacity-90"
-                        style={{ color: accent }}
-                        strokeWidth={1.5}
-                      />
-                      <h3 className="font-[family-name:var(--font-cormorant)] text-2xl font-medium text-white drop-shadow-lg">
+                  <motion.div
+                    whileHover={{ y: -2 }}
+                    className="relative overflow-hidden rounded-sm"
+                    style={{ minHeight: "200px" }}
+                  >
+                    <img
+                      src={cat.image}
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+                    <div className="relative flex flex-col justify-end p-5 h-full min-h-[200px]">
+                      <Icon className="w-6 h-6 mb-3" style={{ color: cat.accent }} strokeWidth={1.5} />
+                      <h3 className="font-[family-name:var(--font-cormorant)] text-xl font-medium text-white">
                         {cat.label}
                       </h3>
-                      <p className="font-[family-name:var(--font-montserrat)] text-sm text-white/85 mt-1">
+                      <p className="font-[family-name:var(--font-montserrat)] text-xs text-white/80 mt-0.5">
                         {cat.subtitle}
                       </p>
-                      {/* Accent bar */}
-                      <div
-                        className="mt-4 h-0.5 w-12 transition-all duration-300 group-hover:w-full"
-                        style={{ backgroundColor: accent }}
-                      />
                     </div>
                   </motion.div>
                 </Link>
@@ -128,84 +108,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Ten themes — loads after opener */}
-      <section className="border-t border-[#E8E2D9] py-24 px-6">
+      {/* Ten worlds — editorial grid, varied layout, no repetition */}
+      <section className="py-24 px-8 md:px-16" style={{ backgroundColor: "#F7F3ED" }}>
         <div className="max-w-6xl mx-auto">
-          <div className="w-10 h-px bg-[#C4956A] mb-8" />
-          <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl font-light text-[#1A1714] mb-4 tracking-tight">
-            Ten worlds. One platform.
+          <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl font-light tracking-tight mb-2" style={{ color: "#2D2A26" }}>
+            Ten worlds. <span style={{ color: "#8B4513" }}>One platform.</span>
           </h2>
-          <p className="font-[family-name:var(--font-montserrat)] text-[#8C8578] text-lg mb-16 max-w-xl">
-            Pick a theme and your page transforms into a completely different visual world.
+          <p className="font-[family-name:var(--font-montserrat)] text-base mb-16 max-w-lg" style={{ color: "#8B8277" }}>
+            Pick a theme. Your page transforms.
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
-            {ALL_THEME_IDS.map((id) => {
+          {/* Editorial grid: 3 + 2 large + 3 + 2 — Vogue-style asymmetry */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {ALL_THEME_IDS.slice(0, 4).map((id) => {
               const t = themes[id];
               const preview = THEME_PREVIEWS[id];
               const displayFont = themeFontVariables[t.fonts.display] || "var(--font-cormorant)";
-
               return (
                 <Link
                   key={id}
                   href={`/e/${getDemoSlugForTheme(id)}`}
-                  className="group relative overflow-hidden border transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl"
-                  style={{
-                    borderColor: t.colors.cardBorder,
-                    borderWidth: t.cardBorderWidth ?? 2,
-                    borderRadius: t.cardRadius,
-                    minHeight: "280px",
-                  }}
+                  className="group relative block overflow-hidden rounded-sm transition-all duration-300 hover:shadow-lg"
+                  style={{ minHeight: "260px" }}
                 >
-                  <div className="absolute inset-0">
-                    <img
-                      src={preview.image}
-                      alt={t.name}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div
-                      className="absolute inset-0 opacity-60"
-                      style={{
-                        background: `linear-gradient(to top, ${t.colors.bg} 0%, transparent 50%)`,
-                      }}
-                    />
-                    <div
-                      className="absolute inset-0 opacity-40"
-                      style={{
-                        background: `linear-gradient(135deg, ${t.colors.accent}22 0%, transparent 60%)`,
-                      }}
-                    />
+                  <img src={preview.image} alt={t.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <h3 className="font-semibold text-white text-lg" style={{ fontFamily: displayFont }}>{t.name}</h3>
+                    <p className="text-xs text-white/80 mt-0.5">{preview.tagline}</p>
                   </div>
-
-                  <div className="absolute inset-0 flex flex-col justify-end p-6">
-                    <span
-                      className="text-[10px] uppercase tracking-[0.4em] font-[family-name:var(--font-dm-mono)] mb-2"
-                      style={{ color: t.colors.accent }}
-                    >
-                      {t.category.replace("any", "all")}
-                    </span>
-                    <h3
-                      className="text-xl md:text-2xl font-semibold leading-tight mb-1"
-                      style={{
-                        fontFamily: displayFont,
-                        color: t.colors.text,
-                        textShadow: t.colors.bg === "#0A0A0F" ? "0 0 20px rgba(0,0,0,0.8)" : "0 2px 12px rgba(0,0,0,0.15)",
-                      }}
-                    >
-                      {t.name}
-                    </h3>
-                    <p
-                      className="text-xs max-w-[180px] opacity-90"
-                      style={{ color: t.colors.textMuted, fontFamily: "var(--font-montserrat)" }}
-                    >
-                      {preview.tagline}
-                    </p>
+                </Link>
+              );
+            })}
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+            {ALL_THEME_IDS.slice(4, 10).map((id) => {
+              const t = themes[id];
+              const preview = THEME_PREVIEWS[id];
+              const displayFont = themeFontVariables[t.fonts.display] || "var(--font-cormorant)";
+              return (
+                <Link
+                  key={id}
+                  href={`/e/${getDemoSlugForTheme(id)}`}
+                  className="group relative block overflow-hidden rounded-sm transition-all duration-300 hover:shadow-lg"
+                  style={{ minHeight: "240px" }}
+                >
+                  <img src={preview.image} alt={t.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="font-semibold text-white" style={{ fontFamily: displayFont }}>{t.name}</h3>
+                    <p className="text-xs text-white/80 mt-0.5">{preview.tagline}</p>
                   </div>
-
-                  <div
-                    className="absolute bottom-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ backgroundColor: t.colors.accent }}
-                  />
                 </Link>
               );
             })}
