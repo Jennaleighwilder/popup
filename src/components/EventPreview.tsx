@@ -102,11 +102,11 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
   const isDarkTheme = isNeon || isBrutalist || isMaximalist || themeId === "soiree";
 
   const heroGradient = isDarkTheme
-    ? `linear-gradient(to top, ${theme.colors.bg} 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0.4) 50%, transparent 70%)`
+    ? `linear-gradient(to top, ${theme.colors.bg} 0%, rgba(0,0,0,0.45) 35%, rgba(0,0,0,0.2) 55%, transparent 75%)`
     : `linear-gradient(to top, ${theme.colors.bg} 0%, transparent 40%)`;
 
   const heroTextShadow = isDarkTheme
-    ? "0 0 40px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,0.8)"
+    ? "0 0 24px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.8)"
     : undefined;
 
   const wrapperStyle: React.CSSProperties = {
@@ -133,7 +133,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
             fontFamily: "var(--theme-display-font)",
             fontSize: "24px",
             color: theme.colors.text,
-            textShadow: isDarkTheme ? "0 0 20px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.9)" : undefined,
+            textShadow: isDarkTheme ? "0 0 16px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.7)" : undefined,
           }}
         >
           Popup
@@ -236,8 +236,8 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
                   color: theme.colors.text,
                   textShadow: heroTextShadow,
                   ...(isDarkTheme && {
-                    border: "1px solid rgba(255,255,255,0.5)",
-                    backgroundColor: "rgba(0,0,0,0.3)",
+                    border: "1px solid rgba(255,255,255,0.35)",
+                    backgroundColor: "rgba(0,0,0,0.15)",
                   }),
                 }}
               >
