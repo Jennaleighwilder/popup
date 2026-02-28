@@ -29,8 +29,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const supabase = createClient();
     if (!supabase) {
-      setDemoMode(true);
-      setLoading(false);
+      queueMicrotask(() => {
+        setDemoMode(true);
+        setLoading(false);
+      });
       return;
     }
 

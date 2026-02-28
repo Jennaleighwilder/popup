@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Shirt, Wine, Palette, Leaf, Music2, Store, Check } from "lucide-react";
+import { Shirt, Wine, Palette, Leaf, Music2, Store, Check, Link2, Loader2 } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
 import { EventPreview } from "@/components/EventPreview";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -68,6 +68,10 @@ export default function CreatePage() {
   const [generatedEvent, setGeneratedEvent] = useState<EventData | null>(null);
   const [error, setError] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
+  const [sourceUrl, setSourceUrl] = useState("");
+  const [scrapedData, setScrapedData] = useState<Record<string, unknown> | null>(null);
+  const [isScraping, setIsScraping] = useState(false);
+  const [scrapeError, setScrapeError] = useState("");
 
   useEffect(() => {
     if (!loading && !user && !demoMode) router.push("/login");
@@ -80,16 +84,65 @@ export default function CreatePage() {
     }
   }, [step, formData.dateStart]);
 
-  const handleGenerate = (e: React.MouseEvent) => {
+  const handleScrape = async () => {
+    const url = sourceUrl.trim();
+    if (!url) {
+      setScrapeError("Please enter an event URL.");
+      return;
+    }
+    setScrapeError("");
+    setIsScraping(true);
+    try {
+      const res = await fetch("/api/events/scrape", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url }),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        setScrapeError(json.error || "Failed to scrape URL");
+        return;
+      }
+      const data = json.data;
+      setScrapedData(data);
+      setFormData((f) => ({
+        ...f,
+        name: (data.name && typeof data.name === "string") ? data.name : f.name,
+        aiName: !data.name,
+        tagline: (data.tagline && typeof data.tagline === "string") ? data.tagline : f.tagline,
+        city: (data.city && typeof data.city === "string") ? data.city : f.city,
+        dateStart: typeof data.dateStart === "string" ? data.dateStart.slice(0, 10) : f.dateStart,
+        dateEnd: typeof data.dateEnd === "string" ? data.dateEnd.slice(0, 10) : f.dateEnd,
+        time: (data.time && typeof data.time === "string") ? data.time : f.time,
+        venue: (data.venue && typeof data.venue === "string") ? data.venue : f.venue,
+        address: (data.address && typeof data.address === "string") ? data.address : f.address,
+        capacity: typeof data.capacity === "number" ? data.capacity : f.capacity,
+        extra: (data.extra && typeof data.extra === "string") ? data.extra : f.extra,
+      }));
+      if (data.category && VALID_CATEGORIES.includes(data.category)) {
+        setSelectedCategory(data.category);
+      }
+    } catch {
+      setScrapeError("Something went wrong. Please try again.");
+    } finally {
+      setIsScraping(false);
+    }
+  };
+
+  const handleGenerate = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (isGenerating) return;
-    const cat = selectedCategory || "fashion";
-    const city = (formData.city || "").trim();
-    const date = formData.dateStart || new Date().toISOString().slice(0, 10);
-    const time = (formData.time || "").trim() || "7:00 PM";
+    const rawCat = selectedCategory || (typeof scrapedData?.category === "string" ? scrapedData.category : null);
+    const cat = rawCat && VALID_CATEGORIES.includes(rawCat) ? rawCat : "fashion";
+    const city = (formData.city || scrapedData?.city || "").toString().trim();
+    const rawDate = formData.dateStart || scrapedData?.dateStart || scrapedData?.date;
+    const date = typeof rawDate === "string" && rawDate.length >= 10
+      ? rawDate.slice(0, 10)
+      : new Date().toISOString().slice(0, 10);
+    const time = (formData.time || scrapedData?.time || "").toString().trim() || "7:00 PM";
     if (!city) {
-      setError("Please enter a city.");
+      setError("Please enter a city (or import from a URL first).");
       return;
     }
     setError("");
@@ -102,14 +155,49 @@ export default function CreatePage() {
       setGeneratingStage((s) => Math.min(s + 1, GENERATING_STAGES.length - 1));
     }, 400);
 
-    setTimeout(() => {
+    const useGenerateApi = scrapedData && Object.keys(scrapedData).length > 0;
+    let failed = false;
+
+    try {
+      if (useGenerateApi) {
+        const res = await fetch("/api/events/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            category: cat,
+            categoryId: cat,
+            name: filledForm.name,
+            city,
+            dateStart: date,
+            dateEnd: filledForm.dateEnd || undefined,
+            time,
+            venue: filledForm.venue,
+            capacity: filledForm.capacity,
+            vibe: filledForm.vibe,
+            extra: filledForm.extra,
+            scrapedData,
+            userId: user?.id ?? null,
+          }),
+        });
+        const json = await res.json();
+        if (!res.ok) {
+          throw new Error(json.error || "Generation failed");
+        }
+        setGeneratedEvent(json as EventData);
+      } else {
+        const event = buildEventFromForm(filledForm, cat, themeFromUrl || undefined);
+        setGeneratedEvent(event);
+      }
+    } catch (err) {
+      failed = true;
+      setError(err instanceof Error ? err.message : "Something went wrong");
+      setStep(2);
+    } finally {
       clearInterval(stageInterval);
       setGeneratingStage(GENERATING_STAGES.length - 1);
-      const event = buildEventFromForm(filledForm, cat, themeFromUrl || undefined);
-      setGeneratedEvent(event);
-      setStep(4);
       setIsGenerating(false);
-    }, 2400);
+      if (!failed) setStep(4);
+    }
   };
 
   if (loading) {
@@ -199,6 +287,47 @@ export default function CreatePage() {
               </p>
 
               {error && <p className="text-[#C7402D] text-sm mb-6">{error}</p>}
+
+              <div className="mb-8 p-4 bg-[#1A1714] border border-[#5C4033]">
+                <label className="block font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#8C8578] mb-2">
+                  <Link2 className="inline w-3.5 h-3.5 mr-1.5 -mt-0.5" />
+                  Import from existing event URL
+                </label>
+                <p className="text-[#8C8578] text-xs mb-3">
+                  Paste a link to an event page and we&apos;ll scrape the details to pre-fill your design.
+                </p>
+                <div className="flex gap-2">
+                  <input
+                    type="url"
+                    value={sourceUrl}
+                    onChange={(e) => {
+                      setSourceUrl(e.target.value);
+                      setScrapeError("");
+                    }}
+                    placeholder="https://..."
+                    className="flex-1 px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] text-sm focus:outline-none focus:border-[#C4A574] placeholder:text-[#8C8578]/60"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleScrape}
+                    disabled={isScraping}
+                    className="px-6 py-3 bg-[#8B2500] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#6B1D00] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+                  >
+                    {isScraping ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Scraping...
+                      </>
+                    ) : (
+                      "Import"
+                    )}
+                  </button>
+                </div>
+                {scrapeError && <p className="text-[#C7402D] text-xs mt-2">{scrapeError}</p>}
+                {scrapedData && (
+                  <p className="text-[#5C7C50] text-xs mt-2">✓ Event details imported. Review below and create.</p>
+                )}
+              </div>
 
               <div className="space-y-8">
                 <div className="flex items-center gap-4">

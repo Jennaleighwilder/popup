@@ -231,12 +231,23 @@ async function generateWithAI(params: {
   capacity: number;
   vibe: string;
   extra?: string;
+  scrapedData?: Record<string, unknown>;
 }) {
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   const theme = selectThemeForCategory(params.category, params.vibe);
   const mapKey = params.category;
+  const scraped = params.scrapedData;
+
+  const scrapedSection = scraped
+    ? `
+
+IMPORTANT: The following was scraped from the event's existing webpage. Use and adapt this real content—prioritize it over generic placeholders. Preserve names, dates, venues, descriptions, and any specific details. Make it feel editorial and luxurious while staying true to the source:
+${JSON.stringify(scraped, null, 2)}
+`
+    : "";
 
   const prompt = `You are an event copywriter for a luxury lifestyle event platform. Generate compelling event content as JSON.
+${scrapedSection}
 
 Category: ${params.category}
 City: ${params.city}
@@ -246,7 +257,7 @@ Venue: ${params.venue || "TBA"}
 Capacity: ${params.capacity}
 Vibe: ${params.vibe}
 ${params.name ? `Event name (use or adapt): ${params.name}` : "Create a compelling event name"}
-${params.extra ? `Extra instructions: ${params.extra}` : ""}
+${params.extra && !scraped ? `Extra instructions: ${params.extra}` : ""}
 
 Return ONLY valid JSON with this exact structure (no markdown, no code blocks):
 {
@@ -259,7 +270,7 @@ Return ONLY valid JSON with this exact structure (no markdown, no code blocks):
   "faqs": [{"q": "string", "a": "string"}, ...]
 }
 
-Create 3 highlights, 2-4 hosts, 4-6 schedule items, 2-3 ticket tiers, 3-5 FAQs. Make it feel editorial and luxurious.`;
+Create 3 highlights, 2-4 hosts, 4-6 schedule items, 2-3 ticket tiers, 3-5 FAQs. When scraped data is provided, use it as the primary source and refine it for our editorial style.`;
 
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
@@ -325,45 +336,44 @@ export async function POST(request: NextRequest) {
       capacity = 100,
       vibe = "curated",
       extra,
+      scrapedData,
     } = body;
 
-    const categoryKey = (categoryId || category || "").toLowerCase().replace(/\s+/g, "_").replace(/&/g, "_");
+    const hasScraped = scrapedData && typeof scrapedData === "object";
+    const scrapedCategory = hasScraped && scrapedData.category ? String(scrapedData.category).toLowerCase() : "";
+    const categoryKey = (categoryId || category || scrapedCategory || "").toLowerCase().replace(/\s+/g, "_").replace(/&/g, "_");
     const mapKey = categoryKey.includes("fashion") ? "fashion" : categoryKey.includes("food") ? "food" : categoryKey.includes("art") ? "art" : categoryKey.includes("wellness") ? "wellness" : categoryKey.includes("music") ? "music" : "market";
 
-    if ((!category && !categoryId) || !city || !dateStart || !time) {
+    const resolvedCity = city || scrapedData?.city || "";
+    const resolvedDate = dateStart || scrapedData?.dateStart || scrapedData?.date || "";
+    const resolvedTime = time || scrapedData?.time || "";
+
+    if (!resolvedCity || !resolvedDate || !resolvedTime) {
       return NextResponse.json(
-        { error: "Missing required fields: category, city, dateStart, time" },
+        { error: "Missing required fields: city, date, and time (provide directly or via scraped URL)" },
         { status: 400 }
       );
     }
 
+    const mergedParams = {
+      category: mapKey,
+      name: name || scrapedData?.name,
+      city: resolvedCity,
+      dateStart: resolvedDate,
+      dateEnd: dateEnd || scrapedData?.dateEnd,
+      time: resolvedTime,
+      venue: venue || scrapedData?.venue,
+      capacity: capacity ?? scrapedData?.capacity ?? 100,
+      vibe,
+      extra,
+      scrapedData: hasScraped ? scrapedData : undefined,
+    };
+
     let eventData;
     if (process.env.OPENAI_API_KEY) {
-      eventData = await generateWithAI({
-        category: mapKey,
-        name,
-        city,
-        dateStart,
-        dateEnd,
-        time,
-        venue,
-        capacity,
-        vibe,
-        extra,
-      });
+      eventData = await generateWithAI(mergedParams);
     } else {
-      eventData = templateEvent({
-        category: mapKey,
-        name,
-        city,
-        dateStart,
-        dateEnd,
-        time,
-        venue,
-        capacity,
-        vibe,
-        extra,
-      });
+      eventData = templateEvent(mergedParams);
     }
 
     const supabase = getServiceRoleClient();

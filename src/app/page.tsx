@@ -86,10 +86,12 @@ export default function Home() {
                     className="relative overflow-hidden rounded-sm"
                     style={{ minHeight: "200px" }}
                   >
-                    <img
+                    <Image
                       src={cat.image}
                       alt=""
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
                     <div className="relative flex flex-col justify-end p-5 h-full min-h-[200px]">
@@ -126,7 +128,7 @@ export default function Home() {
                 <Link key={slug} href={`/e/${slug}`} className="group block">
                   <motion.div whileHover={{ y: -4 }} className="overflow-hidden rounded-sm" style={{ boxShadow: "0 4px 24px rgba(26,23,20,0.08)" }}>
                     <div className="relative aspect-[4/3] overflow-hidden">
-                      <img src={ev.heroImage} alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <Image src={ev.heroImage} alt="" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                       <div className="absolute bottom-0 left-0 right-0 p-6">
                         <h3 className="font-[family-name:var(--font-cormorant)] text-xl font-medium text-white">{ev.name}</h3>

@@ -1,17 +1,17 @@
 import type { EventData } from "@/types/event";
 import type { ThemeId } from "@/lib/themes";
 
-/** Map theme IDs to demo slugs — theme cards link to these demos */
+/** Map theme IDs to demo slugs — each theme gets a UNIQUE demo so designs feel different */
 export const THEME_TO_DEMO_SLUG: Record<ThemeId, string> = {
   atelier: "the-edit-spring-sample-sale",
   harvest: "spice-route-supper",
   gallery: "first-friday-art-walk",
   botanica: "morning-rituals",
   soiree: "golden-hour-sessions",
-  brutalist: "golden-hour-sessions",
+  brutalist: "the-edit-spring-sample-sale",
   zen: "morning-rituals",
-  maximalist: "golden-hour-sessions",
-  neon: "golden-hour-sessions",
+  maximalist: "spice-route-supper",
+  neon: "neon-nights",
   vintage: "the-makers-market",
 };
 
@@ -23,6 +23,7 @@ export const DEMO_EVENT_SLUGS = [
   "morning-rituals",
   "the-makers-market",
   "golden-hour-sessions",
+  "neon-nights",
 ];
 
 export const DEMO_EVENTS: Record<string, EventData> = {
@@ -278,14 +279,14 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     name: "The Makers Market",
     tagline: "60+ independent artisans, makers, and growers under one roof",
     category: "market",
-    theme: "harvest",
+    theme: "vintage",
     city: "Brooklyn",
     venue: "Brooklyn Navy Yard, Building 77",
     address: "141 Flushing Ave",
     date: "June 14-15, 2026",
     time: "10:00 AM – 6:00 PM",
-    heroImage: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1920&h=1080&fit=crop",
-    venueImage: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1920&h=800&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1761289731268-900eba5cf09f?w=1920&h=1080&fit=crop",
+    venueImage: "https://images.unsplash.com/photo-1761289731268-900eba5cf09f?w=1920&h=800&fit=crop",
     highlights: [
       { title: "60+ Vendors", desc: "Ceramics, fashion, food, art, and more" },
       { title: "Live Demos", desc: "Knife-sharpening, printmaking, and craft workshops" },
@@ -319,6 +320,43 @@ export const DEMO_EVENTS: Record<string, EventData> = {
       { q: "Is it free?", a: "Yes. Free entry for everyone." },
       { q: "Where do I park?", a: "Free parking on site at Building 77." },
       { q: "Are dogs allowed?", a: "Leashed dogs welcome in the outdoor areas." },
+    ],
+  },
+
+  "neon-nights": {
+    slug: "neon-nights",
+    name: "Neon Nights",
+    tagline: "Electric beats under the city lights. Late-night vinyl and neon glow.",
+    category: "music",
+    theme: "neon",
+    city: "Los Angeles",
+    venue: "The Standard Rooftop",
+    address: "550 S Flower St, DTLA",
+    date: "July 19, 2026",
+    time: "10:00 PM – 2:00 AM",
+    heroImage: "https://images.unsplash.com/photo-1770297345741-d73ac18f6e89?w=1920&h=1080&fit=crop",
+    venueImage: "https://images.unsplash.com/photo-1770297345741-d73ac18f6e89?w=1920&h=800&fit=crop",
+    highlights: [
+      { title: "Neon Vibes", desc: "City skyline, neon signs, and late-night energy" },
+      { title: "Vinyl & Digital", desc: "Resident DJs spinning house, techno, and disco" },
+      { title: "21+ Rooftop", desc: "Craft cocktails and skyline views until 2 AM" },
+    ],
+    hosts: [
+      { name: "DJ Nova", role: "Resident", bio: "Neon nights resident. House and techno.", image: "https://ui-avatars.com/api/?name=DJ+Nova&size=200&background=00FF88&color=000" },
+    ],
+    schedule: [
+      { time: "10:00 PM", title: "Doors open" },
+      { time: "10:30 PM", title: "DJ Nova: Opening set" },
+      { time: "12:30 AM", title: "Guest DJ: Late-night session" },
+      { time: "2:00 AM", title: "Last call" },
+    ],
+    tickets: [
+      { name: "General", price: 20, desc: "Rooftop access" },
+      { name: "VIP", price: 50, desc: "Reserved seating, bottle service" },
+    ],
+    faqs: [
+      { q: "Is it 21+?", a: "Yes. Valid ID required." },
+      { q: "Dress code?", a: "Smart casual. No athletic wear." },
     ],
   },
 

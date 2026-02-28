@@ -21,15 +21,12 @@ export default function ConfirmationPage() {
   const attendeeId = searchParams.get("attendee_id");
 
   const [data, setData] = useState<ConfirmationData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!!attendeeId);
   const [copied, setCopied] = useState(false);
   const [event, setEvent] = useState<{ theme?: string } | null>(null);
 
   useEffect(() => {
-    if (!attendeeId) {
-      setLoading(false);
-      return;
-    }
+    if (!attendeeId) return;
     fetch(`/api/attendees/${attendeeId}/confirmation`)
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
@@ -44,8 +41,7 @@ export default function ConfirmationPage() {
       .finally(() => setLoading(false));
   }, [attendeeId]);
 
-  const theme = themes[(event?.theme || data?.event?.slug ? "atelier" : "atelier") as keyof typeof themes] || themes.atelier;
-  const themeFromEvent = event ? themes[(event.theme || "atelier") as keyof typeof themes] : themes.atelier;
+  const theme = themes[(event?.theme || "atelier") as keyof typeof themes] || themes.atelier;
 
   const handleCopyCode = async () => {
     if (!data?.attendee?.check_in_code) return;

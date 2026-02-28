@@ -33,7 +33,7 @@ export async function GET() {
     }
 
     const eventIds = (events || []).map((e) => e.id);
-    let attendeeCounts: Record<string, number> = {};
+    const attendeeCounts: Record<string, number> = {};
 
     if (eventIds.length > 0) {
       const { data: counts } = await supabase

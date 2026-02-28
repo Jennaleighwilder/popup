@@ -100,7 +100,6 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
   const themeId = themeOverride || event.theme || "";
   const isBrutalist = themeId === "brutalist";
   const isMaximalist = themeId === "maximalist";
-  const isVintage = themeId === "vintage";
 
   const wrapperStyle: React.CSSProperties = {
     fontFamily: "var(--theme-body-font)",

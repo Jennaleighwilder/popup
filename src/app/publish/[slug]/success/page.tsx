@@ -2,23 +2,21 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Copy, Check, Share2 } from "lucide-react";
 
 export default function PublishSuccessPage() {
   const params = useParams();
   const slug = params.slug as string;
-  const searchParams = useSearchParams();
-  const sessionId = searchParams.get("session_id");
   const [copied, setCopied] = useState(false);
   const [baseUrl, setBaseUrl] = useState("");
+  const shareUrl = `${baseUrl}/e/${slug}`;
 
   useEffect(() => {
-    setBaseUrl(window.location.origin);
+    const id = setTimeout(() => setBaseUrl(window.location.origin), 0);
+    return () => clearTimeout(id);
   }, []);
-
-  const shareUrl = `${baseUrl}/e/${slug}`;
 
   const handleCopy = async () => {
     try {
