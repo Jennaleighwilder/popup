@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-display: var(--font-cormorant, Georgia, serif);
 }
 
 @theme inline {

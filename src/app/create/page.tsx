@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shirt, Wine, Palette, Leaf, Music2, Store, Check } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
@@ -33,11 +33,16 @@ const GENERATING_STAGES = [
   { id: "ready", label: "Your event is ready" },
 ];
 
+const VALID_CATEGORIES = ["fashion", "food", "art", "wellness", "music", "market"];
+
 export default function CreatePage() {
   const { user, loading, demoMode } = useAuth();
   const router = useRouter();
-  const [step, setStep] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const categoryFromUrl = searchParams.get("category");
+  const initialCategory = categoryFromUrl && VALID_CATEGORIES.includes(categoryFromUrl) ? categoryFromUrl : null;
+  const [step, setStep] = useState(initialCategory ? 2 : 1);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategory);
   const [formData, setFormData] = useState({
     name: "",
     aiName: true,
