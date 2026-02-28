@@ -190,3 +190,41 @@ select:focus {
   padding-top: 200px;
   padding-bottom: 200px;
 }
+
+/* Accessibility — Dyslexia, ADHD Focus, High Contrast, Reduced Motion, Text size */
+html[data-dyslexia="true"] body {
+  font-family: 'Lexend', 'OpenDyslexic', system-ui, sans-serif;
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+  line-height: 1.8;
+}
+html[data-adhd-focus="true"] * { animation: none !important; transition: none !important; }
+html[data-adhd-focus="true"] body { max-width: 65ch; margin: 0 auto; }
+html[data-adhd-focus="true"] *:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+html[data-reduced-motion="true"] * { animation: none !important; transition-duration: 0.01ms !important; }
+html[data-high-contrast="true"] {
+  --background: #000;
+  --foreground: #fff;
+  --muted: #ccc;
+}
+html[data-text-size="large"] { font-size: 112.5%; }
+html[data-text-size="xlarge"] { font-size: 125%; }
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Google Translate — hide default widget */
+iframe.skiptranslate,
+#google_translate_element .skiptranslate,
+.goog-te-banner-frame { display: none !important; }
+body { top: 0 !important; }

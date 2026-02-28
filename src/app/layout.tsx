@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { cormorant, dmSans, dmMono, allThemeFontClasses } from "@/lib/fonts";
 import { LenisProvider } from "@/components/LenisProvider";
 import { AuthProvider } from "@/components/AuthProvider";
+import { AccessibilityProvider } from "@/contexts/AccessibilityContext";
+import { AccessibilityBody } from "@/components/AccessibilityBody";
+import { AccessibilityToggle } from "@/components/AccessibilityToggle";
+import { LiveChat } from "@/components/LiveChat";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,7 +30,12 @@ export default function RootLayout({
     >
       <body className="antialiased">
         <LenisProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AccessibilityProvider>
+            <AccessibilityBody />
+            <AuthProvider>{children}</AuthProvider>
+            <AccessibilityToggle />
+            <LiveChat />
+          </AccessibilityProvider>
         </LenisProvider>
       </body>
     </html>
