@@ -10,25 +10,25 @@ const HERO_IMAGES = [
   {
     url: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&h=1000&fit=crop",
     className: "w-64 h-80 md:w-80 md:h-96 -rotate-3 top-[10%] right-[5%]",
-    opacity: 0.2,
+    opacity: 0.28,
     speed: 0.08,
   },
   {
     url: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop",
     className: "w-56 h-72 md:w-72 md:h-88 rotate-2 bottom-[15%] left-[5%]",
-    opacity: 0.15,
+    opacity: 0.22,
     speed: 0.05,
   },
   {
     url: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=800&fit=crop",
     className: "w-48 h-64 md:w-64 md:h-80 -rotate-1 top-[35%] right-[15%]",
-    opacity: 0.18,
+    opacity: 0.25,
     speed: 0.06,
   },
   {
     url: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=700&h=500&fit=crop",
     className: "w-52 h-68 md:w-68 md:h-84 rotate-[1.5deg] top-[12%] left-[8%]",
-    opacity: 0.12,
+    opacity: 0.2,
     speed: 0.04,
   },
 ];
@@ -80,7 +80,7 @@ function AnimatedHeadline() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 + i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
           className={word === "beautiful" ? "italic font-[family-name:var(--font-cormorant)]" : ""}
-          style={{ display: "inline", marginRight: i < words.length - 1 ? "0.28em" : 0 }}
+          style={{ display: "inline", marginRight: i < words.length - 1 ? "0.28em" : 0, ...(word === "beautiful" && { color: "#C7402D" }) }}
         >
           {word}
         </motion.span>
@@ -390,6 +390,9 @@ export default function Home() {
 
       {/* Hero - page load: content fades up with delay */}
       <section className="relative min-h-screen flex flex-col justify-center px-6 pt-24 pb-16 overflow-hidden">
+        {/* Subtle brand gradient accent - top right */}
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-[0.06] pointer-events-none" style={{ background: "radial-gradient(circle, #C7402D 0%, transparent 70%)" }} />
+        <div className="absolute bottom-1/4 left-0 w-64 h-64 rounded-full opacity-[0.05] pointer-events-none" style={{ background: "radial-gradient(circle, #5C7C50 0%, transparent 70%)" }} />
         {/* Hero image collage - behind text */}
         <HeroImageCollage />
 
@@ -399,13 +402,20 @@ export default function Home() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="relative z-10 max-w-5xl mx-auto"
         >
-          {/* Decorative line - 60px copper line centered above headline */}
-          <div className="flex justify-center mb-8">
+          {/* Decorative line + brand color strip */}
+          <div className="flex flex-col items-center gap-3 mb-8">
             <motion.div
               initial={{ opacity: 0, width: 0 }}
               animate={{ opacity: 1, width: 60 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               className="h-px bg-[#C4956A]"
+            />
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="h-1 rounded-full origin-center"
+              style={{ width: 120, background: "linear-gradient(90deg, #C7402D, #C4956A, #5C7C50, #D4AF37)" }}
             />
           </div>
           <AnimatedHeadline />
@@ -426,13 +436,15 @@ export default function Home() {
           >
             <a
               href="/create"
-              className="group px-8 py-4 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#A67B52] hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#C4956A]/25 transition-all duration-300"
+              className="group px-8 py-4 text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300"
+              style={{ background: "linear-gradient(135deg, #C4956A 0%, #C7402D 100%)", boxShadow: "0 4px 20px rgba(196,149,106,0.35)" }}
             >
-              Create Your Event <span className="inline-block transition-colors duration-300 group-hover:text-[#C7402D]">→</span>
+              Create Your Event <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
             </a>
             <a
               href="#examples"
-              className="link-underline px-8 py-4 font-[family-name:var(--font-body)] text-sm tracking-wider uppercase text-[#1A1714] hover:text-[#C7402D] transition-colors"
+              className="px-8 py-4 font-[family-name:var(--font-body)] text-sm tracking-wider uppercase transition-all duration-300 border-2 hover:border-[#C7402D] hover:text-[#C7402D]"
+              style={{ color: "#1A1714", borderColor: "#C4956A" }}
             >
               See Examples
             </a>
@@ -448,38 +460,48 @@ export default function Home() {
               WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
             }}
           >
-            {/* Row 1 - left to right */}
-            <div className="flex animate-drift-row1 gap-6 whitespace-nowrap mb-4">
-              {[...CATEGORY_PILLS_ROW1, ...CATEGORY_PILLS_ROW1].map((pill, i) => (
-                <span key={`r1-${i}`} className="flex items-center gap-6 shrink-0">
-                  <span
-                    className="font-[family-name:var(--font-dm-mono)] font-light uppercase text-[#8C8578]"
-                    style={{ fontSize: "11px", letterSpacing: "0.2em" }}
-                  >
-                    {pill}
-                  </span>
-                  <span className="text-[#C7402D] shrink-0" style={{ fontSize: "8px" }}>
-                    ●
-                  </span>
-                </span>
-              ))}
-            </div>
+            {/* Row 1 - left to right, brand color dots */}
+            {(() => {
+              const BRAND_DOTS = ["#C7402D", "#C4956A", "#5C7C50", "#D4AF37", "#8B4513", "#E63946"];
+              return (
+                <div className="flex animate-drift-row1 gap-6 whitespace-nowrap mb-4">
+                  {[...CATEGORY_PILLS_ROW1, ...CATEGORY_PILLS_ROW1].map((pill, i) => (
+                    <span key={`r1-${i}`} className="flex items-center gap-6 shrink-0">
+                      <span
+                        className="font-[family-name:var(--font-dm-mono)] font-light uppercase"
+                        style={{ fontSize: "11px", letterSpacing: "0.2em", color: i % 3 === 0 ? BRAND_DOTS[i % BRAND_DOTS.length] : "#8C8578" }}
+                      >
+                        {pill}
+                      </span>
+                      <span className="shrink-0" style={{ fontSize: "10px", color: BRAND_DOTS[i % BRAND_DOTS.length] }}>
+                        ●
+                      </span>
+                    </span>
+                  ))}
+                </div>
+              );
+            })()}
             {/* Row 2 - right to left */}
-            <div className="flex animate-drift-row2 gap-6 whitespace-nowrap">
-              {[...CATEGORY_PILLS_ROW2, ...CATEGORY_PILLS_ROW2].map((pill, i) => (
-                <span key={`r2-${i}`} className="flex items-center gap-6 shrink-0">
-                  <span
-                    className="font-[family-name:var(--font-dm-mono)] font-light uppercase text-[#8C8578]"
-                    style={{ fontSize: "11px", letterSpacing: "0.2em" }}
-                  >
-                    {pill}
-                  </span>
-                  <span className="text-[#C7402D] shrink-0" style={{ fontSize: "8px" }}>
-                    ●
-                  </span>
-                </span>
-              ))}
-            </div>
+            {(() => {
+              const BRAND_DOTS = ["#5C7C50", "#D4AF37", "#C7402D", "#8B4513", "#C4956A", "#E63946"];
+              return (
+                <div className="flex animate-drift-row2 gap-6 whitespace-nowrap">
+                  {[...CATEGORY_PILLS_ROW2, ...CATEGORY_PILLS_ROW2].map((pill, i) => (
+                    <span key={`r2-${i}`} className="flex items-center gap-6 shrink-0">
+                      <span
+                        className="font-[family-name:var(--font-dm-mono)] font-light uppercase"
+                        style={{ fontSize: "11px", letterSpacing: "0.2em", color: i % 3 === 1 ? BRAND_DOTS[(i + 1) % BRAND_DOTS.length] : "#8C8578" }}
+                      >
+                        {pill}
+                      </span>
+                      <span className="shrink-0" style={{ fontSize: "10px", color: BRAND_DOTS[(i + 2) % BRAND_DOTS.length] }}>
+                        ●
+                      </span>
+                    </span>
+                  ))}
+                </div>
+              );
+            })()}
           </div>
         </div>
       </section>
