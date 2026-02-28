@@ -1,4 +1,4 @@
-import { selectThemeForCategory } from "@/lib/themes";
+import { selectThemeForCategory, themes } from "@/lib/themes";
 import type { EventData } from "@/types/event";
 
 const CATEGORY_IMAGES: Record<string, string> = {
@@ -275,10 +275,13 @@ function buildMusicEvent(formData: CreateFormData, base: Partial<EventData>): Ev
 
 export function buildEventFromForm(
   formData: CreateFormData,
-  categoryId: string
+  categoryId: string,
+  themeOverride?: string
 ): EventData {
   const mapKey = categoryId || "fashion";
-  const theme = selectThemeForCategory(mapKey, formData.vibe.toLowerCase());
+  const theme = themeOverride && themes[themeOverride as keyof typeof themes]
+    ? themes[themeOverride as keyof typeof themes]
+    : selectThemeForCategory(mapKey, formData.vibe.toLowerCase());
   const categoryLabel = CATEGORY_LABELS[mapKey] || "Event";
 
   const name = formData.aiName

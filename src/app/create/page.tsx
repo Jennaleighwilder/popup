@@ -34,13 +34,20 @@ const GENERATING_STAGES = [
 ];
 
 const VALID_CATEGORIES = ["fashion", "food", "art", "wellness", "music", "market"];
+const THEME_TO_CATEGORY: Record<string, string> = {
+  atelier: "fashion", harvest: "food", gallery: "art", botanica: "wellness",
+  soiree: "music", brutalist: "music", zen: "wellness", maximalist: "music", neon: "music", vintage: "market",
+};
 
 export default function CreatePage() {
   const { user, loading, demoMode } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const categoryFromUrl = searchParams.get("category");
-  const initialCategory = categoryFromUrl && VALID_CATEGORIES.includes(categoryFromUrl) ? categoryFromUrl : null;
+  const themeFromUrl = searchParams.get("theme");
+  const categoryFromTheme = themeFromUrl ? THEME_TO_CATEGORY[themeFromUrl] : null;
+  const initialCategory = (categoryFromUrl && VALID_CATEGORIES.includes(categoryFromUrl) ? categoryFromUrl : null)
+    || (categoryFromTheme && VALID_CATEGORIES.includes(categoryFromTheme) ? categoryFromTheme : null);
   const [step, setStep] = useState(initialCategory ? 2 : 1);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategory);
   const [formData, setFormData] = useState({
@@ -98,7 +105,7 @@ export default function CreatePage() {
     setTimeout(() => {
       clearInterval(stageInterval);
       setGeneratingStage(GENERATING_STAGES.length - 1);
-      const event = buildEventFromForm(filledForm, cat);
+      const event = buildEventFromForm(filledForm, cat, themeFromUrl || undefined);
       setGeneratedEvent(event);
       setStep(4);
       setIsGenerating(false);

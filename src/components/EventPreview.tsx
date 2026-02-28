@@ -8,9 +8,11 @@ import type { EventData } from "@/types/event";
 export function EventPreview({
   event,
   showFooter = true,
+  isDemo = false,
 }: {
   event: EventData;
   showFooter?: boolean;
+  isDemo?: boolean;
 }) {
   const theme = useTheme();
   const labels = CATEGORY_LABELS[event.category] || CATEGORY_LABELS.market;
@@ -337,6 +339,25 @@ export function EventPreview({
               </div>
             )}
           </div>
+        </section>
+      )}
+
+      {isDemo && (
+        <section className="py-16 px-6 text-center" style={{ backgroundColor: theme.colors.bgAlt }}>
+          <p className="font-[family-name:var(--theme-body-font)] text-lg mb-6" style={{ color: theme.colors.text }}>
+            Love this design?
+          </p>
+          <Link
+            href={`/create?theme=${event.theme}`}
+            className="inline-block px-8 py-4 font-medium tracking-wider uppercase transition-all duration-300"
+            style={{
+              backgroundColor: theme.colors.accent,
+              color: theme.colors.bg,
+              borderRadius: theme.buttonRadius,
+            }}
+          >
+            Create your event with this design →
+          </Link>
         </section>
       )}
 

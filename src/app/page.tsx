@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Shirt, Wine, Palette, Leaf, Music2, Store } from "lucide-react";
 import { themes } from "@/lib/themes";
 import { themeFontVariables } from "@/lib/fonts";
+import { getDemoSlugForTheme } from "@/lib/demoEvents";
 import type { ThemeId } from "@/lib/themes";
 
 const CATEGORIES: { id: string; label: string; subtitle: string; Icon: typeof Shirt; image: string; accent: string }[] = [
@@ -147,7 +148,7 @@ export default function Home() {
               return (
                 <Link
                   key={id}
-                  href={id === "neon" ? "/e/warehouse-rave" : id === "vintage" ? "/e/brooklyn-flea-vintage" : "/create"}
+                  href={`/e/${getDemoSlugForTheme(id)}`}
                   className="group relative overflow-hidden border transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl"
                   style={{
                     borderColor: t.colors.cardBorder,

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { EventPreview } from "@/components/EventPreview";
 import { themes } from "@/lib/themes";
-import { getDemoEvent } from "@/lib/demoEvents";
+import { getDemoEvent, isDemoEvent } from "@/lib/demoEvents";
 import type { EventData } from "@/types/event";
 
 export default function EventPage() {
@@ -82,7 +82,7 @@ export default function EventPage() {
 
   return (
     <ThemeProvider theme={theme}>
-      <EventPreview event={event} showFooter={true} />
+      <EventPreview event={event} showFooter={true} isDemo={isDemoEvent(slug)} />
     </ThemeProvider>
   );
 }
