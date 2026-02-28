@@ -3,6 +3,8 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useAuth } from "@/components/AuthProvider";
 
 const HERO_IMAGES = [
   {
@@ -246,15 +248,16 @@ function SectionReveal({
 
 export default function Home() {
   const [hoveredTheme, setHoveredTheme] = useState<string | null>("atelier");
+  const { user, demoMode } = useAuth();
 
   return (
     <div className="min-h-screen bg-[#FAF7F2]">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent hover:bg-[#FAF7F2]/90 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-          <span className="font-[family-name:var(--font-display)] text-2xl font-light text-[#1A1714]">
+          <Link href="/" className="font-[family-name:var(--font-display)] text-2xl font-light text-[#1A1714]">
             Popup
-          </span>
+          </Link>
           <div className="flex items-center gap-8 font-[family-name:var(--font-body)] text-sm tracking-wider uppercase text-[#8C8578]">
             <a href="#examples" className="link-underline hover:text-[#1A1714] transition-colors">
               Examples
@@ -262,15 +265,21 @@ export default function Home() {
             <a href="#pricing" className="link-underline hover:text-[#1A1714] transition-colors">
               Pricing
             </a>
-            <a href="#" className="link-underline hover:text-[#1A1714] transition-colors">
-              Log In
-            </a>
-            <a
-              href="#"
+            {user || demoMode ? (
+              <Link href="/dashboard" className="link-underline hover:text-[#1A1714] transition-colors">
+                Dashboard
+              </Link>
+            ) : (
+              <Link href="/login" className="link-underline hover:text-[#1A1714] transition-colors">
+                Log In
+              </Link>
+            )}
+            <Link
+              href={user || demoMode ? "/create" : "/login"}
               className="px-5 py-2.5 bg-[#C4956A] text-white text-sm tracking-wider uppercase hover:bg-[#A67B52] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#C4956A]/25 transition-all duration-300"
             >
               Create Event →
-            </a>
+            </Link>
           </div>
         </div>
       </nav>
