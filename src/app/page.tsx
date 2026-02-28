@@ -691,6 +691,9 @@ export default function Home() {
           <p className="text-center font-[family-name:var(--font-body)] text-sm text-[#8C8578] mt-12">
             Made for the moments that matter
           </p>
+          <p className="text-center font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#8C8578] mt-6">
+            Design by Jenna Leigh West · The Forgotten Code
+          </p>
         </div>
       </footer>
     </div>

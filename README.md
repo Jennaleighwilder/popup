@@ -1,4 +1,8 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Popup
+
+Beautiful event pages for pop-ups, tastings, openings, and experiences. AI builds it in 60 seconds. You make it yours.
+
+**Design by Jenna Leigh West · The Forgotten Code**
 
 ## Getting Started
 

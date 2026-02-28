@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   title: "Popup — Beautiful event pages for pop-ups, tastings, and experiences",
   description:
     "Create stunning event pages for pop-ups, tastings, openings, and experiences. AI builds it in 60 seconds. You make it yours.",
+  other: {
+    "design-by": "Jenna Leigh West",
+    "design-studio": "The Forgotten Code",
+  },
 };
 
 export default function RootLayout({

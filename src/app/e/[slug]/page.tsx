@@ -553,6 +553,12 @@ function EventPageContent() {
         >
           Create your own event
         </a>
+        <p
+          className="text-xs tracking-widest uppercase mt-6"
+          style={{ color: theme.colors.textMuted, fontFamily: "var(--theme-mono-font)" }}
+        >
+          Design by Jenna Leigh West · The Forgotten Code
+        </p>
       </footer>
     </div>
   );
