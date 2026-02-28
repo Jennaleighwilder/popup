@@ -26,12 +26,35 @@ export function ThemeProvider({
           ? "0.3s"
           : theme.animationFeel === "organic"
             ? "1s"
-            : "0.4s";
+            : theme.animationFeel === "instant"
+              ? "0.1s"
+              : theme.animationFeel === "meditative"
+                ? "1.2s"
+                : theme.animationFeel === "playful"
+                  ? "0.5s"
+                  : theme.animationFeel === "electric"
+                    ? "0.2s"
+                    : theme.animationFeel === "gentle"
+                      ? "0.8s"
+                      : "0.4s";
+
+  const themeClasses = [
+    theme.specialEffects?.uppercaseHeadings && "theme-uppercase-headings",
+    theme.specialEffects?.glowEffects && "theme-glow-effects",
+    theme.specialEffects?.gradientText && "theme-gradient-text",
+    theme.specialEffects?.filmGrain && "theme-film-grain",
+    theme.specialEffects?.sepiaImages && "theme-sepia-images",
+    theme.specialEffects?.extraWhitespace && "theme-extra-whitespace",
+    theme.specialEffects?.hoverGlow && "theme-hover-glow",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <ThemeContext.Provider value={theme}>
       <div
-        className="min-h-screen"
+        className={`min-h-screen ${themeClasses}`}
+        data-theme={theme.id}
         style={
           {
             "--theme-bg": theme.colors.bg,
@@ -42,6 +65,8 @@ export function ThemeProvider({
             "--theme-accent-hover": theme.colors.accentHover,
             "--theme-card": theme.colors.card,
             "--theme-card-border": theme.colors.cardBorder,
+            "--theme-card-border-width": theme.cardBorderWidth ? `${theme.cardBorderWidth}px` : "1px",
+            "--theme-tertiary": theme.colors.tertiary || theme.colors.accent,
             "--theme-secondary": theme.colors.secondary || theme.colors.accent,
             "--theme-pop": theme.colors.pop || theme.colors.accent,
             "--theme-display-font": displayFont,

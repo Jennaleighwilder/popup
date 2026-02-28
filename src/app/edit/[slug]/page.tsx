@@ -28,7 +28,7 @@ const TABS = [
   { id: "settings", label: "Settings", Icon: Settings },
 ];
 
-const THEME_IDS = ["atelier", "harvest", "gallery", "botanica", "soiree"] as const;
+const THEME_IDS = ["atelier", "harvest", "gallery", "botanica", "soiree", "brutalist", "zen", "maximalist", "neon", "vintage"] as const;
 
 function useDebouncedSave(
   event: EventData | null,

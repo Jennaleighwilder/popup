@@ -6,7 +6,7 @@ export interface EventData {
   theme: string;
   city: string;
   venue: string;
-  address: string;
+  address?: string;
   date: string;
   time: string;
   heroImage: string;
@@ -16,29 +16,20 @@ export interface EventData {
   schedule: { time: string; title: string }[];
   tickets: { name: string; price: number; desc: string }[];
   faqs: { q: string; a: string }[];
-  // Category-specific (optional)
-  capacity?: number;
   brands?: string[];
-  shoppingRules?: string[];
-  scarcityMessage?: string;
   menu?: { course: string; pairing?: string }[];
-  whatsIncluded?: string[];
-  whatsNotIncluded?: string[];
-  dietaryNote?: string;
   artistBio?: string;
-  featuredWorks?: { title: string; desc?: string; image?: string; medium?: string; dimensions?: string; artist?: string }[];
+  featuredWorks?: { title: string; desc?: string }[];
   exhibitionDates?: string;
   relatedProgramming?: { title: string; when?: string }[];
-  journey?: { step: string; desc: string; image?: string }[];
+  journey?: { step: string; desc: string }[];
   whatToBring?: string[];
   whatsProvided?: string[];
-  testimonials?: { quote: string; author?: string; image?: string }[];
-  landscapeImages?: string[];
+  testimonials?: { quote: string; author?: string }[];
   vendors?: { name: string; category: string; image?: string }[];
   whatsHappening?: string[];
   gettingThere?: string;
   vendorApplication?: string;
-  genreTags?: string[];
 }
 
 export const CATEGORY_LABELS: Record<string, { people: string; schedule: string; tickets: string; faq: string; about: string }> = {

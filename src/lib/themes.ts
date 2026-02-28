@@ -1,4 +1,35 @@
-export type ThemeId = "atelier" | "harvest" | "gallery" | "botanica" | "soiree";
+export type ThemeId =
+  | "atelier"
+  | "harvest"
+  | "gallery"
+  | "botanica"
+  | "soiree"
+  | "brutalist"
+  | "zen"
+  | "maximalist"
+  | "neon"
+  | "vintage";
+
+export interface ThemeSpecialEffects {
+  uppercaseHeadings?: boolean;
+  borderedSections?: boolean;
+  overlappingElements?: boolean;
+  extraWhitespace?: boolean;
+  fadedImages?: boolean;
+  singleColumnLayout?: boolean;
+  coloredSections?: boolean;
+  rotatedCards?: boolean;
+  patternBackgrounds?: boolean;
+  multiColorText?: boolean;
+  glowEffects?: boolean;
+  gradientText?: boolean;
+  scanlineOverlay?: boolean;
+  hoverGlow?: boolean;
+  filmGrain?: boolean;
+  sepiaImages?: boolean;
+  typewriterMono?: boolean;
+  agedPaperTexture?: boolean;
+}
 
 export interface Theme {
   id: ThemeId;
@@ -19,15 +50,38 @@ export interface Theme {
     card: string;
     cardBorder: string;
     secondary?: string;
+    tertiary?: string;
     pop?: string;
   };
-  heroStyle: "editorial" | "split" | "minimal" | "cinematic";
+  heroStyle: "editorial" | "split" | "minimal" | "cinematic" | "typographic" | "collage";
   buttonRadius: number;
   buttonStyle: "outlined" | "filled";
   cardRadius: number;
-  animationFeel: "elegant" | "warm" | "precise" | "organic" | "dramatic";
+  cardBorderWidth?: number;
+  animationFeel:
+    | "elegant"
+    | "warm"
+    | "precise"
+    | "organic"
+    | "dramatic"
+    | "instant"
+    | "meditative"
+    | "playful"
+    | "electric"
+    | "gentle";
   noiseTexture: boolean;
-  sectionDivider: "thin-line" | "botanical" | "none" | "wave" | "gold-line";
+  sectionDivider:
+    | "thin-line"
+    | "botanical"
+    | "none"
+    | "wave"
+    | "gold-line"
+    | "thick-line"
+    | "brush-stroke"
+    | "pattern"
+    | "glow-line"
+    | "ornament";
+  specialEffects?: ThemeSpecialEffects;
 }
 
 export const themes: Record<ThemeId, Theme> = {
@@ -35,11 +89,7 @@ export const themes: Record<ThemeId, Theme> = {
     id: "atelier",
     name: "Atelier",
     category: "fashion",
-    fonts: {
-      display: "Cormorant Garamond",
-      body: "Montserrat",
-      mono: "DM Mono",
-    },
+    fonts: { display: "Cormorant Garamond", body: "Montserrat", mono: "DM Mono" },
     colors: {
       bg: "#FAF8F5",
       bgAlt: "#F0ECE6",
@@ -62,11 +112,7 @@ export const themes: Record<ThemeId, Theme> = {
     id: "harvest",
     name: "Harvest",
     category: "food",
-    fonts: {
-      display: "Playfair Display",
-      body: "Lato",
-      mono: "Courier Prime",
-    },
+    fonts: { display: "Playfair Display", body: "Lato", mono: "Courier Prime" },
     colors: {
       bg: "#F7F3ED",
       bgAlt: "#EDE7DD",
@@ -90,11 +136,7 @@ export const themes: Record<ThemeId, Theme> = {
     id: "gallery",
     name: "Gallery",
     category: "art",
-    fonts: {
-      display: "EB Garamond",
-      body: "Inter",
-      mono: "Space Mono",
-    },
+    fonts: { display: "EB Garamond", body: "Inter", mono: "Space Mono" },
     colors: {
       bg: "#FFFFFF",
       bgAlt: "#F5F5F5",
@@ -118,11 +160,7 @@ export const themes: Record<ThemeId, Theme> = {
     id: "botanica",
     name: "Botanica",
     category: "wellness",
-    fonts: {
-      display: "Cardo",
-      body: "Nunito Sans",
-      mono: "IBM Plex Mono",
-    },
+    fonts: { display: "Cardo", body: "Nunito Sans", mono: "IBM Plex Mono" },
     colors: {
       bg: "#F5F0E8",
       bgAlt: "#ECE5D8",
@@ -146,11 +184,7 @@ export const themes: Record<ThemeId, Theme> = {
     id: "soiree",
     name: "Soirée",
     category: "music",
-    fonts: {
-      display: "Italiana",
-      body: "Poppins",
-      mono: "Fira Mono",
-    },
+    fonts: { display: "Italiana", body: "Poppins", mono: "Fira Mono" },
     colors: {
       bg: "#0D0D0D",
       bgAlt: "#1A1A1A",
@@ -169,21 +203,165 @@ export const themes: Record<ThemeId, Theme> = {
     noiseTexture: false,
     sectionDivider: "gold-line",
   },
+  brutalist: {
+    id: "brutalist",
+    name: "Brutalist",
+    category: "any",
+    fonts: { display: "Space Grotesk", body: "JetBrains Mono", mono: "JetBrains Mono" },
+    colors: {
+      bg: "#FFFFFF",
+      bgAlt: "#F0F0F0",
+      text: "#000000",
+      textMuted: "#666666",
+      accent: "#FF3B00",
+      accentHover: "#CC2F00",
+      card: "#FFFFFF",
+      cardBorder: "#000000",
+    },
+    heroStyle: "typographic",
+    buttonRadius: 0,
+    buttonStyle: "filled",
+    cardRadius: 0,
+    cardBorderWidth: 3,
+    animationFeel: "instant",
+    noiseTexture: false,
+    sectionDivider: "thick-line",
+    specialEffects: {
+      uppercaseHeadings: true,
+      borderedSections: true,
+      overlappingElements: true,
+    },
+  },
+  zen: {
+    id: "zen",
+    name: "Zen",
+    category: "any",
+    fonts: { display: "Crimson Pro", body: "Crimson Pro", mono: "IBM Plex Mono" },
+    colors: {
+      bg: "#F5F2EC",
+      bgAlt: "#EBE6DC",
+      text: "#3D3D3D",
+      textMuted: "#9E9E9E",
+      accent: "#8B7355",
+      accentHover: "#6B5A45",
+      card: "rgba(255,255,255,0.5)",
+      cardBorder: "rgba(139,115,85,0.15)",
+    },
+    heroStyle: "minimal",
+    buttonRadius: 0,
+    buttonStyle: "outlined",
+    cardRadius: 2,
+    animationFeel: "meditative",
+    noiseTexture: true,
+    sectionDivider: "brush-stroke",
+    specialEffects: {
+      extraWhitespace: true,
+      fadedImages: true,
+      singleColumnLayout: true,
+    },
+  },
+  maximalist: {
+    id: "maximalist",
+    name: "Maximalist",
+    category: "any",
+    fonts: { display: "Abril Fatface", body: "Work Sans", mono: "Fira Mono" },
+    colors: {
+      bg: "#FFF8E7",
+      bgAlt: "#FFE8CC",
+      text: "#1A0F00",
+      textMuted: "#8B6914",
+      accent: "#E63946",
+      accentHover: "#C5303C",
+      card: "#FFFFFF",
+      cardBorder: "#FFB347",
+      secondary: "#2D5F8A",
+      tertiary: "#6B4C9A",
+    },
+    heroStyle: "collage",
+    buttonRadius: 50,
+    buttonStyle: "filled",
+    cardRadius: 16,
+    animationFeel: "playful",
+    noiseTexture: false,
+    sectionDivider: "pattern",
+    specialEffects: {
+      coloredSections: true,
+      rotatedCards: true,
+      patternBackgrounds: true,
+      multiColorText: true,
+    },
+  },
+  neon: {
+    id: "neon",
+    name: "Neon",
+    category: "any",
+    fonts: { display: "Outfit", body: "Inter", mono: "Fira Code" },
+    colors: {
+      bg: "#0A0A0F",
+      bgAlt: "#12121A",
+      text: "#EEEEFF",
+      textMuted: "#7777AA",
+      accent: "#00FF88",
+      accentHover: "#00CC6A",
+      card: "rgba(255,255,255,0.03)",
+      cardBorder: "rgba(0,255,136,0.15)",
+      secondary: "#FF00AA",
+      tertiary: "#4444FF",
+    },
+    heroStyle: "cinematic",
+    buttonRadius: 8,
+    buttonStyle: "filled",
+    cardRadius: 12,
+    animationFeel: "electric",
+    noiseTexture: false,
+    sectionDivider: "glow-line",
+    specialEffects: {
+      glowEffects: true,
+      gradientText: true,
+      hoverGlow: true,
+    },
+  },
+  vintage: {
+    id: "vintage",
+    name: "Vintage",
+    category: "any",
+    fonts: { display: "Libre Baskerville", body: "Source Serif 4", mono: "Courier Prime" },
+    colors: {
+      bg: "#F4ECD8",
+      bgAlt: "#E8DCC4",
+      text: "#2C1810",
+      textMuted: "#7A6652",
+      accent: "#8B0000",
+      accentHover: "#6B0000",
+      card: "#FBF5E6",
+      cardBorder: "#C9B896",
+      secondary: "#1B4D3E",
+    },
+    heroStyle: "editorial",
+    buttonRadius: 2,
+    buttonStyle: "outlined",
+    cardRadius: 4,
+    animationFeel: "gentle",
+    noiseTexture: true,
+    sectionDivider: "ornament",
+    specialEffects: {
+      filmGrain: true,
+      sepiaImages: true,
+      typewriterMono: true,
+      agedPaperTexture: true,
+    },
+  },
 };
 
-export function selectThemeForCategory(
-  category: string,
-  vibe?: string
-): Theme {
+export function selectThemeForCategory(category: string, vibe?: string): Theme {
   const cat = category.toLowerCase();
   const v = vibe?.toLowerCase();
 
-  if (v === "luxe") {
-    return Math.random() > 0.5 ? themes.soiree : themes.atelier;
-  }
-  if (v === "casual") {
-    return Math.random() > 0.5 ? themes.harvest : themes.botanica;
-  }
+  if (v === "curated") return themes.atelier;
+  if (v === "luxe") return themes.soiree;
+  if (v === "casual") return themes.harvest;
+  if (v === "underground") return themes.brutalist;
+  if (v === "festive") return themes.maximalist;
 
   switch (cat) {
     case "fashion":
@@ -198,7 +376,7 @@ export function selectThemeForCategory(
     case "nightlife":
       return themes.soiree;
     case "market":
-      return Math.random() > 0.5 ? themes.harvest : themes.atelier;
+      return themes.harvest;
     default:
       return themes.atelier;
   }

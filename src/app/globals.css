@@ -1,244 +1,72 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FAF7F2;
-  --foreground: #1A1714;
-  --muted: #8C8578;
-  --accent: #C4956A;
-  --accent-hover: #A67B52;
-  --editorial-red: #C7402D;
-  --card-bg: #FFFFFF;
-  --card-border: #E8E2D9;
-  --section-alt: #F0ECE5;
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-body);
-  --font-mono: var(--font-mono);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
-/* Noise texture - premium printed-paper feel */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.015;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-}
-
-/* Warm image filter - subtle cohesion across all photos */
-.popup-warm-image,
-.popup-warm-image img {
-  filter: sepia(0.03) saturate(1.05);
-}
-
-/* Warm selection highlight */
-::selection {
-  background: rgba(196, 149, 106, 0.2);
-  color: #1A1714;
-}
-
-/* Custom scrollbar - thin, warm-toned */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #FAF7F2;
-}
-::-webkit-scrollbar-thumb {
-  background: #C4956A;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #A67B52;
-}
-
-html {
-  scroll-behavior: smooth;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body), system-ui, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Category pills infinite drift - row 1 left to right (actually moves content left) */
-@keyframes drift-left {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+/* Theme special effects */
+.theme-uppercase-headings h1,
+.theme-uppercase-headings h2,
+.theme-uppercase-headings h3 {
+  text-transform: uppercase;
 }
 
-.animate-drift-row1 {
-  animation: drift-left 60s linear infinite;
+.theme-glow-effects [data-glow] {
+  box-shadow: 0 0 20px var(--theme-accent);
 }
 
-/* Row 2 - right to left */
-@keyframes drift-right {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0);
-  }
+.theme-gradient-text [data-gradient-text] {
+  background: linear-gradient(135deg, #00FF88, #FF00AA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.animate-drift-row2 {
-  animation: drift-right 60s linear infinite;
+.theme-hover-glow .card-hover-glow:hover {
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.4);
 }
 
-/* Warm card shadow */
-.card-shadow {
-  box-shadow: 0 4px 24px rgba(26, 23, 20, 0.06);
+.theme-film-grain body::after {
+  opacity: 0.04;
 }
 
-.card-shadow-hover:hover {
-  box-shadow: 0 12px 40px rgba(26, 23, 20, 0.08);
+.theme-sepia-images img {
+  filter: sepia(0.15) saturate(0.9);
 }
 
-/* Animated underline - draws left to right on hover */
-.link-underline {
-  position: relative;
+.theme-extra-whitespace .section-luxury {
+  padding-top: 200px;
+  padding-bottom: 200px;
 }
 
-.link-underline::after {
+/* Film grain overlay */
+.theme-film-grain::after {
   content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: currentColor;
-  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.link-underline:hover::after {
-  width: 100%;
-}
-
-/* Soirée theme - gold shimmer on text */
-@keyframes soiree-gold-shimmer {
-  0%, 100% {
-    background: linear-gradient(90deg, #D4AF37, #F5E6B3, #D4AF37);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  50% {
-    background: linear-gradient(90deg, #F5E6B3, #D4AF37, #F5E6B3);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
-
-.soiree-gold-shimmer {
-  animation: soiree-gold-shimmer 4s ease-in-out infinite;
-}
-
-/* Ken Burns zoom effect for event hero - 1.0 → 1.04 over 20s, infinite alternate */
-.ken-burns {
-  animation: ken-burns-zoom 20s ease-in-out infinite alternate;
-}
-
-@keyframes ken-burns-zoom {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.04);
-  }
-}
-
-/* Scarcity message pulse - warm glow */
-@keyframes scarcity-pulse {
-  0%, 100% {
-    text-shadow: 0 0 0 transparent;
-  }
-  50% {
-    text-shadow: 0 0 12px rgba(196, 149, 106, 0.4);
-  }
-}
-
-.scarcity-pulse {
-  animation: scarcity-pulse 2.5s ease-in-out infinite;
-}
-
-/* Breathing circle for wellness */
-@keyframes breathe-pulse {
-  0%, 100% {
-    transform: scale(0.95);
-    opacity: 0.6;
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 1;
-  }
-}
-
-.breathe-pulse {
-  animation: breathe-pulse 3s ease-in-out infinite;
-}
-
-/* Gold twinkle for Soirée hero */
-@keyframes twinkle {
-  0%, 100% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-/* Music theme - gold border on ticket card hover */
-.event-card-music:hover {
-  border-color: rgba(212, 175, 55, 0.5) !important;
-}
-
-/* Wellness hero - botanical pattern overlay */
-.wellness-hero-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Cpath d='M20 40 Q40 20 60 40 Q80 60 100 40' stroke='%235C7C50' fill='none' stroke-width='0.5' opacity='0.3'/%3E%3Cpath d='M10 60 Q30 50 50 60 Q70 70 90 60' stroke='%235C7C50' fill='none' stroke-width='0.3' opacity='0.2'/%3E%3Cpath d='M30 25 Q50 15 70 25' stroke='%235C7C50' fill='none' stroke-width='0.2' opacity='0.2'/%3E%3C/svg%3E");
-  background-size: 200px 140px;
-  opacity: 0.02;
-}
-
-/* Art gallery - artwork hover */
-.art-gallery-work:hover {
-  border-color: #E63946 !important;
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
-}
-
-/* Warm color grade on event images */
-.event-hero-image {
-  filter: sepia(0.05) saturate(1.05);
-}
-
-/* Section padding - luxury whitespace */
-.section-luxury {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-}
-@media (min-width: 768px) {
-  .section-luxury {
-    padding-top: 7.5rem;
-    padding-bottom: 7.5rem;
-  }
-}
-
-/* Form input focus - warm glow, not blue default */
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(196, 149, 106, 0.3);
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  z-index: 9999;
 }
