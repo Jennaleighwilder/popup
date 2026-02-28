@@ -78,3 +78,17 @@ body {
 .link-underline:hover::after {
   width: 100%;
 }
+
+/* Ken Burns zoom effect for event hero */
+.ken-burns {
+  animation: ken-burns-zoom 20s ease-out forwards;
+}
+
+@keyframes ken-burns-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}

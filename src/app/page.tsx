@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const HERO_IMAGES = [
   {
-    url: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=1000&fit=crop",
+    url: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&h=1000&fit=crop",
     className: "w-64 h-80 md:w-80 md:h-96 -rotate-3 top-[15%] left-[5%]",
     speed: 0.08,
   },
@@ -95,7 +95,7 @@ const SHOWCASE_EVENTS = [
     location: "New York",
     date: "May 15–17, 2026",
     category: "FASHION",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=1000&fit=crop",
+    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&h=1000&fit=crop",
     gridClass: "md:col-span-2 md:row-span-2",
     featured: true,
   },
@@ -199,20 +199,20 @@ const TESTIMONIALS = [
   {
     quote: "Popup transformed how we invite people. No more ugly Eventbrite links—our supper club finally looks like the experience we're selling.",
     name: "Sarah Chen",
-    title: "Founder of Maison Noir",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
+    title: "Founder, The Long Table",
+    image: "https://ui-avatars.com/api/?name=Sarah+Chen&size=150&background=C4956A&color=ffffff",
   },
   {
     quote: "We used it for our gallery opening and got so many compliments. The design felt like an extension of our brand.",
     name: "Marcus Webb",
     title: "Curator, Webb Gallery",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+    image: "https://ui-avatars.com/api/?name=Marcus+Webb&size=150&background=8C8578&color=ffffff",
   },
   {
     quote: "Finally—event pages that don't look like they were built in 2010. Our retreat sold out in a week.",
     name: "Elena Rivera",
     title: "Wellness Retreat Host",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+    image: "https://ui-avatars.com/api/?name=Elena+Rivera&size=150&background=5C7C50&color=ffffff",
   },
 ];
 
@@ -404,10 +404,10 @@ export default function Home() {
         <div className="relative z-20 max-w-3xl mx-auto px-6 text-center">
           <SectionReveal>
             <blockquote className="font-[family-name:var(--font-display)] text-2xl md:text-4xl font-light italic text-[#1A1714] leading-relaxed">
-              &ldquo;The details are not the details. They make the design.&rdquo;
+              &ldquo;The best gatherings feel inevitable—as if they were always meant to happen.&rdquo;
             </blockquote>
             <p className="font-[family-name:var(--font-mono)] text-sm tracking-widest uppercase text-[#8C8578] mt-6">
-              — Charles Eames
+              — Popup
             </p>
           </SectionReveal>
         </div>

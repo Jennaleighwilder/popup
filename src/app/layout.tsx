@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { cormorant, dmSans, dmMono } from "@/lib/fonts";
+import { cormorant, dmSans, dmMono, allThemeFontClasses } from "@/lib/fonts";
 import { LenisProvider } from "@/components/LenisProvider";
 import "./globals.css";
 
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${dmSans.variable} ${dmMono.variable}`}
+      className={`${cormorant.variable} ${dmSans.variable} ${dmMono.variable} ${allThemeFontClasses}`}
     >
       <body className="antialiased">
         <LenisProvider>{children}</LenisProvider>
