@@ -107,7 +107,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
     : `linear-gradient(to top, ${theme.colors.bg} 0%, transparent 40%)`;
 
   const heroTextShadow = isDarkTheme
-    ? "0 0 24px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.8)"
+    ? "0 0 20px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.8), 0 2px 6px rgba(0,0,0,0.95), 1px 1px 0 rgba(0,0,0,0.9), -1px -1px 0 rgba(0,0,0,0.9), 1px -1px 0 rgba(0,0,0,0.9), -1px 1px 0 rgba(0,0,0,0.9)"
     : undefined;
 
   const wrapperStyle: React.CSSProperties = {
@@ -192,7 +192,10 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
             </motion.h1>
             <motion.p
               className="text-lg md:text-xl mb-6 max-w-2xl"
-              style={{ color: theme.colors.textMuted, textShadow: heroTextShadow }}
+              style={{
+                color: isDarkTheme ? theme.colors.text : theme.colors.textMuted,
+                textShadow: heroTextShadow,
+              }}
               transition={{ delay: 0.2 }}
             >
               {event.tagline}
@@ -210,7 +213,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
               className="text-sm uppercase mb-8"
               style={{
                 fontFamily: "var(--theme-mono-font)",
-                color: theme.colors.textMuted,
+                color: isDarkTheme ? theme.colors.text : theme.colors.textMuted,
                 letterSpacing: "0.1em",
                 textShadow: heroTextShadow,
               }}
