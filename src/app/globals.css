@@ -145,9 +145,9 @@ body {
   animation: soiree-gold-shimmer 4s ease-in-out infinite;
 }
 
-/* Ken Burns zoom effect for event hero - subtle 1.0 → 1.03 over 15s */
+/* Ken Burns zoom effect for event hero - 1.0 → 1.04 over 20s, infinite alternate */
 .ken-burns {
-  animation: ken-burns-zoom 15s ease-out forwards;
+  animation: ken-burns-zoom 20s ease-in-out infinite alternate;
 }
 
 @keyframes ken-burns-zoom {
@@ -155,8 +155,53 @@ body {
     transform: scale(1);
   }
   to {
-    transform: scale(1.03);
+    transform: scale(1.04);
   }
+}
+
+/* Scarcity message pulse - warm glow */
+@keyframes scarcity-pulse {
+  0%, 100% {
+    text-shadow: 0 0 0 transparent;
+  }
+  50% {
+    text-shadow: 0 0 12px rgba(196, 149, 106, 0.4);
+  }
+}
+
+.scarcity-pulse {
+  animation: scarcity-pulse 2.5s ease-in-out infinite;
+}
+
+/* Breathing circle for wellness */
+@keyframes breathe-pulse {
+  0%, 100% {
+    transform: scale(0.95);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+.breathe-pulse {
+  animation: breathe-pulse 3s ease-in-out infinite;
+}
+
+/* Gold twinkle for Soirée hero */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Music theme - gold border on ticket card hover */
+.event-card-music:hover {
+  border-color: rgba(212, 175, 55, 0.5) !important;
 }
 
 /* Warm color grade on event images */

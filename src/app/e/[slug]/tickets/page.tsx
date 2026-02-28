@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { themes } from "@/lib/themes";
+import { DEMO_EVENTS } from "@/lib/demoEvents";
 import type { EventData } from "@/types/event";
 
 export default function TicketsPage() {
@@ -22,6 +23,14 @@ export default function TicketsPage() {
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
 
   useEffect(() => {
+    // Check demo events first (no network call)
+    const demoEvent = DEMO_EVENTS[slug];
+    if (demoEvent) {
+      setEvent(demoEvent);
+      setLoading(false);
+      return;
+    }
+
     fetch(`/api/events/${slug}`)
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => setEvent(data))
@@ -32,9 +41,14 @@ export default function TicketsPage() {
   const tickets = event?.tickets ?? [];
   const selectedTier = tickets[Math.max(0, Math.min(tierIndex, tickets.length - 1))];
   const theme = themes[event?.theme as keyof typeof themes] || themes.atelier;
+  const isDemo = !!DEMO_EVENTS[slug];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isDemo) {
+      setError("This is a demo event. Checkout is not available.");
+      return;
+    }
     if (!selectedTier || !form.name.trim() || !form.email.trim()) {
       setError("Please enter your name and email.");
       return;
@@ -184,9 +198,14 @@ export default function TicketsPage() {
                 </p>
               )}
 
+              {isDemo && (
+                <p className="text-sm text-center" style={{ color: theme.colors.textMuted }}>
+                  Demo event — checkout is for display only.
+                </p>
+              )}
               <button
                 type="submit"
-                disabled={submitting}
+                disabled={submitting || isDemo}
                 className="w-full py-4 font-medium tracking-wider uppercase transition-colors disabled:opacity-60"
                 style={{
                   backgroundColor: theme.colors.accent,
@@ -194,7 +213,7 @@ export default function TicketsPage() {
                   borderRadius: `${theme.buttonRadius}px`,
                 }}
               >
-                {submitting ? "Processing…" : selectedTier?.price === 0 ? "Confirm" : "Pay & confirm"}
+                {submitting ? "Processing…" : isDemo ? "Demo — no checkout" : selectedTier?.price === 0 ? "Confirm" : "Pay & confirm"}
               </button>
             </form>
           </motion.div>
