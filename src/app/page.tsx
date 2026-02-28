@@ -199,10 +199,10 @@ const THEME_DATA = [
     name: "Botanica",
     category: "Wellness",
     fontVar: "--font-cardo",
-    bg: "#F5F0E8",
+    bg: "#F2F0E8",
     text: "#2A3B2A",
     accent: "#5C7C50",
-    colors: ["#F5F0E8", "#2A3B2A", "#5C7C50", "#D4CDB8"],
+    colors: ["#F2F0E8", "#2A3B2A", "#5C7C50", "#D4CDB8"],
     desc: "Calm, organic, nature-inspired. For retreats, yoga, and mindful gatherings.",
   },
   {
@@ -221,25 +221,36 @@ const THEME_DATA = [
 const FEATURES = [
   {
     title: "AI-powered creation",
+    titleAccent: "AI-powered",
     desc: "Describe your event in plain English. Our AI writes the copy, curates the imagery, and builds a complete page in under a minute. No design skills required.",
-    image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=400&fit=crop",
   },
   {
     title: "Beautiful by default",
+    titleAccent: null,
     desc: "Five editorial themes—Atelier, Harvest, Gallery, Botanica, Soirée—each crafted for a different world. Your event looks like it belongs in a magazine.",
-    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&h=400&fit=crop",
   },
   {
     title: "Tickets built in",
+    titleAccent: null,
     desc: "Sell tickets, collect payments, and manage your guest list. No third-party tools. Everything lives in one place.",
-    image: "https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=400&fit=crop",
   },
   {
     title: "Promote with AI",
+    titleAccent: null,
     desc: "Generate social copy, email campaigns, and SEO-optimized descriptions. Share your event with confidence.",
-    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600&h=400&fit=crop",
   },
 ];
+
+const CATEGORY_COLORS: Record<string, string> = {
+  FASHION: "#C7402D",
+  FOOD: "#8B4513",
+  ART: "#111111",
+  WELLNESS: "#5C7C50",
+};
 
 const TESTIMONIALS = [
   {
@@ -341,7 +352,7 @@ export default function Home() {
             )}
             <Link
               href={user || demoMode ? "/create" : "/login"}
-              className="px-5 py-2.5 bg-[#C4956A] text-white rounded uppercase hover:bg-[#A67B52] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#C4956A]/25 transition-all duration-300 cursor-pointer"
+              className="group px-5 py-2.5 bg-[#C4956A] text-white rounded uppercase hover:bg-[#A67B52] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#C4956A]/25 transition-all duration-300 cursor-pointer"
               style={{
                 fontFamily: "var(--font-body)",
                 fontWeight: 500,
@@ -349,7 +360,7 @@ export default function Home() {
                 letterSpacing: "0.1em",
               }}
             >
-              Create Event →
+              Create Event <span className="inline-block transition-colors duration-300 group-hover:text-[#C7402D]">→</span>
             </Link>
           </div>
         </div>
@@ -392,10 +403,10 @@ export default function Home() {
             className="mt-10 flex flex-wrap gap-4"
           >
             <a
-              href="#"
-              className="px-8 py-4 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#A67B52] hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#C4956A]/25 transition-all duration-300"
+              href="/create"
+              className="group px-8 py-4 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#A67B52] hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#C4956A]/25 transition-all duration-300"
             >
-              Create Your Event →
+              Create Your Event <span className="inline-block transition-colors duration-300 group-hover:text-[#C7402D]">→</span>
             </a>
             <a
               href="#examples"
@@ -465,7 +476,9 @@ export default function Home() {
               <SectionReveal key={i} className={`${event.gridClass} min-h-0`}>
                 <motion.a
                   href={event.slug ? `/e/${event.slug}` : "#"}
-                  className="relative block group overflow-hidden rounded-sm bg-white border border-[#E8E2D9] card-shadow transition-all duration-500 hover:shadow-[0_20px_50px_rgba(26,23,20,0.12)]"
+                  className={`relative block group overflow-hidden rounded-sm bg-white border card-shadow transition-all duration-500 hover:shadow-[0_20px_50px_rgba(26,23,20,0.12)] ${
+                    event.category === "WELLNESS" ? "border-l-4 border-l-[#5C7C50] border-[#E8E2D9]" : "border-[#E8E2D9]"
+                  }`}
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
@@ -493,7 +506,11 @@ export default function Home() {
                   <div className="p-6">
                     <p
                       className="font-[family-name:var(--font-dm-mono)] uppercase mb-1"
-                      style={{ fontSize: "10px", letterSpacing: "0.15em", color: "#8C8578" }}
+                      style={{
+                        fontSize: "10px",
+                        letterSpacing: "0.15em",
+                        color: CATEGORY_COLORS[event.category] || "#8C8578",
+                      }}
                     >
                       {event.category}
                     </p>
@@ -541,7 +558,7 @@ export default function Home() {
         <div
           className="absolute inset-0 z-10"
           style={{
-            background: "linear-gradient(to bottom, rgba(250,247,242,0.5) 0%, rgba(250,247,242,0.85) 100%)",
+            background: "linear-gradient(to bottom, rgba(250,247,242,0.55) 0%, rgba(250,247,242,0.9) 100%)",
           }}
         />
         <div className="relative z-20 max-w-3xl mx-auto px-6 text-center">
@@ -559,11 +576,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-24 px-6 bg-[#FAF7F2]">
+      {/* How It Works - dark band */}
+      <section className="py-24 px-6 bg-[#1A1714]">
         <div className="max-w-5xl mx-auto">
           <SectionReveal>
-            <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl font-light text-[#1A1714] text-center mb-20">
+            <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl font-light text-[#FAF7F2] text-center mb-20">
               Three steps. Sixty seconds.
             </h2>
           </SectionReveal>
@@ -579,7 +596,7 @@ export default function Home() {
                   className="font-[family-name:var(--font-cormorant)] font-light block"
                   style={{
                     fontSize: "clamp(4rem, 8vw, 7rem)",
-                    color: "rgba(196,149,106,0.3)",
+                    color: "rgba(196,149,106,0.35)",
                   }}
                 >
                   {step.num}
@@ -589,13 +606,13 @@ export default function Home() {
                   style={{ opacity: 0.6 }}
                 />
                 <h3
-                  className="font-[family-name:var(--font-body)] font-semibold text-[#1A1714]"
+                  className="font-[family-name:var(--font-body)] font-semibold text-[#FAF7F2]"
                   style={{ fontSize: "18px" }}
                 >
                   {step.title}
                 </h3>
                 <p
-                  className="font-[family-name:var(--font-body)] font-light text-[#8C8578] mt-2 max-w-xs"
+                  className="font-[family-name:var(--font-body)] font-light text-[#E8E2D9] mt-2 max-w-xs"
                   style={{ fontSize: "15px" }}
                 >
                   {step.desc}
@@ -654,7 +671,7 @@ export default function Home() {
                 >
                   <div className="h-[120px] relative flex items-center justify-center p-4" style={{ backgroundColor: theme.bg }}>
                     <span
-                      className="text-2xl font-light"
+                      className={`text-2xl font-light ${theme.id === "soiree" ? "soiree-gold-shimmer" : ""}`}
                       style={{
                         fontFamily: `var(${theme.fontVar})`,
                         color: theme.accent,
@@ -709,8 +726,17 @@ export default function Home() {
                   <div className="flex-1 max-w-xl">
                     <div className="w-10 h-px bg-[#C4956A] mb-4" />
                     <h3 className="font-[family-name:var(--font-cormorant)] text-2xl font-light text-[#1A1714]">
-                      <span className="text-[#C4956A]">{feature.title.split(" ")[0]}</span>{" "}
-                      {feature.title.split(" ").slice(1).join(" ")}
+                      {feature.titleAccent ? (
+                        <>
+                          <span className="text-[#C7402D]">{feature.titleAccent}</span>{" "}
+                          {feature.title.split(" ").slice(1).join(" ")}
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-[#C4956A]">{feature.title.split(" ")[0]}</span>{" "}
+                          {feature.title.split(" ").slice(1).join(" ")}
+                        </>
+                      )}
                     </h3>
                     <p className="font-[family-name:var(--font-body)] text-[#8C8578] mt-4 max-w-lg leading-relaxed" style={{ lineHeight: 1.7 }}>
                       {feature.desc}
@@ -735,6 +761,29 @@ export default function Home() {
               </SectionReveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Bold color accent - editorial red break */}
+      <section className="relative flex items-center justify-center bg-[#C7402D] text-white" style={{ minHeight: "400px" }}>
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <SectionReveal>
+            <p
+              className="font-[family-name:var(--font-cormorant)] font-light italic mb-6"
+              style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", lineHeight: 1.4 }}
+            >
+              Your event deserves better than an Eventbrite page.
+            </p>
+            <p className="font-[family-name:var(--font-body)] text-white/90 text-lg mb-10">
+              Join 500+ creators who chose beauty.
+            </p>
+            <Link
+              href="/create"
+              className="group inline-flex items-center gap-2 px-8 py-4 border border-white bg-transparent text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-white hover:text-[#C7402D] transition-all duration-300"
+            >
+              Create Your Event <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </Link>
+          </SectionReveal>
         </div>
       </section>
 
@@ -809,7 +858,7 @@ export default function Home() {
                 className="mb-4 font-[family-name:var(--font-cormorant)] font-light"
                 style={{ fontSize: "clamp(5rem, 10vw, 8rem)" }}
               >
-                <span className="align-top text-[#8C8578]" style={{ fontSize: "0.5em" }}>
+                <span className="align-top" style={{ fontSize: "0.5em", color: "#D4AF37" }}>
                   $
                 </span>
                 <span className="text-[#1A1714]">9.99</span>
@@ -822,24 +871,24 @@ export default function Home() {
               </p>
               <p className="font-[family-name:var(--font-body)] text-[#1A1714] text-sm leading-relaxed max-w-md mx-auto mb-12">
                 <span>AI-generated event page</span>
-                <span className="text-[#C4956A] mx-1">·</span>
+                <span className="mx-1" style={{ color: "#5C7C50" }}>·</span>
                 <span>Unlimited ticket sales</span>
-                <span className="text-[#C4956A] mx-1">·</span>
+                <span className="mx-1" style={{ color: "#5C7C50" }}>·</span>
                 <span>Guest management & check-in</span>
-                <span className="text-[#C4956A] mx-1">·</span>
+                <span className="mx-1" style={{ color: "#5C7C50" }}>·</span>
                 <span>Promotion toolkit</span>
-                <span className="text-[#C4956A] mx-1">·</span>
+                <span className="mx-1" style={{ color: "#5C7C50" }}>·</span>
                 <span>Custom domain support</span>
-                <span className="text-[#C4956A] mx-1">·</span>
+                <span className="mx-1" style={{ color: "#5C7C50" }}>·</span>
                 <span>No monthly fees</span>
-                <span className="text-[#C4956A] mx-1">·</span>
+                <span className="mx-1" style={{ color: "#5C7C50" }}>·</span>
                 <span>No percentage of sales</span>
               </p>
               <Link
                 href="/create"
-                className="inline-block px-10 py-4 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm font-medium tracking-[0.1em] uppercase hover:bg-[#A67B52] hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#C4956A]/25 transition-all duration-300"
+                className="group inline-block px-10 py-4 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm font-medium tracking-[0.1em] uppercase hover:bg-[#A67B52] hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#C4956A]/25 transition-all duration-300"
               >
-                Create Your First Event →
+                Create Your First Event <span className="inline-block transition-colors duration-300 group-hover:text-[#C7402D]">→</span>
               </Link>
             </div>
           </SectionReveal>

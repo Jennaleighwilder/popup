@@ -125,6 +125,26 @@ body {
   width: 100%;
 }
 
+/* Soirée theme - gold shimmer on text */
+@keyframes soiree-gold-shimmer {
+  0%, 100% {
+    background: linear-gradient(90deg, #D4AF37, #F5E6B3, #D4AF37);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  50% {
+    background: linear-gradient(90deg, #F5E6B3, #D4AF37, #F5E6B3);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.soiree-gold-shimmer {
+  animation: soiree-gold-shimmer 4s ease-in-out infinite;
+}
+
 /* Ken Burns zoom effect for event hero - subtle 1.0 → 1.03 over 15s */
 .ken-burns {
   animation: ken-burns-zoom 15s ease-out forwards;
