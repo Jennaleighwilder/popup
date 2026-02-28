@@ -98,6 +98,7 @@ const SHOWCASE_EVENTS = [
     image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&h=1000&fit=crop",
     gridClass: "md:col-span-2 md:row-span-2",
     featured: true,
+    slug: "the-edit-spring-sample-sale",
   },
   {
     title: "The Long Table",
@@ -107,6 +108,7 @@ const SHOWCASE_EVENTS = [
     image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop",
     gridClass: "md:col-span-1",
     featured: false,
+    slug: null,
   },
   {
     title: "First Friday Art Walk",
@@ -116,6 +118,7 @@ const SHOWCASE_EVENTS = [
     image: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=600&h=400&fit=crop",
     gridClass: "md:col-span-1",
     featured: false,
+    slug: null,
   },
   {
     title: "Morning Rituals",
@@ -125,6 +128,7 @@ const SHOWCASE_EVENTS = [
     image: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&h=600&fit=crop",
     gridClass: "md:col-span-2 md:col-start-1",
     featured: false,
+    slug: null,
   },
 ];
 
@@ -343,7 +347,7 @@ export default function Home() {
             {SHOWCASE_EVENTS.map((event, i) => (
               <SectionReveal key={i} className={`${event.gridClass} min-h-0`}>
                 <motion.a
-                  href="#"
+                  href={event.slug ? `/e/${event.slug}` : "#"}
                   className="relative block group overflow-hidden rounded-sm bg-white border border-[#E8E2D9] card-shadow transition-all duration-500 hover:shadow-[0_20px_50px_rgba(26,23,20,0.1)]"
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}

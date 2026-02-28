@@ -83,12 +83,6 @@ function EventPageContent() {
   const theme = themes[DEMO_EVENT.theme];
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const isDark = theme.id === "soiree";
-  const buttonClass =
-    theme.buttonStyle === "filled"
-      ? `px-8 py-4 bg-[${theme.colors.accent}] text-white hover:bg-[${theme.colors.accentHover}]`
-      : `px-8 py-4 border-2 border-[${theme.colors.accent}] text-[${theme.colors.text}] hover:bg-[${theme.colors.accent}]/10`;
-
   return (
     <div
       className="min-h-screen"
@@ -117,11 +111,17 @@ function EventPageContent() {
         />
         <div className="relative z-10 px-6 md:px-12 pb-20 md:pb-24 max-w-4xl">
           <h1
-            className="text-4xl md:text-6xl lg:text-7xl font-light leading-tight mb-4"
+            className="text-4xl md:text-6xl lg:text-7xl font-light leading-tight mb-2"
             style={{ fontFamily: "var(--theme-display-font)" }}
           >
             {DEMO_EVENT.name}
           </h1>
+          <p
+            className="text-lg md:text-xl mb-6 max-w-2xl"
+            style={{ color: theme.colors.textMuted }}
+          >
+            {DEMO_EVENT.tagline}
+          </p>
           <p
             className="text-sm tracking-[0.2em] uppercase mb-8"
             style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.textMuted }}
@@ -167,24 +167,34 @@ function EventPageContent() {
           </SectionReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {DEMO_EVENT.highlights.map((h, i) => (
-              <SectionReveal key={i}>
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
                 <div
-                  className="p-8 h-full transition-shadow duration-300 hover:shadow-lg"
+                  className="p-8 h-full transition-shadow duration-300 hover:shadow-lg group"
                   style={{
                     backgroundColor: theme.colors.card,
                     border: `1px solid ${theme.colors.cardBorder}`,
                     borderRadius: `${theme.cardRadius}px`,
                   }}
                 >
+                  <div
+                    className="w-10 h-px mb-6"
+                    style={{ backgroundColor: theme.colors.accent }}
+                  />
                   <h3
                     className="text-xl font-light mb-3"
                     style={{ fontFamily: "var(--theme-display-font)" }}
                   >
                     {h.title}
                   </h3>
-                  <p style={{ color: theme.colors.textMuted }}>{h.desc}</p>
+                  <p className="max-w-[320px]" style={{ color: theme.colors.textMuted }}>{h.desc}</p>
                 </div>
-              </SectionReveal>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -201,19 +211,31 @@ function EventPageContent() {
               Featured Designers
             </h2>
           </SectionReveal>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
             {DEMO_EVENT.hosts.map((host, i) => (
-              <SectionReveal key={i}>
-                <div className="group">
+              <SectionReveal
+                key={i}
+                className={i === 0 ? "md:col-span-2" : i === 4 ? "md:col-span-2" : ""}
+              >
+                <div
+                  className="group p-6 transition-all duration-300 hover:shadow-lg h-full"
+                  style={{
+                    backgroundColor: theme.colors.card,
+                    border: `1px solid ${theme.colors.cardBorder}`,
+                    borderRadius: `${theme.cardRadius}px`,
+                  }}
+                >
                   <div
-                    className="relative aspect-square mb-4 overflow-hidden rounded-full transition-transform duration-500 group-hover:scale-105"
+                    className={`relative overflow-hidden rounded-full transition-transform duration-500 group-hover:scale-105 mb-4 aspect-square ${
+                      i === 0 || i === 4 ? "max-w-[200px]" : "max-w-[140px]"
+                    }`}
                   >
                     <Image
                       src={host.image}
                       alt={host.name}
                       fill
                       className="object-cover"
-                      sizes="(max-width: 768px) 50vw, 33vw"
+                      sizes="(max-width: 768px) 50vw, 25vw"
                     />
                   </div>
                   <h3
