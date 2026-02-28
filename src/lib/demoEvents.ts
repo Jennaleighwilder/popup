@@ -10,7 +10,7 @@ export const THEME_TO_DEMO_SLUG: Record<ThemeId, string> = {
   soiree: "golden-hour-sessions",
   brutalist: "the-edit-spring-sample-sale",
   zen: "morning-rituals",
-  maximalist: "spice-route-supper",
+  maximalist: "the-red-room",
   neon: "neon-nights",
   vintage: "the-makers-market",
 };
@@ -19,6 +19,7 @@ export const DEMO_EVENT_SLUGS = [
   "the-edit-spring-sample-sale",
   "the-long-table",
   "spice-route-supper",
+  "the-red-room",
   "first-friday-art-walk",
   "morning-rituals",
   "the-makers-market",
@@ -225,6 +226,55 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     ],
   },
 
+  "the-red-room": {
+    slug: "the-red-room",
+    name: "The Red Room",
+    tagline: "A maximalist dinner — jewel tones, velvet, and five courses of indulgence",
+    category: "food",
+    theme: "maximalist",
+    city: "London",
+    venue: "The Red Room at Claridge's",
+    address: "Brook Street, Mayfair",
+    date: "August 3, 2026",
+    time: "7:00 PM",
+    heroImage: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&h=1080&fit=crop",
+    venueImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=800&fit=crop",
+    capacity: 20,
+    highlights: [
+      { title: "Maximalist Setting", desc: "Rich reds, velvet banquettes, crystal, and layered textures" },
+      { title: "Five Courses", desc: "Indulgent tasting menu — truffle, caviar, foie gras" },
+      { title: "Champagne & Jazz", desc: "Live trio and vintage champagne throughout" },
+    ],
+    hosts: [
+      {
+        name: "Chef Valentina Rossi",
+        role: "Executive Chef",
+        bio: "Maximalist cuisine. Former El Celler de Can Roca. Now bringing bold, layered dining to London.",
+        image: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&h=400&fit=crop&crop=face",
+      },
+    ],
+    schedule: [],
+    menu: [
+      { course: "Welcome — Caviar blini, crème fraîche, chive", pairing: "Champagne" },
+      { course: "First — Foie gras torchon, brioche, fig", pairing: "Sauternes" },
+      { course: "Second — Truffle risotto, parmesan, black truffle", pairing: "Barolo 2019" },
+      { course: "Main — Wagyu beef, bone marrow, bordelaise", pairing: "Bordeaux Grand Cru" },
+      { course: "Dessert — Chocolate soufflé, gold leaf, cognac cream", pairing: "Armagnac" },
+    ],
+    whatsIncluded: ["Five-course tasting menu", "Champagne and wine pairing", "Live jazz trio", "Valet parking"],
+    whatsNotIncluded: ["Additional drinks"],
+    dietaryNote: "Vegetarian and pescatarian menus available with 48 hours notice.",
+    tickets: [
+      { name: "The Red Room", price: 285, desc: "Five courses, full pairing, champagne" },
+      { name: "Wine Optional", price: 195, desc: "Five courses, add pairing at the table" },
+    ],
+    faqs: [
+      { q: "Dress code?", a: "Black tie or formal evening wear." },
+      { q: "Cancellation?", a: "Full refund up to 72 hours before." },
+      { q: "Dietary needs?", a: "We accommodate with advance notice." },
+    ],
+  },
+
   "spice-route-supper": {
     slug: "spice-route-supper",
     name: "Spice Route Supper",
@@ -286,7 +336,7 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     date: "June 14-15, 2026",
     time: "10:00 AM – 6:00 PM",
     heroImage: "https://images.unsplash.com/photo-1761289731268-900eba5cf09f?w=1920&h=1080&fit=crop",
-    venueImage: "https://images.unsplash.com/photo-1761289731268-900eba5cf09f?w=1920&h=800&fit=crop",
+    venueImage: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=1920&h=800&fit=crop",
     highlights: [
       { title: "60+ Vendors", desc: "Ceramics, fashion, food, art, and more" },
       { title: "Live Demos", desc: "Knife-sharpening, printmaking, and craft workshops" },
@@ -336,7 +386,7 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     date: "July 19, 2026",
     time: "10:00 PM – 2:00 AM",
     heroImage: "https://images.unsplash.com/photo-1770297345741-d73ac18f6e89?w=1920&h=1080&fit=crop",
-    venueImage: "https://images.unsplash.com/photo-1770297345741-d73ac18f6e89?w=1920&h=800&fit=crop",
+    venueImage: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1920&h=800&fit=crop",
     highlights: [
       { title: "Neon Vibes", desc: "City skyline, neon signs, and late-night energy" },
       { title: "Vinyl & Digital", desc: "Resident DJs spinning house, techno, and disco" },
