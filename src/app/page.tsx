@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Shirt, Wine, Palette, Leaf, Music2, Store } from "lucide-react";
 import { themes } from "@/lib/themes";
 import { themeFontVariables } from "@/lib/fonts";
-import { getDemoSlugForTheme } from "@/lib/demoEvents";
+import { getDemoSlugForTheme, DEMO_EVENTS, DEMO_EVENT_SLUGS } from "@/lib/demoEvents";
 import type { ThemeId } from "@/lib/themes";
 
 const CATEGORIES: { id: string; label: string; subtitle: string; Icon: typeof Shirt; image: string; accent: string }[] = [
@@ -99,6 +99,38 @@ export default function Home() {
                       <p className="font-[family-name:var(--font-montserrat)] text-xs text-white/80 mt-0.5">
                         {cat.subtitle}
                       </p>
+                    </div>
+                  </motion.div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Events that feel like art — the stunning demos */}
+      <section className="py-24 px-8 md:px-16" style={{ backgroundColor: "#FAF7F2" }}>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl font-light tracking-tight mb-2" style={{ color: "#2D2A26" }}>
+            Events that feel like <span style={{ color: "#C7402D" }}>art</span>
+          </h2>
+          <p className="font-[family-name:var(--font-montserrat)] text-base mb-16 max-w-lg" style={{ color: "#8B8277" }}>
+            Explore our demo pages. Each one is a complete, editorial event experience.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {DEMO_EVENT_SLUGS.map((slug) => {
+              const ev = DEMO_EVENTS[slug];
+              if (!ev) return null;
+              return (
+                <Link key={slug} href={`/e/${slug}`} className="group block">
+                  <motion.div whileHover={{ y: -4 }} className="overflow-hidden rounded-sm" style={{ boxShadow: "0 4px 24px rgba(26,23,20,0.08)" }}>
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <img src={ev.heroImage} alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 className="font-[family-name:var(--font-cormorant)] text-xl font-medium text-white">{ev.name}</h3>
+                        <p className="text-sm text-white/90 mt-1">{ev.city} · {ev.date}</p>
+                      </div>
                     </div>
                   </motion.div>
                 </Link>

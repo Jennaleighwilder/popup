@@ -19,17 +19,25 @@ export interface EventData {
   brands?: string[];
   menu?: { course: string; pairing?: string }[];
   artistBio?: string;
-  featuredWorks?: { title: string; desc?: string }[];
+  featuredWorks?: { title: string; desc?: string; medium?: string; dimensions?: string; artist?: string; image?: string }[];
   exhibitionDates?: string;
   relatedProgramming?: { title: string; when?: string }[];
-  journey?: { step: string; desc: string }[];
+  journey?: { step: string; desc: string; image?: string }[];
   whatToBring?: string[];
   whatsProvided?: string[];
-  testimonials?: { quote: string; author?: string }[];
+  testimonials?: { quote: string; author?: string; image?: string }[];
   vendors?: { name: string; category: string; image?: string }[];
   whatsHappening?: string[];
   gettingThere?: string;
   vendorApplication?: string;
+  scarcityMessage?: string;
+  shoppingRules?: string[];
+  capacity?: number;
+  whatsIncluded?: string[];
+  whatsNotIncluded?: string[];
+  dietaryNote?: string;
+  genreTags?: string[];
+  landscapeImages?: string[];
 }
 
 export const CATEGORY_LABELS: Record<string, { people: string; schedule: string; tickets: string; faq: string; about: string }> = {
