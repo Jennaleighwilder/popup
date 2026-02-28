@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #E2D4C0;
-  --foreground: #2A2218;
-  --muted: #6B5A47;
-  --accent: #8B4513;
-  --accent-hover: #6B3410;
+  --background: #2D2420;
+  --foreground: #F5EDE4;
+  --muted: #A89070;
+  --accent: #C4A574;
+  --accent-hover: #8B2500;
   --editorial-red: #8B2500;
-  --card-bg: #EDE4D8;
-  --card-border: #B8A088;
-  --section-alt: #D9C9B4;
+  --card-bg: #3D2E28;
+  --card-border: #5C4033;
+  --section-alt: #3D2E28;
 }
 
 @theme inline {
@@ -38,8 +38,8 @@ body::after {
 
 /* Warm selection highlight - old money spice market */
 ::selection {
-  background: rgba(139, 69, 19, 0.25);
-  color: #2A2218;
+  background: rgba(196, 165, 116, 0.3);
+  color: #F5EDE4;
 }
 
 /* Custom scrollbar - rich warm-toned */
@@ -48,14 +48,14 @@ body::after {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #D9C9B4;
+  background: #2D2420;
 }
 ::-webkit-scrollbar-thumb {
-  background: #8B4513;
+  background: #5C4033;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #6B3410;
+  background: #8B2500;
 }
 
 html {
@@ -159,7 +159,7 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.4);
+  box-shadow: 0 0 0 2px rgba(196, 165, 116, 0.5);
 }
 
 /* Theme special effects (for 10-theme system) */

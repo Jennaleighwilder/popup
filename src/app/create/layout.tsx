@@ -7,7 +7,7 @@ export default function CreateLayout({
 }) {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#E2D4C0] flex items-center justify-center">
+      <div className="min-h-screen bg-[#2D2420] flex items-center justify-center">
         <div className="w-10 h-px bg-[#C4956A] animate-pulse" />
       </div>
     }>

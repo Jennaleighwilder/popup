@@ -114,7 +114,7 @@ export default function CreatePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#E2D4C0] flex items-center justify-center">
+      <div className="min-h-screen bg-[#2D2420] flex items-center justify-center">
         <p className="font-[family-name:var(--font-body)] text-[#8C8578]">Loading...</p>
       </div>
     );
@@ -122,14 +122,14 @@ export default function CreatePage() {
 
   if (!user && !demoMode) {
     return (
-      <div className="min-h-screen bg-[#E2D4C0] flex items-center justify-center">
+      <div className="min-h-screen bg-[#2D2420] flex items-center justify-center">
         <p className="font-[family-name:var(--font-body)] text-[#8C8578]">Redirecting to login...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#E2D4C0] overflow-x-hidden">
+    <div className="min-h-screen bg-[#2D2420] overflow-x-hidden">
       <div className="fixed top-6 right-6 z-40 font-[family-name:var(--font-mono)] text-xs text-[#8C8578] tracking-widest uppercase">
         {step} / 4
       </div>
@@ -142,8 +142,8 @@ export default function CreatePage() {
             exit={{ opacity: 0 }}
             className="min-h-screen flex flex-col justify-center px-6 py-24"
           >
-            <div className="w-10 h-px bg-[#C4956A] mb-8" />
-            <h1 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl font-light text-[#1A1714] mb-4 tracking-tight">
+            <div className="w-10 h-px bg-[#8B2500] mb-8" />
+            <h1 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl font-light text-[#F5EDE4] mb-4 tracking-tight">
               What will you create?
             </h1>
             <p className="font-[family-name:var(--font-body)] text-[#8C8578] text-sm tracking-widest uppercase mb-16">
@@ -160,11 +160,11 @@ export default function CreatePage() {
                     setSelectedCategory(cat.id);
                     setStep(2);
                   }}
-                  className="group p-8 text-left bg-white border border-[#B8A088] hover:border-[#C4956A] transition-all duration-300"
+                  className="group p-8 text-left bg-white border border-[#5C4033] hover:border-[#C4A574] transition-all duration-300"
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <Icon className="w-6 h-6 text-[#C4956A] mb-6 opacity-60 group-hover:opacity-100 transition-opacity" strokeWidth={1.25} />
+                  <Icon className="w-6 h-6 text-[#C4A574] mb-6 opacity-60 group-hover:opacity-100 transition-opacity" strokeWidth={1.25} />
                   <h3 className="font-[family-name:var(--font-display)] text-xl font-light text-[#1A1714]">
                     {cat.label}
                   </h3>
@@ -187,11 +187,11 @@ export default function CreatePage() {
             className="min-h-screen flex flex-col justify-center px-6 py-24"
           >
             <div className="max-w-xl mx-auto w-full">
-              <button type="button" onClick={() => setStep(1)} className="text-[#8C8578] hover:text-[#1A1714] text-sm mb-8 transition-colors">
+              <button type="button" onClick={() => setStep(1)} className="text-[#8C8578] hover:text-[#F5EDE4] text-sm mb-8 transition-colors">
                 ← Back
               </button>
-              <div className="w-10 h-px bg-[#C4956A] mb-8" />
-              <h1 className="font-[family-name:var(--font-display)] text-4xl font-light text-[#1A1714] mb-4 tracking-tight">
+              <div className="w-10 h-px bg-[#8B2500] mb-8" />
+              <h1 className="font-[family-name:var(--font-display)] text-4xl font-light text-[#F5EDE4] mb-4 tracking-tight">
                 The details
               </h1>
               <p className="font-[family-name:var(--font-body)] text-[#8C8578] text-sm tracking-widest uppercase mb-12">
@@ -205,7 +205,7 @@ export default function CreatePage() {
                   <button
                     type="button"
                     onClick={() => setFormData((f) => ({ ...f, aiName: !f.aiName }))}
-                    className={`w-12 h-6 rounded-full transition-colors ${formData.aiName ? "bg-[#C4956A]" : "bg-[#E8E2D9]"}`}
+                    className={`w-12 h-6 rounded-full transition-colors ${formData.aiName ? "bg-[#8B2500]" : "bg-[#5C4033]"}`}
                   >
                     <motion.div
                       className="w-5 h-5 rounded-full bg-white shadow"
@@ -222,7 +222,7 @@ export default function CreatePage() {
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData((f) => ({ ...f, name: e.target.value }))}
-                      className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                      className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
                       placeholder="My Amazing Event"
                     />
                   </div>
@@ -234,7 +234,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.tagline}
                     onChange={(e) => setFormData((f) => ({ ...f, tagline: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
                     placeholder="Three days of designer fashion at up to 70% off"
                   />
                 </div>
@@ -245,7 +245,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.city}
                     onChange={(e) => setFormData((f) => ({ ...f, city: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
                     placeholder="New York"
                     required
                   />
@@ -258,7 +258,7 @@ export default function CreatePage() {
                       type="date"
                       value={formData.dateStart}
                       onChange={(e) => setFormData((f) => ({ ...f, dateStart: e.target.value }))}
-                      className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                      className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
                       required
                     />
                   </div>
@@ -268,7 +268,7 @@ export default function CreatePage() {
                       type="date"
                       value={formData.dateEnd}
                       onChange={(e) => setFormData((f) => ({ ...f, dateEnd: e.target.value }))}
-                      className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                      className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
                     />
                   </div>
                 </div>
@@ -279,7 +279,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.time}
                     onChange={(e) => setFormData((f) => ({ ...f, time: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
                     placeholder="10:00 AM - 7:00 PM"
                     required
                   />
@@ -291,7 +291,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.venue}
                     onChange={(e) => setFormData((f) => ({ ...f, venue: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
                     placeholder="The Loft on Spring"
                   />
                 </div>
@@ -302,7 +302,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.address}
                     onChange={(e) => setFormData((f) => ({ ...f, address: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
                     placeholder="161 Spring Street, SoHo"
                   />
                 </div>
@@ -316,7 +316,7 @@ export default function CreatePage() {
                     step={10}
                     value={formData.capacity}
                     onChange={(e) => setFormData((f) => ({ ...f, capacity: parseInt(e.target.value) }))}
-                    className="w-full accent-[#C4956A]"
+                    className="w-full accent-[#C4A574]"
                   />
                 </div>
 
@@ -329,7 +329,7 @@ export default function CreatePage() {
                         type="button"
                         onClick={() => setFormData((f) => ({ ...f, vibe: v }))}
                         className={`px-4 py-2 text-sm font-[family-name:var(--font-body)] transition-colors ${
-                          formData.vibe === v ? "bg-[#C4956A] text-white" : "bg-white border border-[#B8A088] text-[#1A1714] hover:border-[#C4956A]"
+                          formData.vibe === v ? "bg-[#8B2500] text-white" : "bg-white border border-[#5C4033] text-[#1A1714] hover:border-[#C4A574]"
                         }`}
                       >
                         {v}
@@ -343,7 +343,7 @@ export default function CreatePage() {
                   <textarea
                     value={formData.extra}
                     onChange={(e) => setFormData((f) => ({ ...f, extra: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A] min-h-[100px]"
+                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574] min-h-[100px]"
                     placeholder="Additional notes for your event..."
                   />
                 </div>
@@ -357,7 +357,7 @@ export default function CreatePage() {
                   }}
                   onMouseDown={(e) => e.stopPropagation()}
                   disabled={isGenerating}
-                  className="w-full px-8 py-4 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#A67B52] disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
+                  className="w-full px-8 py-4 bg-[#8B2500] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#6B1D00] disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
                   style={{ touchAction: "manipulation" }}
                 >
                   {isGenerating ? "Creating..." : "Create my event →"}
@@ -375,7 +375,7 @@ export default function CreatePage() {
             exit={{ opacity: 0 }}
             className="min-h-screen flex flex-col justify-center items-center px-6 py-24"
           >
-            <div className="w-10 h-px bg-[#C4956A] mb-12" />
+            <div className="w-10 h-px bg-[#8B2500] mb-12" />
             <h1 className="font-[family-name:var(--font-display)] text-3xl md:text-4xl font-light text-[#1A1714] mb-16 tracking-tight">
               Creating your event
             </h1>
@@ -385,20 +385,20 @@ export default function CreatePage() {
                   key={stage.id}
                   className={`flex items-center gap-6 transition-all duration-300 ${i <= generatingStage ? "opacity-100" : "opacity-30"}`}
                 >
-                  <div className={`w-8 h-8 flex items-center justify-center flex-shrink-0 border transition-colors ${i < generatingStage ? "border-[#C4956A] bg-[#C4956A]" : "border-[#B8A088]"}`}>
+                  <div className={`w-8 h-8 flex items-center justify-center flex-shrink-0 border transition-colors ${i < generatingStage ? "border-[#C4A574] bg-[#8B2500]" : "border-[#5C4033]"}`}>
                     {i < generatingStage ? (
                       <Check className="w-4 h-4 text-white" strokeWidth={2.5} />
                     ) : (
-                      <div className="w-1.5 h-1.5 bg-[#E8E2D9]" />
+                      <div className="w-1.5 h-1.5 bg-[#5C4033]" />
                     )}
                   </div>
                   <span className="font-[family-name:var(--font-body)] text-[#1A1714] tracking-wide">{stage.label}</span>
                 </div>
               ))}
             </div>
-            <div className="w-full max-w-sm h-px bg-[#E8E2D9] mt-16 overflow-hidden">
+            <div className="w-full max-w-sm h-px bg-[#5C4033] mt-16 overflow-hidden">
               <motion.div
-                className="h-full bg-[#C4956A]"
+                className="h-full bg-[#8B2500]"
                 initial={{ width: "0%" }}
                 animate={{ width: `${((generatingStage + 1) / GENERATING_STAGES.length) * 100}%` }}
                 transition={{ duration: 0.5 }}
@@ -417,9 +417,9 @@ export default function CreatePage() {
           >
             {generatedEvent ? (
               <>
-                <div className="fixed top-0 left-0 right-0 z-50 bg-[#E2D4C0]/95 backdrop-blur-sm border-b border-[#B8A088] px-6 py-4 flex items-center justify-between">
+                <div className="fixed top-0 left-0 right-0 z-50 bg-[#2D2420]/95 backdrop-blur-sm border-b border-[#5C4033] px-6 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-6">
-                    <Link href="/dashboard" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
+                    <Link href="/dashboard" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#F5EDE4]">
                       ← Dashboard
                     </Link>
                     <span className="font-[family-name:var(--font-mono)] text-xs text-[#8C8578]">Preview</span>
@@ -428,16 +428,16 @@ export default function CreatePage() {
                     <Link
                       href={`/edit/${generatedEvent.slug}`}
                       onClick={() => saveDraftEvent(generatedEvent)}
-                      className="px-4 py-2 border border-[#B8A088] font-[family-name:var(--font-body)] text-sm hover:border-[#C4956A] transition-colors"
+                      className="px-4 py-2 border border-[#5C4033] font-[family-name:var(--font-body)] text-sm hover:border-[#C4A574] transition-colors"
                     >
                       Edit
                     </Link>
-                    <span className="px-4 py-2 border border-[#B8A088] font-[family-name:var(--font-body)] text-sm text-[#8C8578]">
+                    <span className="px-4 py-2 border border-[#5C4033] font-[family-name:var(--font-body)] text-sm text-[#8C8578]">
                       Change Theme
                     </span>
                     <Link
                       href={`/publish/${generatedEvent.slug}`}
-                      className="px-6 py-2 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#A67B52] transition-colors"
+                      className="px-6 py-2 bg-[#8B2500] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#6B1D00] transition-colors"
                     >
                       Publish →
                     </Link>
@@ -451,13 +451,13 @@ export default function CreatePage() {
               </>
             ) : (
               <div className="min-h-screen flex flex-col items-center justify-center px-6">
-                <div className="w-10 h-px bg-[#C4956A] mb-8" />
-                <h1 className="font-[family-name:var(--font-display)] text-2xl font-light text-[#1A1714] mb-4">Something went wrong</h1>
+                <div className="w-10 h-px bg-[#8B2500] mb-8" />
+                <h1 className="font-[family-name:var(--font-display)] text-2xl font-light text-[#F5EDE4] mb-4">Something went wrong</h1>
                 <p className="font-[family-name:var(--font-body)] text-[#8C8578] text-sm mb-8">Your event could not be generated. Please try again.</p>
                 <button
                   type="button"
                   onClick={() => { setStep(2); setGeneratedEvent(null); setError(""); }}
-                  className="px-8 py-4 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#A67B52]"
+                  className="px-8 py-4 bg-[#8B2500] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase hover:bg-[#6B1D00]"
                 >
                   Try again
                 </button>

@@ -30,29 +30,29 @@ const THEME_PREVIEWS: Record<ThemeId, { image: string; tagline: string }> = {
   brutalist: { image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&h=600&fit=crop", tagline: "Dark. Bold. Editorial." },
   zen: { image: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&h=1000&fit=crop", tagline: "Wabi-sabi. Vast space. Calm." },
   maximalist: { image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=600&fit=crop", tagline: "Rich. Deep. Joyful." },
-  neon: { image: "https://images.unsplash.com/photo-1557683316-973673baf926?w=800&h=1000&fit=crop", tagline: "Electric nights. Glow. Energy." },
-  vintage: { image: "https://images.unsplash.com/photo-1531685250784-7569952593d2?w=800&h=600&fit=crop", tagline: "Aged paper. Spice market. Craft." },
+  neon: { image: "https://images.unsplash.com/photo-1770297345741-d73ac18f6e89?w=800&h=1000&fit=crop", tagline: "Electric nights. Glow. Energy." },
+  vintage: { image: "https://images.unsplash.com/photo-1761289731268-900eba5cf09f?w=800&h=600&fit=crop", tagline: "Aged paper. Spice market. Craft." },
 };
 
 export default function Home() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#D9C9B4" }}>
-      <header className="border-b px-6 py-5 flex items-center justify-between" style={{ borderColor: "#B8A088" }}>
-        <span className="font-[family-name:var(--font-cormorant)] text-2xl font-light" style={{ color: "#2A2218" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "#2D2420" }}>
+      <header className="border-b px-6 py-5 flex items-center justify-between" style={{ borderColor: "#5C4033" }}>
+        <span className="font-[family-name:var(--font-cormorant)] text-2xl font-light" style={{ color: "#F5EDE4" }}>
           Popup
         </span>
         <div className="flex items-center gap-6">
           <Link
             href="/login"
             className="font-[family-name:var(--font-montserrat)] text-sm tracking-wide hover:opacity-80 transition-opacity"
-            style={{ color: "#6B5A47" }}
+            style={{ color: "#C4A574" }}
           >
             Sign in
           </Link>
           <Link
             href="/create"
             className="px-5 py-2.5 font-[family-name:var(--font-montserrat)] text-sm tracking-widest uppercase transition-colors hover:opacity-90"
-            style={{ backgroundColor: "#6B3410", color: "#FFF" }}
+            style={{ backgroundColor: "#8B2500", color: "#FFF" }}
           >
             Create event
           </Link>
@@ -62,13 +62,13 @@ export default function Home() {
       {/* OPENER — Old money spice market: rich, saturated */}
       <section className="relative min-h-[88vh] flex flex-col justify-center px-8 md:px-16 py-20">
         <div className="max-w-4xl">
-          <p className="font-[family-name:var(--font-cormorant)] text-lg italic mb-6" style={{ color: "#6B3410" }}>
+          <p className="font-[family-name:var(--font-cormorant)] text-lg italic mb-6" style={{ color: "#C4A574" }}>
             The details are not the details. They make the design.
           </p>
-          <h1 className="font-[family-name:var(--font-cormorant)] text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-[1.1] mb-4" style={{ color: "#2A2218" }}>
+          <h1 className="font-[family-name:var(--font-cormorant)] text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-[1.1] mb-4" style={{ color: "#F5EDE4" }}>
             What will you create?
           </h1>
-          <p className="font-[family-name:var(--font-dm-mono)] text-xs tracking-[0.3em] uppercase mb-14" style={{ color: "#6B5A47" }}>
+          <p className="font-[family-name:var(--font-dm-mono)] text-xs tracking-[0.3em] uppercase mb-14" style={{ color: "#A89070" }}>
             Select a category
           </p>
 
@@ -110,12 +110,12 @@ export default function Home() {
       </section>
 
       {/* Events that feel like art — old money spice market */}
-      <section className="py-24 px-8 md:px-16" style={{ backgroundColor: "#E2D4C0" }}>
+      <section className="py-24 px-8 md:px-16" style={{ backgroundColor: "#3D2E28" }}>
         <div className="max-w-6xl mx-auto">
-          <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl font-light tracking-tight mb-2" style={{ color: "#2A2218" }}>
-            Events that feel like <span style={{ color: "#8B2500" }}>art</span>
+          <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl font-light tracking-tight mb-2" style={{ color: "#F5EDE4" }}>
+            Events that feel like <span style={{ color: "#C4A574" }}>art</span>
           </h2>
-          <p className="font-[family-name:var(--font-montserrat)] text-base mb-16 max-w-lg" style={{ color: "#6B5A47" }}>
+          <p className="font-[family-name:var(--font-montserrat)] text-base mb-16 max-w-lg" style={{ color: "#A89070" }}>
             Explore our demo pages. Each one is a complete, editorial event experience.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -142,12 +142,12 @@ export default function Home() {
       </section>
 
       {/* Ten worlds — rich editorial grid */}
-      <section className="py-24 px-8 md:px-16" style={{ backgroundColor: "#D9C9B4" }}>
+      <section className="py-24 px-8 md:px-16" style={{ backgroundColor: "#2D2420" }}>
         <div className="max-w-6xl mx-auto">
-          <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl font-light tracking-tight mb-2" style={{ color: "#2A2218" }}>
-            Ten worlds. <span style={{ color: "#6B3410" }}>One platform.</span>
+          <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl font-light tracking-tight mb-2" style={{ color: "#F5EDE4" }}>
+            Ten worlds. <span style={{ color: "#C4A574" }}>One platform.</span>
           </h2>
-          <p className="font-[family-name:var(--font-montserrat)] text-base mb-16 max-w-lg" style={{ color: "#6B5A47" }}>
+          <p className="font-[family-name:var(--font-montserrat)] text-base mb-16 max-w-lg" style={{ color: "#A89070" }}>
             Pick a theme. Your page transforms.
           </p>
 
