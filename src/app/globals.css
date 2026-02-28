@@ -26,13 +26,20 @@ body::after {
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.02;
+  opacity: 0.015;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Warm image filter - subtle cohesion across all photos */
+.popup-warm-image,
+.popup-warm-image img {
+  filter: sepia(0.03) saturate(1.05);
 }
 
 /* Warm selection highlight */
 ::selection {
-  background: rgba(196, 149, 106, 0.25);
+  background: rgba(196, 149, 106, 0.2);
+  color: #1A1714;
 }
 
 /* Custom scrollbar - thin, warm-toned */
@@ -44,11 +51,15 @@ body::after {
   background: #FAF7F2;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(196, 149, 106, 0.3);
+  background: #C4956A;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(196, 149, 106, 0.5);
+  background: #A67B52;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -57,7 +68,7 @@ body {
   font-family: var(--font-body), system-ui, sans-serif;
 }
 
-/* Category pills infinite drift */
+/* Category pills infinite drift - row 1 left to right (actually moves content left) */
 @keyframes drift-left {
   0% {
     transform: translateX(0);
@@ -67,8 +78,22 @@ body {
   }
 }
 
-.animate-drift {
-  animation: drift-left 40s linear infinite;
+.animate-drift-row1 {
+  animation: drift-left 60s linear infinite;
+}
+
+/* Row 2 - right to left */
+@keyframes drift-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-drift-row2 {
+  animation: drift-right 60s linear infinite;
 }
 
 /* Warm card shadow */
