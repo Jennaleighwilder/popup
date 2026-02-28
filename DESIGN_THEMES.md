@@ -31,9 +31,9 @@ This document describes the visual intent and design system for each of the 10 t
 - **Buttons:** Outlined, square corners
 
 ### Harvest
-- **Colors:** Warm cream (#F7F3ED), sienna (#8B4513), olive (#556B2F)
+- **Colors:** Rich cream (#EDE4D8), deep sienna (#6B3410), olive (#4A6B3A) — spice market meets Vogue
 - **Fonts:** Playfair Display, Lato, Courier Prime
-- **Feel:** Farm-to-table warmth, botanical dividers
+- **Feel:** Farm-to-table warmth, spice route, editorial
 - **Hero:** Split layout, organic flow
 - **Buttons:** Filled, rounded (4px)
 
@@ -60,10 +60,10 @@ This document describes the visual intent and design system for each of the 10 t
 - **Special:** Genre tags, testimonials on dark background
 
 ### Brutalist
-- **Colors:** White (#FFFFFF), black (#000000), orange accent (#FF3B00)
+- **Colors:** Deep charcoal (#0D0D0D), black (#1A1A1A), orange accent (#FF3B00)
 - **Fonts:** Space Grotesk, JetBrains Mono
-- **Feel:** Raw, bold, typographic, industrial
-- **Hero:** Typographic, uppercase headings
+- **Feel:** Raw, bold, typographic, editorial dark
+- **Hero:** Typographic, uppercase headings, dark gradient
 - **Special effects:** Uppercase headings, bordered sections, overlapping elements
 - **Buttons:** Filled, square, thick borders
 
@@ -76,10 +76,10 @@ This document describes the visual intent and design system for each of the 10 t
 - **Buttons:** Outlined, subtle radius (2px)
 
 ### Maximalist
-- **Colors:** Cream (#FFF8E7), red (#E63946), blue (#2D5F8A), purple (#6B4C9A)
+- **Colors:** Deep espresso (#2D1B0E), warm brown (#3D2818), red accent (#E63946), blue (#2D5F8A), purple (#8B5A9E)
 - **Fonts:** Abril Fatface, Work Sans, Fira Mono
-- **Feel:** Rich, layered, joyful chaos, pattern backgrounds
-- **Hero:** Collage style
+- **Feel:** Rich, layered, joyful chaos, high-end editorial
+- **Hero:** Collage style, dark warm gradient
 - **Special effects:** Colored sections, rotated cards, pattern backgrounds, multi-color text
 - **Buttons:** Filled, very rounded (50px)
 
@@ -92,9 +92,9 @@ This document describes the visual intent and design system for each of the 10 t
 - **Buttons:** Filled, rounded (8px)
 
 ### Vintage
-- **Colors:** Aged paper (#F4ECD8), burgundy (#8B0000), forest (#1B4D3E)
+- **Colors:** Rich aged paper (#E5D4B8), deeper cream (#D4C4A8), burgundy (#8B2500), forest (#1B4D3E)
 - **Fonts:** Libre Baskerville, Source Serif 4, Courier Prime
-- **Feel:** Nostalgia, warmth, handmade, craft
+- **Feel:** Nostalgia, warmth, handmade, spice market craft
 - **Hero:** Editorial with ornament dividers
 - **Special effects:** Film grain, sepia images, typewriter mono, aged paper texture
 - **Buttons:** Outlined, subtle radius (2px)

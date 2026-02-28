@@ -4,7 +4,7 @@ import type { ThemeId } from "@/lib/themes";
 /** Map theme IDs to demo slugs — theme cards link to these demos */
 export const THEME_TO_DEMO_SLUG: Record<ThemeId, string> = {
   atelier: "the-edit-spring-sample-sale",
-  harvest: "the-long-table",
+  harvest: "spice-route-supper",
   gallery: "first-friday-art-walk",
   botanica: "morning-rituals",
   soiree: "golden-hour-sessions",
@@ -18,6 +18,7 @@ export const THEME_TO_DEMO_SLUG: Record<ThemeId, string> = {
 export const DEMO_EVENT_SLUGS = [
   "the-edit-spring-sample-sale",
   "the-long-table",
+  "spice-route-supper",
   "first-friday-art-walk",
   "morning-rituals",
   "the-makers-market",
@@ -68,7 +69,7 @@ export const DEMO_EVENTS: Record<string, EventData> = {
   "the-long-table": {
     slug: "the-long-table",
     name: "The Long Table",
-    tagline: "A five-course journey through the south of France",
+    tagline: "A five-course journey through Provence — spice route meets Vogue",
     category: "food",
     theme: "harvest",
     city: "London",
@@ -76,13 +77,13 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     address: "Leake Street, Waterloo",
     date: "June 8, 2026",
     time: "7:00 PM",
-    heroImage: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&h=1080&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1920&h=1080&fit=crop",
     venueImage: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&h=800&fit=crop",
     capacity: 32,
     highlights: [
-      { title: "Five Courses", desc: "A curated tasting menu inspired by Provence and the Côte d'Azur" },
-      { title: "Wine Pairing", desc: "Sommelier-selected wines with each course" },
-      { title: "Intimate Setting", desc: "32 guests at one long table in an unexpected space" },
+      { title: "Five Courses", desc: "Saffron, cardamom, sumac — a curated tasting menu along the spice route" },
+      { title: "Wine Pairing", desc: "Sommelier-selected wines: Sancerre, Chablis, Châteauneuf-du-Pape" },
+      { title: "Intimate Setting", desc: "32 guests at one long table. Editorial. Unforgettable." },
     ],
     hosts: [
       {
@@ -94,11 +95,11 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     ],
     schedule: [],
     menu: [
-      { course: "Amuse-bouche — Goat cheese mousse, lavender honey, toasted walnut", pairing: "Crémant de Loire" },
-      { course: "Starter — Roasted beet carpaccio, burrata, aged balsamic, micro herbs", pairing: "Sancerre 2023" },
-      { course: "Fish — Pan-seared sea bass, fennel purée, saffron beurre blanc", pairing: "Chablis Premier Cru" },
-      { course: "Main — Slow-braised lamb shoulder, ratatouille, rosemary jus", pairing: "Châteauneuf-du-Pape 2019" },
-      { course: "Dessert — Dark chocolate fondant, crème anglaise, salted caramel", pairing: "Muscat de Beaumes-de-Venise" },
+      { course: "Amuse-bouche — Goat cheese mousse, lavender honey, toasted walnut, saffron thread", pairing: "Crémant de Loire" },
+      { course: "Starter — Roasted beet carpaccio, burrata, aged balsamic, sumac, micro herbs", pairing: "Sancerre 2023" },
+      { course: "Fish — Pan-seared sea bass, fennel purée, saffron beurre blanc, cardamom oil", pairing: "Chablis Premier Cru" },
+      { course: "Main — Slow-braised lamb shoulder, ratatouille, rosemary jus, harissa", pairing: "Châteauneuf-du-Pape 2019" },
+      { course: "Dessert — Dark chocolate fondant, crème anglaise, salted caramel, star anise", pairing: "Muscat de Beaumes-de-Venise" },
     ],
     whatsIncluded: ["Five-course tasting menu", "Wine pairing with each course", "Welcome cocktail", "Amuse-bouche", "After-dinner digestif"],
     whatsNotIncluded: ["Additional drinks from the bar"],
@@ -220,6 +221,55 @@ export const DEMO_EVENTS: Record<string, EventData> = {
       { q: "Do I need yoga experience?", a: "No. All levels welcome. The practice is gentle and adaptable." },
       { q: "What should I wear?", a: "Comfortable layers. Desert mornings are cool; it warms up by 10." },
       { q: "Is food provided?", a: "Yes. Light breakfast and ceremonial cacao are included." },
+    ],
+  },
+
+  "spice-route-supper": {
+    slug: "spice-route-supper",
+    name: "Spice Route Supper",
+    tagline: "An evening of saffron, sumac, and stories — high-end dining meets editorial",
+    category: "food",
+    theme: "harvest",
+    city: "New York",
+    venue: "The Spice Room at One Vanderbilt",
+    address: "1 Vanderbilt Ave, Midtown",
+    date: "July 12, 2026",
+    time: "7:30 PM",
+    heroImage: "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=1920&h=1080&fit=crop",
+    venueImage: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&h=800&fit=crop",
+    capacity: 24,
+    highlights: [
+      { title: "Spice-First Menu", desc: "Saffron, cardamom, sumac, harissa — each course tells a story" },
+      { title: "Chef's Table", desc: "24 seats. One long table. The chef at the helm." },
+      { title: "Wine & Spice", desc: "Sommelier pairings chosen to elevate every spice note" },
+    ],
+    hosts: [
+      {
+        name: "Chef Amira Hassan",
+        role: "Executive Chef",
+        bio: "Former Noma, Copenhagen. Now bringing the spice route to Manhattan. Michelin-recognized.",
+        image: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&h=400&fit=crop&crop=face",
+      },
+    ],
+    schedule: [],
+    menu: [
+      { course: "Welcome — Chai-spiced amuse, cardamom shortbread", pairing: "Champagne" },
+      { course: "First — Tuna crudo, sumac, za'atar, preserved lemon", pairing: "Assyrtiko, Santorini" },
+      { course: "Second — Saffron risotto, bone marrow, crispy sage", pairing: "Barolo 2018" },
+      { course: "Main — Spiced lamb, harissa, pomegranate, mint", pairing: "Syrah, Rhône" },
+      { course: "Dessert — Rosewater panna cotta, pistachio, honey", pairing: "Moscato d'Asti" },
+    ],
+    whatsIncluded: ["Five-course tasting menu", "Wine pairing", "Welcome cocktail", "Spice market gift bag"],
+    whatsNotIncluded: ["Additional drinks"],
+    dietaryNote: "Vegetarian and pescatarian menus available with 48 hours notice.",
+    tickets: [
+      { name: "Chef's Table", price: 195, desc: "Five courses, full wine pairing, gift bag" },
+      { name: "Wine Optional", price: 145, desc: "Five courses, add wine pairing at the table" },
+    ],
+    faqs: [
+      { q: "Dress code?", a: "Smart casual. No shorts or sportswear." },
+      { q: "Cancellation?", a: "Full refund up to 72 hours before." },
+      { q: "Dietary needs?", a: "We accommodate with advance notice." },
     ],
   },
 

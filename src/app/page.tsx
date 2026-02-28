@@ -22,15 +22,15 @@ const ALL_THEME_IDS: ThemeId[] = ["atelier", "harvest", "gallery", "botanica", "
 /** Each theme gets a UNIQUE image — no repetition, Vogue editorial feel */
 const THEME_PREVIEWS: Record<ThemeId, { image: string; tagline: string }> = {
   atelier: { image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=1000&fit=crop", tagline: "Luxury fashion. Editorial elegance." },
-  harvest: { image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=800&h=600&fit=crop", tagline: "Farm-to-table. Warm and inviting." },
+  harvest: { image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&h=600&fit=crop", tagline: "Spice route meets Vogue. High-end dining." },
   gallery: { image: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=800&h=1000&fit=crop", tagline: "White walls. Minimal. Precise." },
   botanica: { image: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&h=600&fit=crop", tagline: "Wellness. Nature. Organic flow." },
   soiree: { image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&h=1000&fit=crop", tagline: "Dark. Gold. Intimate nights." },
-  brutalist: { image: "https://images.unsplash.com/photo-1513584684374-8b748c0e6c4a?w=800&h=600&fit=crop", tagline: "Raw. Bold. Unapologetic." },
+  brutalist: { image: "https://images.unsplash.com/photo-1513584684374-8b748c0e6c4a?w=800&h=600&fit=crop", tagline: "Dark. Bold. Editorial." },
   zen: { image: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&h=1000&fit=crop", tagline: "Wabi-sabi. Vast space. Calm." },
-  maximalist: { image: "https://images.unsplash.com/photo-1513519245088-0e12902e35a6?w=800&h=600&fit=crop", tagline: "Rich. Layered. Joyful chaos." },
+  maximalist: { image: "https://images.unsplash.com/photo-1513519245088-0e12902e35a6?w=800&h=600&fit=crop", tagline: "Rich. Deep. Joyful." },
   neon: { image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=1000&fit=crop", tagline: "Electric nights. Glow. Energy." },
-  vintage: { image: "https://images.unsplash.com/photo-1531685250784-7569952593d2?w=800&h=600&fit=crop", tagline: "Nostalgia. Warmth. Handmade." },
+  vintage: { image: "https://images.unsplash.com/photo-1531685250784-7569952593d2?w=800&h=600&fit=crop", tagline: "Aged paper. Spice market. Craft." },
 };
 
 export default function Home() {

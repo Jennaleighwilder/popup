@@ -85,7 +85,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
     window.open(url, "_blank");
   };
 
-  const heroGradient = cat === "music" ? "linear-gradient(to top, #0D0D0D 0%, transparent 40%)" : `linear-gradient(to top, ${theme.colors.bg} 0%, transparent 40%)`;
+  const heroGradient = `linear-gradient(to top, ${theme.colors.bg} 0%, transparent 40%)`;
 
   const highlights = event.highlights ?? [];
   const hosts = event.hosts ?? [];
@@ -97,18 +97,25 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
   const journey = event.journey ?? [];
   const vendors = event.vendors ?? [];
 
+  const themeId = themeOverride || event.theme || "";
+  const isBrutalist = themeId === "brutalist";
+  const isMaximalist = themeId === "maximalist";
+  const isVintage = themeId === "vintage";
+
   const wrapperStyle: React.CSSProperties = {
     fontFamily: "var(--theme-body-font)",
     color: theme.colors.text,
     lineHeight: 1.7,
-    ...(cat === "music" && {
+    ...(cat === "music" && !isBrutalist && !isMaximalist && {
       background: "linear-gradient(to bottom, #0D0D0D 0%, #1A1510 100%)",
       minHeight: "100vh",
     }),
+    ...(isBrutalist && { background: theme.colors.bg, minHeight: "100vh" }),
+    ...(isMaximalist && { background: `linear-gradient(to bottom, ${theme.colors.bg} 0%, ${theme.colors.bgAlt} 100%)`, minHeight: "100vh" }),
   };
 
   return (
-    <div className="min-h-screen" style={wrapperStyle}>
+    <div className={`min-h-screen ${isBrutalist ? "theme-uppercase-headings" : ""}`} style={wrapperStyle}>
       {/* Nav - Popup wordmark */}
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
         <Link href="/" className="font-light italic" style={{ fontFamily: "var(--theme-display-font)", fontSize: "24px", color: theme.colors.text }}>
@@ -123,13 +130,14 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
         </div>
         <div className="absolute inset-0" style={{ background: heroGradient }} />
         {cat === "wellness" && <div className="absolute inset-0 pointer-events-none wellness-hero-pattern" />}
-        {cat === "music" && (
+        {cat === "music" && !isBrutalist && (
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
             {[...Array(5)].map((_, i) => (
               <span
                 key={i}
-                className="absolute w-2 h-2 rounded-full bg-[#D4AF37]"
+                className="absolute w-2 h-2 rounded-full"
                 style={{
+                  backgroundColor: theme.colors.accent,
                   left: `${15 + i * 20}%`,
                   top: `${20 + (i % 3) * 25}%`,
                   animation: `twinkle ${2 + i * 0.5}s ease-in-out infinite`,
@@ -188,7 +196,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
       </section>
 
       {/* Gradient transition zone */}
-      <div className="h-20" style={{ background: cat === "music" ? "linear-gradient(to bottom, transparent, #1A1510)" : `linear-gradient(to bottom, transparent, ${theme.colors.bgAlt})` }} />
+      <div className="h-20" style={{ background: `linear-gradient(to bottom, transparent, ${theme.colors.bgAlt})` }} />
 
       {/* Sticky ticket CTA - appears after hero, hides when tickets in view */}
       {stickyVisible && !ticketsInView && (
@@ -208,7 +216,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
           <a
             href="#tickets"
             className="px-6 py-3 font-medium tracking-wider uppercase shrink-0"
-            style={{ backgroundColor: theme.colors.accent, color: cat === "music" ? "#0D0D0D" : "white", borderRadius: `${theme.buttonRadius}px` }}
+            style={{ backgroundColor: theme.colors.accent, color: isBrutalist ? "#0D0D0D" : "white", borderRadius: `${theme.buttonRadius}px` }}
           >
             {getCtaLabel(cat)} →
           </a>
@@ -216,14 +224,14 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
       )}
 
       {/* About / Highlights */}
-      <section id="experience" className={`px-6 ${cat === "art" ? "py-[140px]" : "section-luxury"}`} style={{ backgroundColor: theme.colors.bgAlt }}>
+      <section id="experience" className={`px-6 ${cat === "art" ? "py-[140px]" : "section-luxury"} ${isBrutalist ? "theme-uppercase-headings" : ""}`} style={{ backgroundColor: theme.colors.bgAlt }}>
         <div className="max-w-[1200px] mx-auto">
           <SectionReveal><h2 className="font-light mb-16" style={{ fontFamily: "var(--theme-display-font)", fontSize: "clamp(2rem, 4vw, 4rem)", ...(cat === "music" && { background: "linear-gradient(135deg, #D4AF37, #F5E6A3, #D4AF37)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }) }}>{labels.about}</h2></SectionReveal>
           <div className={`grid grid-cols-1 gap-8 ${cat === "music" ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
             {highlights.map((h, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}>
-                <div className="p-8 h-full transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_12px_40px_rgba(26,23,20,0.08)]" style={{ backgroundColor: theme.colors.card, border: `1px solid ${theme.colors.cardBorder}`, borderRadius: `${theme.cardRadius}px`, ...(cat === "wellness" && { borderLeft: "4px solid #5C7C50" }), ...(cat === "music" && { borderColor: "rgba(212,175,55,0.25)", borderLeft: "3px solid #D4AF37" }), ...(cat === "food" && { borderLeft: "4px solid #722F37" }) }}>
-                  <div className="w-10 h-px mb-6" style={{ backgroundColor: cat === "wellness" ? "#5C7C50" : cat === "food" ? "#722F37" : theme.colors.accent }} />
+                <div className="p-8 h-full transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_12px_40px_rgba(26,23,20,0.08)]" style={{ backgroundColor: theme.colors.card, border: `1px solid ${theme.colors.cardBorder}`, borderRadius: `${theme.cardRadius}px`, ...(cat === "wellness" && { borderLeft: `4px solid ${theme.colors.accent}` }), ...(cat === "music" && !isBrutalist && { borderColor: "rgba(212,175,55,0.25)", borderLeft: "3px solid #D4AF37" }), ...(cat === "food" && { borderLeft: `4px solid ${theme.colors.accent}` }) }}>
+                  <div className="w-10 h-px mb-6" style={{ backgroundColor: theme.colors.accent }} />
                   <h3 className="text-xl font-light mb-3" style={{ fontFamily: "var(--theme-display-font)" }}>{h.title}</h3>
                   <p className="max-w-[320px]" style={{ color: theme.colors.textMuted }}>{h.desc}</p>
                 </div>
@@ -378,11 +386,11 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
 
       {/* Schedule / Menu / Journey / What's Happening */}
       {(schedule.length > 0 || menu.length > 0 || journey.length > 0 || (cat === "market" && event.whatsHappening?.length)) && (
-        <section className="section-luxury px-6" style={{ backgroundColor: cat === "food" ? "#F8F4EE" : cat === "wellness" ? "#F5F3EE" : cat === "market" ? "#F5F2EB" : cat === "music" ? "#1A1510" : theme.colors.bgAlt }}>
+        <section className="section-luxury px-6" style={{ backgroundColor: theme.colors.bgAlt }}>
           <div className={cat === "food" ? "max-w-[640px] mx-auto" : "max-w-3xl mx-auto"}>
-            <SectionReveal><h2 className="font-light mb-16" style={{ fontFamily: "var(--theme-display-font)", fontSize: "clamp(2rem, 4vw, 4rem)", ...(cat === "food" && { color: "#722F37" }), ...(cat === "music" && { background: "linear-gradient(135deg, #D4AF37, #F5E6A3)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }), ...(cat === "market" && { color: "#8B4513" }) }}>{labels.schedule}</h2></SectionReveal>
+            <SectionReveal><h2 className="font-light mb-16" style={{ fontFamily: "var(--theme-display-font)", fontSize: "clamp(2rem, 4vw, 4rem)", ...(cat === "music" && !isBrutalist ? { background: "linear-gradient(135deg, #D4AF37, #F5E6A3)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" } : { color: theme.colors.accent }) }}>{labels.schedule}</h2></SectionReveal>
             {menu.length > 0 ? (
-              <div className="py-12 px-8 md:py-16 md:px-12 rounded-sm" style={{ backgroundColor: "#FBF6EF", border: "2px solid #722F37", boxShadow: "0 8px 32px rgba(114,47,55,0.08)" }}>
+              <div className="py-12 px-8 md:py-16 md:px-12 rounded-sm" style={{ backgroundColor: theme.colors.card, border: `2px solid ${theme.colors.accent}`, boxShadow: `0 8px 32px ${theme.colors.accent}20` }}>
                 {menu.map((m, i) => (
                   <SectionReveal key={i}>
                     <div className="flex flex-col md:flex-row md:justify-between md:items-baseline gap-2 py-6 border-b last:border-b-0" style={{ borderColor: theme.colors.cardBorder }}>
@@ -390,7 +398,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
                         <p className="font-light italic" style={{ fontFamily: "var(--theme-display-font)", fontSize: "1.25rem" }}>{m.course}</p>
                       </div>
                       {m.pairing && (
-                        <p className="text-sm uppercase flex items-center gap-2" style={{ color: "#722F37", fontFamily: "var(--theme-mono-font)", letterSpacing: "0.15em" }}>
+                        <p className="text-sm uppercase flex items-center gap-2" style={{ color: theme.colors.accent, fontFamily: "var(--theme-mono-font)", letterSpacing: "0.15em" }}>
                           {m.pairing}
                         </p>
                       )}
@@ -466,12 +474,12 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
                         className="flex-shrink-0 w-24 text-sm"
                         style={{
                           fontFamily: "var(--theme-mono-font)",
-                          color: cat === "music" ? "#D4AF37" : theme.colors.accent,
+                          color: theme.colors.accent,
                         }}
                       >
                         {item.time}
                       </div>
-                      <div className="flex-1 border-l-2 pl-8" style={{ borderColor: cat === "music" ? "#D4AF37" : theme.colors.accent }}>
+                      <div className="flex-1 border-l-2 pl-8" style={{ borderColor: theme.colors.accent }}>
                         <h3 className="text-lg font-light" style={{ fontFamily: "var(--theme-display-font)" }}>{item.title}</h3>
                       </div>
                     </div>
@@ -485,17 +493,17 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
 
       {/* Music: Genre tags + testimonials */}
       {cat === "music" && (
-        <section className="py-20 md:py-28 px-6" style={{ backgroundColor: "#1A1510" }}>
+        <section className="py-20 md:py-28 px-6" style={{ backgroundColor: theme.colors.bgAlt }}>
           <div className="max-w-4xl mx-auto space-y-16">
             {event.genreTags && event.genreTags.length > 0 && (
               <div>
-                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: "#D4AF37" }}>The Sound</h3>
+                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent }}>The Sound</h3>
                 <div className="flex flex-wrap gap-3">
                   {event.genreTags.map((tag, i) => (
                     <span
                       key={i}
                       className="px-5 py-2 font-light transition-all duration-300 hover:scale-105"
-                      style={{ border: "1px solid rgba(212,175,55,0.5)", color: "#D4AF37", fontFamily: "var(--theme-display-font)" }}
+                      style={{ border: `1px solid ${theme.colors.accent}80`, color: theme.colors.accent, fontFamily: "var(--theme-display-font)" }}
                     >
                       {tag}
                     </span>
@@ -505,10 +513,10 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
             )}
             {event.testimonials && event.testimonials.length > 0 && (
               <div>
-                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: "#D4AF37" }}>What People Say</h3>
+                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent }}>What People Say</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {event.testimonials.map((t, i) => (
-                    <div key={i} className="p-6 rounded border-l-2" style={{ backgroundColor: "rgba(212,175,55,0.06)", borderColor: "#D4AF37" }}>
+                    <div key={i} className="p-6 rounded border-l-2" style={{ backgroundColor: `${theme.colors.accent}15`, borderColor: theme.colors.accent }}>
                       <p className="text-base font-light italic mb-4" style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>&ldquo;{t.quote}&rdquo;</p>
                       <div className="flex items-center gap-3">
                         {t.image && (
@@ -593,15 +601,15 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
 
       {/* Food: What's included / not / dietary */}
       {cat === "food" && (
-        <section className="py-16 px-6" style={{ backgroundColor: "#F5EFE7" }}>
+        <section className="py-16 px-6" style={{ backgroundColor: theme.colors.bgAlt }}>
           <div className="max-w-2xl mx-auto space-y-10">
             {event.whatsIncluded && event.whatsIncluded.length > 0 && (
-              <div className="p-8 rounded-lg" style={{ backgroundColor: "#FFF8F5", borderLeft: "4px solid #722F37", boxShadow: "0 4px 20px rgba(114,47,55,0.06)" }}>
-                <h3 className="text-sm tracking-widest uppercase mb-6" style={{ fontFamily: "var(--theme-mono-font)", color: "#722F37" }}>What&apos;s Included</h3>
+              <div className="p-8 rounded-lg" style={{ backgroundColor: theme.colors.card, borderLeft: `4px solid ${theme.colors.accent}`, boxShadow: `0 4px 20px ${theme.colors.accent}15` }}>
+                <h3 className="text-sm tracking-widest uppercase mb-6" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent }}>What&apos;s Included</h3>
                 <ul className="space-y-3">
                   {event.whatsIncluded.map((w, i) => (
                     <li key={i} className="flex items-center gap-3">
-                      <span className="font-medium" style={{ color: "#722F37" }}>✓</span> <span style={{ color: theme.colors.text }}>{w}</span>
+                      <span className="font-medium" style={{ color: theme.colors.accent }}>✓</span> <span style={{ color: theme.colors.text }}>{w}</span>
                     </li>
                   ))}
                 </ul>
@@ -631,15 +639,15 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
           <div className="max-w-4xl mx-auto space-y-16">
             {event.whatToBring && event.whatToBring.length > 0 && (
               <div>
-                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: "#5C7C50" }}>What to Bring</h3>
+                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent }}>What to Bring</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {event.whatToBring.map((w, i) => (
                     <div
                       key={i}
                       className="p-6 flex items-center gap-4 transition-all duration-300 hover:scale-[1.02]"
-                      style={{ border: "1px solid rgba(92,124,80,0.5)", borderLeft: "4px solid #5C7C50", borderRadius: "8px" }}
+                      style={{ border: `1px solid ${theme.colors.accent}80`, borderLeft: `4px solid ${theme.colors.accent}`, borderRadius: "8px" }}
                     >
-                      <span className="text-sm font-light w-6" style={{ color: "#5C7C50", fontFamily: "var(--theme-mono-font)" }}>—</span>
+                      <span className="text-sm font-light w-6" style={{ color: theme.colors.accent, fontFamily: "var(--theme-mono-font)" }}>—</span>
                       <span className="font-light" style={{ fontFamily: "var(--theme-display-font)" }}>{w}</span>
                     </div>
                   ))}
@@ -648,17 +656,17 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
             )}
             {event.whatsProvided && event.whatsProvided.length > 0 && (
               <div>
-                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: "#5C7C50" }}>What&apos;s Provided</h3>
+                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent }}>What&apos;s Provided</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {event.whatsProvided.map((w, i) => (
                     <div
                       key={i}
                       className="p-6 transition-all duration-300 hover:scale-[1.02]"
                       style={{
-                        background: "linear-gradient(135deg, rgba(92,124,80,0.2) 0%, rgba(92,124,80,0.35) 100%)",
-                        border: "2px solid #5C7C50",
+                        background: `linear-gradient(135deg, ${theme.colors.accent}33 0%, ${theme.colors.accent}59 100%)`,
+                        border: `2px solid ${theme.colors.accent}`,
                         borderRadius: "8px",
-                        boxShadow: "0 4px 20px rgba(92,124,80,0.15)",
+                        boxShadow: `0 4px 20px ${theme.colors.accent}26`,
                       }}
                     >
                       <span className="font-medium" style={{ fontFamily: "var(--theme-display-font)", color: "#2d3a24" }}>{w}</span>
@@ -669,7 +677,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
             )}
             {event.landscapeImages && event.landscapeImages.length > 0 && (
               <div>
-                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: "#5C7C50" }}>The Space</h3>
+                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent }}>The Space</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {event.landscapeImages.map((img, i) => (
                     <div key={i} className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-lg">
@@ -681,11 +689,11 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
             )}
             {event.testimonials && event.testimonials.length > 0 && (
               <div>
-                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: "#5C7C50" }}>What Guests Say</h3>
+                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent }}>What Guests Say</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {event.testimonials.map((t, i) => (
-                    <div key={i} className="p-6 rounded-lg flex flex-col gap-4" style={{ backgroundColor: "#F0EBE0", borderLeft: "4px solid #5C7C50", borderTop: "1px solid rgba(92,124,80,0.3)" }}>
-                      <p className="text-base font-light italic flex-1" style={{ fontFamily: "var(--theme-display-font)", color: "#5C7C50" }}>&ldquo;{t.quote}&rdquo;</p>
+                    <div key={i} className="p-6 rounded-lg flex flex-col gap-4" style={{ backgroundColor: theme.colors.card, borderLeft: `4px solid ${theme.colors.accent}`, borderTop: `1px solid ${theme.colors.accent}4D` }}>
+                      <p className="text-base font-light italic flex-1" style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.accent }}>&ldquo;{t.quote}&rdquo;</p>
                       <div className="flex items-center gap-3">
                         {t.image && (
                           <div className="w-12 h-12 rounded-full overflow-hidden shrink-0">
@@ -726,13 +734,13 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
               </div>
             )}
             {event.vendorApplication && (
-              <div className="p-8 border-2 rounded-xl transition-all duration-300 hover:shadow-[0_12px_40px_rgba(139,69,19,0.15)]" style={{ borderColor: "#8B4513", background: "linear-gradient(135deg, #FFF8F0 0%, #FFF3E0 100%)", boxShadow: "0 8px 32px rgba(139,69,19,0.1)" }}>
-                <h3 className="text-xl font-light mb-3" style={{ fontFamily: "var(--theme-display-font)", color: "#8B4513" }}>Want to Sell?</h3>
+              <div className="p-8 border-2 rounded-xl transition-all duration-300 hover:shadow-[0_12px_40px_rgba(139,69,19,0.15)]" style={{ borderColor: theme.colors.accent, background: `linear-gradient(135deg, ${theme.colors.card} 0%, ${theme.colors.bgAlt} 100%)`, boxShadow: `0 8px 32px ${theme.colors.accent}1A` }}>
+                <h3 className="text-xl font-light mb-3" style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.accent }}>Want to Sell?</h3>
                 <p className="mb-6" style={{ color: theme.colors.text }}>{event.vendorApplication}</p>
                 <a
                   href={`mailto:hello@themakersmarket.com?subject=Market%20Vendor%20Application%20-%20${encodeURIComponent(event.name)}`}
                   className="inline-block px-8 py-4 font-medium tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
-                  style={{ backgroundColor: "#8B4513", color: "white", borderRadius: "8px", border: "2px solid #6B3410" }}
+                  style={{ backgroundColor: theme.colors.accent, color: "white", borderRadius: "8px", border: `2px solid ${theme.colors.accentHover}` }}
                 >
                   Apply →
                 </a>
