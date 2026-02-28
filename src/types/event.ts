@@ -38,6 +38,7 @@ export interface EventData {
   whatsHappening?: string[];
   gettingThere?: string;
   vendorApplication?: string;
+  genreTags?: string[];
 }
 
 export const CATEGORY_LABELS: Record<string, { people: string; schedule: string; tickets: string; faq: string; about: string }> = {
