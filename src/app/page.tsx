@@ -111,6 +111,38 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Why Popup — competitive differentiation */}
+      <section className="py-20 px-8 md:px-16" style={{ backgroundColor: "#3D2E28", borderTop: "1px solid #5C4033" }}>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="font-[family-name:var(--font-cormorant)] text-2xl md:text-3xl font-light tracking-tight mb-12" style={{ color: "#F5EDE4" }}>
+            Not another template. <span style={{ color: "#C4A574" }}>Editorial design.</span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex gap-4">
+              <span className="text-2xl shrink-0" style={{ color: "#C4A574" }}>✦</span>
+              <div>
+                <h3 className="font-[family-name:var(--font-cormorant)] text-lg font-medium mb-1" style={{ color: "#F5EDE4" }}>10 editorial themes</h3>
+                <p className="font-[family-name:var(--font-montserrat)] text-sm" style={{ color: "#A89070" }}>Vogue-style layouts. No confetti, no clip art. Each theme is a complete world.</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <span className="text-2xl shrink-0" style={{ color: "#C4A574" }}>✦</span>
+              <div>
+                <h3 className="font-[family-name:var(--font-cormorant)] text-lg font-medium mb-1" style={{ color: "#F5EDE4" }}>AI builds in 60 seconds</h3>
+                <p className="font-[family-name:var(--font-montserrat)] text-sm" style={{ color: "#A89070" }}>Paste an event URL or fill the form. We generate copy, hosts, schedule, tickets.</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <span className="text-2xl shrink-0" style={{ color: "#C4A574" }}>✦</span>
+              <div>
+                <h3 className="font-[family-name:var(--font-cormorant)] text-lg font-medium mb-1" style={{ color: "#F5EDE4" }}>Built for experiences</h3>
+                <p className="font-[family-name:var(--font-montserrat)] text-sm" style={{ color: "#A89070" }}>Pop-ups, tastings, openings, markets. Not conferences. Not webinars.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Events that feel like art — old money spice market */}
       <section className="py-24 px-8 md:px-16" style={{ backgroundColor: "#3D2E28" }}>
         <div className="max-w-6xl mx-auto">
@@ -144,7 +176,7 @@ export default function Home() {
       </section>
 
       {/* Ten worlds — rich editorial grid */}
-      <section className="py-24 px-8 md:px-16" style={{ backgroundColor: "#2D2420" }}>
+      <section className="py-24 px-8 md:px-16" style={{ backgroundColor: "#2D2420", borderTop: "1px solid #5C4033" }}>
         <div className="max-w-6xl mx-auto">
           <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl font-light tracking-tight mb-2" style={{ color: "#F5EDE4" }}>
             Ten worlds. <span style={{ color: "#C4A574" }}>One platform.</span>

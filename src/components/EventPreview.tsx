@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useTheme } from "@/components/ThemeProvider";
 import { CATEGORY_LABELS } from "@/types/event";
 import type { EventData } from "@/types/event";
+import { Calendar, Share2 } from "lucide-react";
 
 const VENDOR_BORDER_COLORS: Record<string, string> = {
   ceramics: "#A0522D",
@@ -196,13 +197,13 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
             >
               {event.tagline}
             </motion.p>
-            {event.scarcityMessage && (
+            {(event.scarcityMessage || event.capacity) && (
               <motion.p
-                className={`text-sm uppercase mb-4 scarcity-pulse ${cat === "fashion" ? "" : ""}`}
-                style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent, letterSpacing: "0.15em" }}
+                className="text-sm uppercase mb-4 scarcity-pulse"
+                style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent, letterSpacing: "0.15em", textShadow: heroTextShadow }}
                 transition={{ delay: 0.3 }}
               >
-                {event.scarcityMessage}
+                {event.scarcityMessage || (event.capacity ? `Limited to ${event.capacity} guests` : null)}
               </motion.p>
             )}
             <motion.p
@@ -217,7 +218,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
             >
               {event.date} · {event.venue} · {event.city}
             </motion.p>
-            <motion.div className="flex flex-wrap gap-4" transition={{ delay: 0.5 }}>
+            <motion.div className="flex flex-wrap gap-4 items-center" transition={{ delay: 0.5 }}>
               <a
                 href="#tickets"
                 className="px-8 py-4 text-white font-medium tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(26,23,20,0.12)]"
@@ -243,6 +244,26 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
               >
                 Learn More ↓
               </a>
+              <div className="flex gap-2 ml-2 md:ml-4" style={{ opacity: 0.9 }}>
+                <button
+                  type="button"
+                  onClick={handleAddToCalendar}
+                  className="p-3 transition-colors hover:opacity-80"
+                  style={{ color: theme.colors.text, textShadow: heroTextShadow }}
+                  title="Add to calendar"
+                >
+                  <Calendar className="w-5 h-5" strokeWidth={1.5} />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleShare}
+                  className="p-3 transition-colors hover:opacity-80"
+                  style={{ color: theme.colors.text, textShadow: heroTextShadow }}
+                  title="Share event"
+                >
+                  <Share2 className="w-5 h-5" strokeWidth={1.5} />
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -835,7 +856,16 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
       {/* Tickets */}
       <section id="tickets" ref={ticketsRef} className="section-luxury px-6" style={{ backgroundColor: theme.colors.bgAlt }}>
         <div className="max-w-[1200px] mx-auto">
-          <SectionReveal><h2 className="font-light text-center mb-16" style={{ fontFamily: "var(--theme-display-font)", fontSize: "clamp(2rem, 4vw, 4rem)" }}>{labels.tickets}</h2></SectionReveal>
+          <SectionReveal>
+            <h2 className="font-light text-center mb-4" style={{ fontFamily: "var(--theme-display-font)", fontSize: "clamp(2rem, 4vw, 4rem)" }}>{labels.tickets}</h2>
+            {event.capacity ? (
+              <p className="text-center text-sm uppercase tracking-wider mb-12" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent }}>
+                Limited to {event.capacity} guests
+              </p>
+            ) : (
+              <div className="mb-12" />
+            )}
+          </SectionReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {tickets.map((ticket, i) => (
               <SectionReveal key={i}>
