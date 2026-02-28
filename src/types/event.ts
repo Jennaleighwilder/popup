@@ -33,6 +33,7 @@ export interface EventData {
   whatToBring?: string[];
   whatsProvided?: string[];
   testimonials?: { quote: string; author?: string; image?: string }[];
+  landscapeImages?: string[];
   vendors?: { name: string; category: string; image?: string }[];
   whatsHappening?: string[];
   gettingThere?: string;

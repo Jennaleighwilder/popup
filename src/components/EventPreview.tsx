@@ -223,8 +223,8 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {highlights.map((h, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}>
-                <div className="p-8 h-full transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_12px_40px_rgba(26,23,20,0.08)]" style={{ backgroundColor: theme.colors.card, border: `1px solid ${theme.colors.cardBorder}`, borderRadius: `${theme.cardRadius}px` }}>
-                  <div className="w-10 h-px mb-6" style={{ backgroundColor: theme.colors.accent }} />
+                <div className="p-8 h-full transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_12px_40px_rgba(26,23,20,0.08)]" style={{ backgroundColor: theme.colors.card, border: `1px solid ${theme.colors.cardBorder}`, borderRadius: `${theme.cardRadius}px`, ...(cat === "wellness" && { borderLeft: "4px solid #5C7C50" }) }}>
+                  <div className="w-10 h-px mb-6" style={{ backgroundColor: cat === "wellness" ? "#5C7C50" : theme.colors.accent }} />
                   <h3 className="text-xl font-light mb-3" style={{ fontFamily: "var(--theme-display-font)" }}>{h.title}</h3>
                   <p className="max-w-[320px]" style={{ color: theme.colors.textMuted }}>{h.desc}</p>
                 </div>
@@ -378,7 +378,7 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
 
       {/* Schedule / Menu / Journey / What's Happening */}
       {(schedule.length > 0 || menu.length > 0 || journey.length > 0 || (cat === "market" && event.whatsHappening?.length)) && (
-        <section className="section-luxury px-6" style={{ backgroundColor: cat === "food" ? theme.colors.bg : theme.colors.bgAlt }}>
+        <section className="section-luxury px-6" style={{ backgroundColor: cat === "food" ? theme.colors.bg : cat === "wellness" ? "#F5F3EE" : theme.colors.bgAlt }}>
           <div className={cat === "food" ? "max-w-[640px] mx-auto" : "max-w-3xl mx-auto"}>
             <SectionReveal><h2 className="font-light mb-16" style={{ fontFamily: "var(--theme-display-font)", fontSize: "clamp(2rem, 4vw, 4rem)" }}>{labels.schedule}</h2></SectionReveal>
             {menu.length > 0 ? (
@@ -575,22 +575,22 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
         </section>
       )}
 
-      {/* Wellness: What to bring / provided / testimonials */}
+      {/* Wellness: What to bring / provided / landscape / testimonials */}
       {cat === "wellness" && (
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: theme.colors.bg }}>
           <div className="max-w-4xl mx-auto space-y-16">
             {event.whatToBring && event.whatToBring.length > 0 && (
               <div>
-                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.textMuted }}>What to Bring</h3>
+                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: "#5C7C50" }}>What to Bring</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {["🧘", "💧", "📓", "🧥", "☀️", "💚"].slice(0, event.whatToBring.length).map((icon, i) => (
+                  {event.whatToBring.map((w, i) => (
                     <div
                       key={i}
                       className="p-6 flex items-center gap-4 transition-all duration-300 hover:scale-[1.02]"
-                      style={{ border: "1px solid rgba(92,124,80,0.4)", borderRadius: "8px" }}
+                      style={{ border: "1px solid rgba(92,124,80,0.5)", borderLeft: "4px solid #5C7C50", borderRadius: "8px" }}
                     >
-                      <span className="text-2xl">{icon}</span>
-                      <span className="font-light" style={{ fontFamily: "var(--theme-display-font)" }}>{event.whatToBring![i]}</span>
+                      <span className="text-lg font-light" style={{ color: "#5C7C50", fontFamily: "var(--theme-display-font)" }}>✓</span>
+                      <span className="font-light" style={{ fontFamily: "var(--theme-display-font)" }}>{w}</span>
                     </div>
                   ))}
                 </div>
@@ -598,33 +598,52 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
             )}
             {event.whatsProvided && event.whatsProvided.length > 0 && (
               <div>
-                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.textMuted }}>What&apos;s Provided</h3>
+                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: "#5C7C50" }}>What&apos;s Provided</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {event.whatsProvided.map((w, i) => (
                     <div
                       key={i}
                       className="p-6 transition-all duration-300 hover:scale-[1.02]"
-                      style={{ backgroundColor: "rgba(92,124,80,0.08)", border: "1px solid rgba(92,124,80,0.2)", borderRadius: "8px" }}
+                      style={{
+                        background: "linear-gradient(135deg, rgba(92,124,80,0.2) 0%, rgba(92,124,80,0.35) 100%)",
+                        border: "2px solid #5C7C50",
+                        borderRadius: "8px",
+                        boxShadow: "0 4px 20px rgba(92,124,80,0.15)",
+                      }}
                     >
-                      <span className="font-light" style={{ fontFamily: "var(--theme-display-font)" }}>{w}</span>
+                      <span className="font-medium" style={{ fontFamily: "var(--theme-display-font)", color: "#2d3a24" }}>{w}</span>
                     </div>
                   ))}
                 </div>
               </div>
             )}
-            {event.testimonials && event.testimonials.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {event.testimonials.map((t, i) => (
-                  <div key={i} className="p-8 rounded-lg flex gap-6" style={{ backgroundColor: "#F0EBE0", borderLeft: "4px solid #5C7C50" }}>
-                    <div className="shrink-0 w-16 h-16 rounded-full overflow-hidden">
-                      {t.image ? <Image src={t.image} alt="" width={64} height={64} className="object-cover w-full h-full" /> : null}
-                    </div>
-                    <div>
-                      <p className="text-lg font-light italic mb-3" style={{ fontFamily: "var(--theme-display-font)", color: "#5C7C50" }}>&ldquo;{t.quote}&rdquo;</p>
-                      {t.author && <p className="text-sm" style={{ color: theme.colors.textMuted }}>{t.author}</p>}
-                    </div>
+            {event.landscapeImages && event.landscapeImages.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {event.landscapeImages.map((img, i) => (
+                  <div key={i} className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                    <Image src={img} alt="" fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
                   </div>
                 ))}
+              </div>
+            )}
+            {event.testimonials && event.testimonials.length > 0 && (
+              <div>
+                <h3 className="text-sm tracking-widest uppercase mb-8" style={{ fontFamily: "var(--theme-mono-font)", color: "#5C7C50" }}>What Guests Say</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {event.testimonials.map((t, i) => (
+                    <div key={i} className="p-6 rounded-lg flex flex-col gap-4" style={{ backgroundColor: "#F0EBE0", borderLeft: "4px solid #5C7C50", borderTop: "1px solid rgba(92,124,80,0.3)" }}>
+                      <p className="text-base font-light italic flex-1" style={{ fontFamily: "var(--theme-display-font)", color: "#5C7C50" }}>&ldquo;{t.quote}&rdquo;</p>
+                      <div className="flex items-center gap-3">
+                        {t.image && (
+                          <div className="w-12 h-12 rounded-full overflow-hidden shrink-0">
+                            <Image src={t.image} alt="" width={48} height={48} className="object-cover w-full h-full" />
+                          </div>
+                        )}
+                        {t.author && <p className="text-sm" style={{ color: theme.colors.textMuted }}>{t.author}</p>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
