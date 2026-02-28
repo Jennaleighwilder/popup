@@ -223,7 +223,7 @@ const FEATURES = [
     title: "AI-powered creation",
     titleAccent: "AI-powered",
     desc: "Describe your event in plain English. Our AI writes the copy, curates the imagery, and builds a complete page in under a minute. No design skills required.",
-    image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&h=400&fit=crop",
   },
   {
     title: "Beautiful by default",
