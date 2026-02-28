@@ -1,75 +1,88 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --font-display: var(--font-cormorant, Georgia, serif);
+  --background: #FAF7F2;
+  --foreground: #1A1714;
+  --muted: #8C8578;
+  --accent: #C4956A;
+  --accent-hover: #A67B52;
+  --editorial-red: #C7402D;
+  --card-bg: #FFFFFF;
+  --card-border: #E8E2D9;
+  --section-alt: #F0ECE5;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Noise texture - premium printed-paper feel */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Warm image filter - subtle cohesion across all photos */
+.popup-warm-image,
+.popup-warm-image img {
+  filter: sepia(0.03) saturate(1.05);
+}
+
+/* Warm selection highlight */
+::selection {
+  background: rgba(196, 149, 106, 0.2);
+  color: #1A1714;
+}
+
+/* Custom scrollbar - thin, warm-toned */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #C4956A;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A67B52;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
 }
 
-/* Theme special effects */
-.theme-uppercase-headings h1,
-.theme-uppercase-headings h2,
-.theme-uppercase-headings h3 {
-  text-transform: uppercase;
+/* Brand marquee drift */
+@keyframes drift-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-drift {
+  animation: drift-left 60s linear infinite;
 }
 
-.theme-glow-effects [data-glow] {
-  box-shadow: 0 0 20px var(--theme-accent);
+/* Warm card shadow */
+.card-shadow {
+  box-shadow: 0 4px 24px rgba(26, 23, 20, 0.06);
 }
-
-.theme-gradient-text [data-gradient-text] {
-  background: linear-gradient(135deg, #00FF88, #FF00AA);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.theme-hover-glow .card-hover-glow:hover {
-  box-shadow: 0 0 24px rgba(0, 255, 136, 0.4);
-}
-
-.theme-film-grain body::after {
-  opacity: 0.04;
-}
-
-.theme-sepia-images img {
-  filter: sepia(0.15) saturate(0.9);
-}
-
-.theme-extra-whitespace .section-luxury {
-  padding-top: 200px;
-  padding-bottom: 200px;
-}
-
-/* Film grain overlay */
-.theme-film-grain::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.04;
-  z-index: 9999;
+.card-shadow-hover:hover {
+  box-shadow: 0 12px 40px rgba(26, 23, 20, 0.08);
 }
 
 /* Ken Burns zoom effect for event hero */
@@ -105,13 +118,9 @@ body {
   50% { opacity: 0.6; }
 }
 
-/* Brand marquee drift */
-@keyframes drift-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.animate-drift {
-  animation: drift-left 60s linear infinite;
+/* Music theme - gold border on ticket card hover */
+.event-card-music:hover {
+  border-color: rgba(212, 175, 55, 0.5) !important;
 }
 
 /* Wellness hero - botanical pattern overlay */
@@ -128,7 +137,7 @@ body {
   box-shadow: 0 12px 40px rgba(0,0,0,0.08);
 }
 
-/* Warm color grade on event hero images */
+/* Warm color grade on event images */
 .event-hero-image {
   filter: sepia(0.05) saturate(1.05);
 }
@@ -145,11 +154,39 @@ body {
   }
 }
 
-/* Music theme - gold border on ticket card hover */
-.event-card-music:hover {
-  border-color: rgba(212, 175, 55, 0.5) !important;
+/* Form input focus - warm glow */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(196, 149, 106, 0.3);
 }
 
-html {
-  scroll-behavior: smooth;
+/* Theme special effects (for 10-theme system) */
+.theme-uppercase-headings h1,
+.theme-uppercase-headings h2,
+.theme-uppercase-headings h3 {
+  text-transform: uppercase;
+}
+.theme-glow-effects [data-glow] {
+  box-shadow: 0 0 20px var(--theme-accent);
+}
+.theme-gradient-text [data-gradient-text] {
+  background: linear-gradient(135deg, #00FF88, #FF00AA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.theme-hover-glow .card-hover-glow:hover {
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.4);
+}
+.theme-film-grain body::after {
+  opacity: 0.04;
+}
+.theme-sepia-images img {
+  filter: sepia(0.15) saturate(0.9);
+}
+.theme-extra-whitespace .section-luxury {
+  padding-top: 200px;
+  padding-bottom: 200px;
 }

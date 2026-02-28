@@ -194,7 +194,7 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     journey: [
       { step: "Arrival", desc: "We begin in stillness. As the desert sun rises, we gather in a circle for opening breathwork — a gentle pranayama practice to arrive fully in our bodies.", image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=400&fit=crop" },
       { step: "Movement", desc: "We move into a slow, intentional vinyasa flow. This isn't a workout — it's a conversation with your body. All levels welcome.", image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop" },
-      { step: "Sound Bath", desc: "A sound bath follows. Crystal singing bowls tuned to the chakras fill the space as you rest in savasana.", image: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600&h=400&fit=crop" },
+      { step: "Sound Bath", desc: "A sound bath follows. Crystal singing bowls tuned to the chakras fill the space as you rest in savasana.", image: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&h=400&fit=crop" },
       { step: "Cacao & Intention", desc: "We close with a cacao ceremony and journaling. Hot ceremonial cacao, a writing prompt, and space to set an intention for the month ahead.", image: "https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=600&h=400&fit=crop" },
       { step: "Breakfast", desc: "We share a light breakfast together — fresh fruit, granola, herbal tea — as the morning warmth settles in.", image: "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=600&h=400&fit=crop" },
     ],
