@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { themes } from "@/lib/themes";
 import { CATEGORY_LABELS } from "@/types/event";
@@ -379,7 +380,7 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
                   <h3 className="text-xl font-light mb-2" style={{ fontFamily: "var(--theme-display-font)" }}>{ticket.name}</h3>
                   <p className="text-2xl font-light mb-4" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent }}>{ticket.price === 0 ? "Free" : `$${ticket.price}`}</p>
                   <p className="text-sm mb-6 flex-1" style={{ color: theme.colors.textMuted }}>{ticket.desc}</p>
-                  <a href="#" className="inline-block text-center py-3 font-medium tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(26,23,20,0.08)]" style={{ border: `2px solid ${theme.colors.accent}`, borderRadius: `${theme.buttonRadius}px`, color: theme.colors.text }}>Select →</a>
+                  <Link href={`/e/${event.slug}/tickets?tier=${i}`} className="inline-block text-center py-3 font-medium tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(26,23,20,0.08)]" style={{ border: `2px solid ${theme.colors.accent}`, borderRadius: `${theme.buttonRadius}px`, color: theme.colors.text }}>Select →</Link>
                 </div>
               </SectionReveal>
             ))}

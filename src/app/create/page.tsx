@@ -10,6 +10,7 @@ import { EventPreview } from "@/components/EventPreview";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { themes } from "@/lib/themes";
 import { buildEventFromForm } from "@/lib/buildEvent";
+import { saveDraftEvent } from "@/lib/eventStorage";
 import type { EventData } from "@/types/event";
 
 const CATEGORIES = [
@@ -414,6 +415,7 @@ export default function CreatePage() {
                   <div className="flex items-center gap-4">
                     <Link
                       href={`/edit/${generatedEvent.slug}`}
+                      onClick={() => saveDraftEvent(generatedEvent)}
                       className="px-4 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm hover:border-[#C4956A] transition-colors"
                     >
                       Edit
