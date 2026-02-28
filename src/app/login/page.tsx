@@ -36,7 +36,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex flex-col justify-center px-6 py-24">
+    <div className="min-h-screen bg-[#E2D4C0] flex flex-col justify-center px-6 py-24">
       <div className="max-w-md mx-auto w-full">
         <div className="w-10 h-px bg-[#C4956A] mb-8" />
         <h1
@@ -44,7 +44,7 @@ export default function LoginPage() {
         >
           Welcome back
         </h1>
-        <p className="font-[family-name:var(--font-body)] text-[#8C8578] mb-12">
+        <p className="font-[family-name:var(--font-body)] text-[#6B5A47] mb-12">
           Sign in to manage your events
         </p>
 
@@ -57,7 +57,7 @@ export default function LoginPage() {
           <div>
             <label
               htmlFor="email"
-              className="block font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#8C8578] mb-2"
+              className="block font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#6B5A47] mb-2"
             >
               Email
             </label>
@@ -74,7 +74,7 @@ export default function LoginPage() {
           <div>
             <label
               htmlFor="password"
-              className="block font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#8C8578] mb-2"
+              className="block font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#6B5A47] mb-2"
             >
               Password
             </label>
@@ -102,7 +102,7 @@ export default function LoginPage() {
             <div className="w-full border-t border-[#E8E2D9]" />
           </div>
           <div className="relative flex justify-center">
-            <span className="bg-[#FAF7F2] px-4 font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#8C8578]">
+            <span className="bg-[#E2D4C0] px-4 font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#6B5A47]">
               or
             </span>
           </div>
@@ -116,7 +116,7 @@ export default function LoginPage() {
           Sign in with Google
         </button>
 
-        <p className="mt-12 text-center font-[family-name:var(--font-body)] text-sm text-[#8C8578]">
+        <p className="mt-12 text-center font-[family-name:var(--font-body)] text-sm text-[#6B5A47]">
           Don&apos;t have an account?{" "}
           <Link href="/signup" className="text-[#C4956A] hover:underline">
             Sign up

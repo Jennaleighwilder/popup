@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FAF7F2;
-  --foreground: #1A1714;
-  --muted: #8C8578;
-  --accent: #C4956A;
-  --accent-hover: #A67B52;
-  --editorial-red: #C7402D;
-  --card-bg: #FFFFFF;
-  --card-border: #E8E2D9;
-  --section-alt: #F0ECE5;
+  --background: #E2D4C0;
+  --foreground: #2A2218;
+  --muted: #6B5A47;
+  --accent: #8B4513;
+  --accent-hover: #6B3410;
+  --editorial-red: #8B2500;
+  --card-bg: #EDE4D8;
+  --card-border: #B8A088;
+  --section-alt: #D9C9B4;
 }
 
 @theme inline {
@@ -36,26 +36,26 @@ body::after {
   filter: sepia(0.03) saturate(1.05);
 }
 
-/* Warm selection highlight */
+/* Warm selection highlight - old money spice market */
 ::selection {
-  background: rgba(196, 149, 106, 0.2);
-  color: #1A1714;
+  background: rgba(139, 69, 19, 0.25);
+  color: #2A2218;
 }
 
-/* Custom scrollbar - thin, warm-toned */
+/* Custom scrollbar - rich warm-toned */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF7F2;
+  background: #D9C9B4;
 }
 ::-webkit-scrollbar-thumb {
-  background: #C4956A;
+  background: #8B4513;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #A67B52;
+  background: #6B3410;
 }
 
 html {
@@ -154,12 +154,12 @@ body {
   }
 }
 
-/* Form input focus - warm glow */
+/* Form input focus - old money glow */
 input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(196, 149, 106, 0.3);
+  box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.4);
 }
 
 /* Theme special effects (for 10-theme system) */

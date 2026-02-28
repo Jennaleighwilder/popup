@@ -114,7 +114,7 @@ export default function CreatePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center">
+      <div className="min-h-screen bg-[#E2D4C0] flex items-center justify-center">
         <p className="font-[family-name:var(--font-body)] text-[#8C8578]">Loading...</p>
       </div>
     );
@@ -122,14 +122,14 @@ export default function CreatePage() {
 
   if (!user && !demoMode) {
     return (
-      <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center">
+      <div className="min-h-screen bg-[#E2D4C0] flex items-center justify-center">
         <p className="font-[family-name:var(--font-body)] text-[#8C8578]">Redirecting to login...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] overflow-x-hidden">
+    <div className="min-h-screen bg-[#E2D4C0] overflow-x-hidden">
       <div className="fixed top-6 right-6 z-40 font-[family-name:var(--font-mono)] text-xs text-[#8C8578] tracking-widest uppercase">
         {step} / 4
       </div>
@@ -160,7 +160,7 @@ export default function CreatePage() {
                     setSelectedCategory(cat.id);
                     setStep(2);
                   }}
-                  className="group p-8 text-left bg-white border border-[#E8E2D9] hover:border-[#C4956A] transition-all duration-300"
+                  className="group p-8 text-left bg-white border border-[#B8A088] hover:border-[#C4956A] transition-all duration-300"
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -222,7 +222,7 @@ export default function CreatePage() {
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData((f) => ({ ...f, name: e.target.value }))}
-                      className="w-full px-4 py-3 bg-white border border-[#E8E2D9] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                      className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
                       placeholder="My Amazing Event"
                     />
                   </div>
@@ -234,7 +234,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.tagline}
                     onChange={(e) => setFormData((f) => ({ ...f, tagline: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#E8E2D9] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                    className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
                     placeholder="Three days of designer fashion at up to 70% off"
                   />
                 </div>
@@ -245,7 +245,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.city}
                     onChange={(e) => setFormData((f) => ({ ...f, city: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#E8E2D9] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                    className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
                     placeholder="New York"
                     required
                   />
@@ -258,7 +258,7 @@ export default function CreatePage() {
                       type="date"
                       value={formData.dateStart}
                       onChange={(e) => setFormData((f) => ({ ...f, dateStart: e.target.value }))}
-                      className="w-full px-4 py-3 bg-white border border-[#E8E2D9] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                      className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
                       required
                     />
                   </div>
@@ -268,7 +268,7 @@ export default function CreatePage() {
                       type="date"
                       value={formData.dateEnd}
                       onChange={(e) => setFormData((f) => ({ ...f, dateEnd: e.target.value }))}
-                      className="w-full px-4 py-3 bg-white border border-[#E8E2D9] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                      className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
                     />
                   </div>
                 </div>
@@ -279,7 +279,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.time}
                     onChange={(e) => setFormData((f) => ({ ...f, time: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#E8E2D9] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                    className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
                     placeholder="10:00 AM - 7:00 PM"
                     required
                   />
@@ -291,7 +291,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.venue}
                     onChange={(e) => setFormData((f) => ({ ...f, venue: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#E8E2D9] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                    className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
                     placeholder="The Loft on Spring"
                   />
                 </div>
@@ -302,7 +302,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.address}
                     onChange={(e) => setFormData((f) => ({ ...f, address: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#E8E2D9] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
+                    className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A]"
                     placeholder="161 Spring Street, SoHo"
                   />
                 </div>
@@ -329,7 +329,7 @@ export default function CreatePage() {
                         type="button"
                         onClick={() => setFormData((f) => ({ ...f, vibe: v }))}
                         className={`px-4 py-2 text-sm font-[family-name:var(--font-body)] transition-colors ${
-                          formData.vibe === v ? "bg-[#C4956A] text-white" : "bg-white border border-[#E8E2D9] text-[#1A1714] hover:border-[#C4956A]"
+                          formData.vibe === v ? "bg-[#C4956A] text-white" : "bg-white border border-[#B8A088] text-[#1A1714] hover:border-[#C4956A]"
                         }`}
                       >
                         {v}
@@ -343,7 +343,7 @@ export default function CreatePage() {
                   <textarea
                     value={formData.extra}
                     onChange={(e) => setFormData((f) => ({ ...f, extra: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#E8E2D9] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A] min-h-[100px]"
+                    className="w-full px-4 py-3 bg-white border border-[#B8A088] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4956A] min-h-[100px]"
                     placeholder="Additional notes for your event..."
                   />
                 </div>
@@ -385,7 +385,7 @@ export default function CreatePage() {
                   key={stage.id}
                   className={`flex items-center gap-6 transition-all duration-300 ${i <= generatingStage ? "opacity-100" : "opacity-30"}`}
                 >
-                  <div className={`w-8 h-8 flex items-center justify-center flex-shrink-0 border transition-colors ${i < generatingStage ? "border-[#C4956A] bg-[#C4956A]" : "border-[#E8E2D9]"}`}>
+                  <div className={`w-8 h-8 flex items-center justify-center flex-shrink-0 border transition-colors ${i < generatingStage ? "border-[#C4956A] bg-[#C4956A]" : "border-[#B8A088]"}`}>
                     {i < generatingStage ? (
                       <Check className="w-4 h-4 text-white" strokeWidth={2.5} />
                     ) : (
@@ -417,7 +417,7 @@ export default function CreatePage() {
           >
             {generatedEvent ? (
               <>
-                <div className="fixed top-0 left-0 right-0 z-50 bg-[#FAF7F2]/95 backdrop-blur-sm border-b border-[#E8E2D9] px-6 py-4 flex items-center justify-between">
+                <div className="fixed top-0 left-0 right-0 z-50 bg-[#E2D4C0]/95 backdrop-blur-sm border-b border-[#B8A088] px-6 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-6">
                     <Link href="/dashboard" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
                       ← Dashboard
@@ -428,11 +428,11 @@ export default function CreatePage() {
                     <Link
                       href={`/edit/${generatedEvent.slug}`}
                       onClick={() => saveDraftEvent(generatedEvent)}
-                      className="px-4 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm hover:border-[#C4956A] transition-colors"
+                      className="px-4 py-2 border border-[#B8A088] font-[family-name:var(--font-body)] text-sm hover:border-[#C4956A] transition-colors"
                     >
                       Edit
                     </Link>
-                    <span className="px-4 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#8C8578]">
+                    <span className="px-4 py-2 border border-[#B8A088] font-[family-name:var(--font-body)] text-sm text-[#8C8578]">
                       Change Theme
                     </span>
                     <Link

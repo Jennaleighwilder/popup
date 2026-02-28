@@ -43,13 +43,13 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-[#FAF7F2] flex flex-col justify-center px-6 py-24">
+      <div className="min-h-screen bg-[#E2D4C0] flex flex-col justify-center px-6 py-24">
         <div className="max-w-md mx-auto w-full text-center">
           <div className="w-10 h-px bg-[#C4956A] mx-auto mb-8" />
           <h1 className="font-[family-name:var(--font-display)] text-4xl font-light text-[#1A1714] mb-4">
             Check your email
           </h1>
-          <p className="font-[family-name:var(--font-body)] text-[#8C8578] mb-12">
+          <p className="font-[family-name:var(--font-body)] text-[#6B5A47] mb-12">
             We&apos;ve sent you a link to confirm your account. Click it to get started.
           </p>
           <Link
@@ -64,7 +64,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex flex-col justify-center px-6 py-24">
+    <div className="min-h-screen bg-[#E2D4C0] flex flex-col justify-center px-6 py-24">
       <div className="max-w-md mx-auto w-full">
         <div className="w-10 h-px bg-[#C4956A] mb-8" />
         <h1
@@ -72,7 +72,7 @@ export default function SignupPage() {
         >
           Create your account
         </h1>
-        <p className="font-[family-name:var(--font-body)] text-[#8C8578] mb-12">
+        <p className="font-[family-name:var(--font-body)] text-[#6B5A47] mb-12">
           Start creating beautiful event pages in minutes
         </p>
 
@@ -85,7 +85,7 @@ export default function SignupPage() {
           <div>
             <label
               htmlFor="email"
-              className="block font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#8C8578] mb-2"
+              className="block font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#6B5A47] mb-2"
             >
               Email
             </label>
@@ -102,7 +102,7 @@ export default function SignupPage() {
           <div>
             <label
               htmlFor="password"
-              className="block font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#8C8578] mb-2"
+              className="block font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#6B5A47] mb-2"
             >
               Password
             </label>
@@ -131,7 +131,7 @@ export default function SignupPage() {
             <div className="w-full border-t border-[#E8E2D9]" />
           </div>
           <div className="relative flex justify-center">
-            <span className="bg-[#FAF7F2] px-4 font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#8C8578]">
+            <span className="bg-[#E2D4C0] px-4 font-[family-name:var(--font-mono)] text-xs tracking-widest uppercase text-[#6B5A47]">
               or
             </span>
           </div>
@@ -145,7 +145,7 @@ export default function SignupPage() {
           Sign up with Google
         </button>
 
-        <p className="mt-12 text-center font-[family-name:var(--font-body)] text-sm text-[#8C8578]">
+        <p className="mt-12 text-center font-[family-name:var(--font-body)] text-sm text-[#6B5A47]">
           Already have an account?{" "}
           <Link href="/login" className="text-[#C4956A] hover:underline">
             Sign in

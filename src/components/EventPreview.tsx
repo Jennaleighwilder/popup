@@ -713,7 +713,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
 
       {/* Fashion: Shopping rules - warm amber callout */}
       {cat === "fashion" && event.shoppingRules && event.shoppingRules.length > 0 && (
-        <section className="py-12 px-6" style={{ backgroundColor: "#FFF8F0" }}>
+        <section className="py-12 px-6" style={{ backgroundColor: theme.colors.bgAlt }}>
           <div className="max-w-2xl mx-auto">
             <h3 className="text-sm tracking-widest uppercase mb-6" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.textMuted }}>Shopping Rules</h3>
             <ul className="space-y-2">

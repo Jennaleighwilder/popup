@@ -97,7 +97,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center">
+      <div className="min-h-screen bg-[#E2D4C0] flex items-center justify-center">
         <div className="w-10 h-px bg-[#C4956A] animate-pulse" />
       </div>
     );
@@ -105,14 +105,14 @@ export default function DashboardPage() {
 
   if (!user && !demoMode) {
     return (
-      <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center">
+      <div className="min-h-screen bg-[#E2D4C0] flex items-center justify-center">
         <p className="font-[family-name:var(--font-body)] text-[#8C8578]">Redirecting to login...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2]">
+    <div className="min-h-screen bg-[#E2D4C0]">
       <nav className="border-b border-[#E8E2D9] px-6 py-5">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/" className="font-[family-name:var(--font-display)] text-2xl font-light text-[#1A1714]">

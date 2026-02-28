@@ -67,17 +67,17 @@ function EventPageInner({ slug, searchParams }: { slug: string; searchParams: UR
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF7F2]">
-        <div className="w-10 h-px animate-pulse bg-[#C4956A]" />
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "var(--background)" }}>
+        <div className="w-10 h-px animate-pulse" style={{ backgroundColor: "var(--accent)" }} />
       </div>
     );
   }
 
   if (error || !event) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-6 bg-[#FAF7F2]">
-        <h1 className="text-2xl font-light mb-4 text-[#1A1714]">Event not found</h1>
-        <Link href="/" className="px-6 py-3 font-medium tracking-wider uppercase bg-[#C4956A] text-white hover:bg-[#A67B52]">
+      <div className="min-h-screen flex flex-col items-center justify-center px-6" style={{ backgroundColor: "var(--background)" }}>
+        <h1 className="text-2xl font-light mb-4" style={{ color: "var(--foreground)" }}>Event not found</h1>
+        <Link href="/" className="px-6 py-3 font-medium tracking-wider uppercase text-white" style={{ backgroundColor: "var(--accent)" }}>
           Back home
         </Link>
       </div>
