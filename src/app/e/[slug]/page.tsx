@@ -1,28 +1,34 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { EventPreview } from "@/components/EventPreview";
 import { themes } from "@/lib/themes";
+import type { ThemeId } from "@/lib/themes";
 import { getDemoEvent, isDemoEvent } from "@/lib/demoEvents";
 import type { EventData } from "@/types/event";
 
+const VALID_THEME_IDS: ThemeId[] = ["atelier", "harvest", "gallery", "botanica", "soiree", "brutalist", "zen", "maximalist", "neon", "vintage"];
+
 export default function EventPage() {
   const params = useParams();
+  const searchParams = useSearchParams();
   const slug = params.slug as string;
-  const [event, setEvent] = useState<EventData | null>(null);
-  const [loading, setLoading] = useState(true);
+  return <EventPageInner key={slug} slug={slug} searchParams={searchParams} />;
+}
+
+function EventPageInner({ slug, searchParams }: { slug: string; searchParams: URLSearchParams }) {
+  const themeOverride = searchParams.get("theme");
+  const effectiveThemeId = (themeOverride && VALID_THEME_IDS.includes(themeOverride as ThemeId) ? themeOverride : null) as ThemeId | null;
+  const initialDemo = getDemoEvent(slug);
+  const [event, setEvent] = useState<EventData | null>(initialDemo ?? null);
+  const [loading, setLoading] = useState(!initialDemo);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const demo = getDemoEvent(slug);
-    if (demo) {
-      setEvent(demo);
-      setLoading(false);
-      return;
-    }
+    if (getDemoEvent(slug)) return;
     fetch(`/api/events/${slug}`)
       .then((r) => {
         if (!r.ok) throw new Error("Event not found");
@@ -78,11 +84,16 @@ export default function EventPage() {
     );
   }
 
-  const theme = themes[(event.theme || "atelier") as keyof typeof themes] || themes.atelier;
+  const theme = themes[(effectiveThemeId || event.theme || "atelier") as keyof typeof themes] || themes.atelier;
 
   return (
     <ThemeProvider theme={theme}>
-      <EventPreview event={event} showFooter={true} isDemo={isDemoEvent(slug)} />
+      <EventPreview
+        event={event}
+        showFooter={true}
+        isDemo={isDemoEvent(slug)}
+        themeOverride={effectiveThemeId}
+      />
     </ThemeProvider>
   );
 }

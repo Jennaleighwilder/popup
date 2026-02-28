@@ -47,7 +47,7 @@ function getCtaLabel(category: string): string {
   return labels[category] || "Get Tickets";
 }
 
-export function EventPreview({ event, showFooter = true, isDemo = false }: { event: EventData; showFooter?: boolean; isDemo?: boolean }) {
+export function EventPreview({ event, showFooter = true, isDemo = false, themeOverride }: { event: EventData; showFooter?: boolean; isDemo?: boolean; themeOverride?: string | null }) {
   const theme = useTheme();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [shareCopied, setShareCopied] = useState(false);
@@ -94,7 +94,6 @@ export function EventPreview({ event, showFooter = true, isDemo = false }: { eve
   const faqs = event.faqs ?? [];
   const menu = event.menu ?? [];
   const brands = event.brands ?? [];
-  const shoppingRules = event.shoppingRules ?? [];
   const journey = event.journey ?? [];
   const vendors = event.vendors ?? [];
 
@@ -784,14 +783,14 @@ export function EventPreview({ event, showFooter = true, isDemo = false }: { eve
                   <p className="text-2xl font-light mb-4" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent }}>{ticket.price === 0 ? "Free" : `$${ticket.price}`}</p>
                   <p className="text-sm mb-6 flex-1" style={{ color: theme.colors.textMuted }}>{ticket.desc}</p>
                   <Link
-                    href={`/e/${event.slug}/tickets?tier=${i}`}
+                    href={isDemo ? `/create?theme=${themeOverride || event.theme}` : `/e/${event.slug}/tickets?tier=${i}`}
                     className="inline-block text-center py-3 font-medium tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(26,23,20,0.08)]"
                     style={{
                       ...(cat === "art" ? { backgroundColor: theme.colors.text, color: "#fff", border: "2px solid transparent" } : { border: `2px solid ${theme.colors.accent}`, color: theme.colors.text }),
                       borderRadius: `${theme.buttonRadius}px`,
                     }}
                   >
-                    {cat === "art" && ticket.price === 0 ? "RSVP" : "Select"} →
+                    {isDemo ? "Create your event to enable tickets" : (cat === "art" && ticket.price === 0 ? "RSVP" : "Select")} →
                   </Link>
                 </motion.div>
               </SectionReveal>
@@ -853,7 +852,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false }: { eve
                 Love this design?
               </p>
               <Link
-                href={`/create?theme=${event.theme}`}
+                href={`/create?theme=${themeOverride || event.theme}`}
                 className="inline-block px-8 py-4 font-medium tracking-wider uppercase transition-all duration-300"
                 style={{
                   backgroundColor: theme.colors.accent,

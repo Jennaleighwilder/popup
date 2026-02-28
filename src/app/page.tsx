@@ -159,7 +159,7 @@ export default function Home() {
               return (
                 <Link
                   key={id}
-                  href={`/e/${getDemoSlugForTheme(id)}`}
+                  href={`/e/${getDemoSlugForTheme(id)}?theme=${id}`}
                   className="group relative block overflow-hidden rounded-sm transition-all duration-300 hover:shadow-lg"
                   style={{ minHeight: "260px" }}
                 >
@@ -181,7 +181,7 @@ export default function Home() {
               return (
                 <Link
                   key={id}
-                  href={`/e/${getDemoSlugForTheme(id)}`}
+                  href={`/e/${getDemoSlugForTheme(id)}?theme=${id}`}
                   className="group relative block overflow-hidden rounded-sm transition-all duration-300 hover:shadow-lg"
                   style={{ minHeight: "240px" }}
                 >
