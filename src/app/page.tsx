@@ -7,13 +7,13 @@ import { themes } from "@/lib/themes";
 import { themeFontVariables } from "@/lib/fonts";
 import type { ThemeId } from "@/lib/themes";
 
-const CATEGORIES = [
-  { id: "fashion", label: "Fashion & Retail", subtitle: "Pop-ups, sample sales, trunk shows", Icon: Shirt },
-  { id: "food", label: "Food & Drink", subtitle: "Supper clubs, tastings, chef's tables", Icon: Wine },
-  { id: "art", label: "Art & Exhibition", subtitle: "Gallery openings, art walks, installations", Icon: Palette },
-  { id: "wellness", label: "Wellness & Beauty", subtitle: "Retreats, workshops, spa events", Icon: Leaf },
-  { id: "music", label: "Music & Nightlife", subtitle: "Listening parties, DJ nights, concerts", Icon: Music2 },
-  { id: "market", label: "Markets & Craft", subtitle: "Artisan markets, vintage fairs, makers", Icon: Store },
+const CATEGORIES: { id: string; label: string; subtitle: string; Icon: typeof Shirt; image: string; accent: string }[] = [
+  { id: "fashion", label: "Fashion & Retail", subtitle: "Pop-ups, sample sales, trunk shows", Icon: Shirt, image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop", accent: "#C4956A" },
+  { id: "food", label: "Food & Drink", subtitle: "Supper clubs, tastings, chef's tables", Icon: Wine, image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&h=400&fit=crop", accent: "#8B4513" },
+  { id: "art", label: "Art & Exhibition", subtitle: "Gallery openings, art walks, installations", Icon: Palette, image: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=600&h=400&fit=crop", accent: "#1A1A1A" },
+  { id: "wellness", label: "Wellness & Beauty", subtitle: "Retreats, workshops, spa events", Icon: Leaf, image: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600&h=400&fit=crop", accent: "#5C7C50" },
+  { id: "music", label: "Music & Nightlife", subtitle: "Listening parties, DJ nights, concerts", Icon: Music2, image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&h=400&fit=crop", accent: "#D4AF37" },
+  { id: "market", label: "Markets & Craft", subtitle: "Artisan markets, vintage fairs, makers", Icon: Store, image: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&h=400&fit=crop", accent: "#8B6914" },
 ];
 
 // Original 5 themes — frozen, do not touch
@@ -57,40 +57,70 @@ export default function Home() {
         </div>
       </header>
 
-      {/* OPENER: Event generator — original design, do not touch */}
-      <section className="min-h-[85vh] flex flex-col justify-center px-6 py-24">
-        <div className="w-10 h-px bg-[#C4956A] mb-8" />
-        <h1 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl font-light text-[#1A1714] mb-4 tracking-tight">
-          What will you create?
-        </h1>
-        <p className="font-[family-name:var(--font-body)] text-[#8C8578] text-sm tracking-widest uppercase mb-16">
-          Select a category
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl">
-          {CATEGORIES.map((cat) => {
-            const Icon = cat.Icon;
-            return (
-              <Link
-                key={cat.id}
-                href={`/create?category=${cat.id}`}
-                className="group p-8 text-left bg-white border border-[#E8E2D9] hover:border-[#C4956A] transition-all duration-300"
-              >
-                <motion.div
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="h-full"
+      {/* OPENER: Event generator — eye-catching, color, pictures, font variety */}
+      <section className="relative min-h-[90vh] flex flex-col justify-center px-6 py-24 overflow-hidden">
+        {/* Hero gradient strip */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#C4956A] via-[#8B4513] to-[#5C7C50]" />
+        {/* Subtle background image */}
+        <div className="absolute inset-0 opacity-[0.06]">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop" alt="" className="w-full h-full object-cover" />
+        </div>
+
+        <div className="relative z-10 max-w-5xl">
+          <div className="w-16 h-px bg-[#C4956A] mb-8" />
+          <h1 className="font-[family-name:var(--font-cormorant)] text-4xl md:text-6xl font-light text-[#1A1714] mb-3 tracking-tight">
+            What will you create?
+          </h1>
+          <p className="font-[family-name:var(--font-dm-mono)] text-[#C4956A] text-xs tracking-[0.35em] uppercase mb-16">
+            Select a category
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {CATEGORIES.map((cat) => {
+              const Icon = cat.Icon;
+              const accent = cat.accent;
+              return (
+                <Link
+                  key={cat.id}
+                  href={`/create?category=${cat.id}`}
+                  className="group relative overflow-hidden rounded-sm border-2 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
+                  style={{ borderColor: "#E8E2D9" }}
                 >
-                  <Icon className="w-6 h-6 text-[#C4956A] mb-6 opacity-60 group-hover:opacity-100 transition-opacity" strokeWidth={1.25} />
-                  <h3 className="font-[family-name:var(--font-display)] text-xl font-light text-[#1A1714]">
-                    {cat.label}
-                  </h3>
-                  <p className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] mt-2">
-                    {cat.subtitle}
-                  </p>
-                </motion.div>
-              </Link>
-            );
-          })}
+                  <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="relative h-full min-h-[220px]">
+                    {/* Card image */}
+                    <div className="absolute inset-0">
+                      <img
+                        src={cat.image}
+                        alt=""
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    </div>
+
+                    {/* Content overlay */}
+                    <div className="relative z-10 flex flex-col justify-end p-6 h-full min-h-[220px]">
+                      <Icon
+                        className="w-8 h-8 mb-4 opacity-90"
+                        style={{ color: accent }}
+                        strokeWidth={1.5}
+                      />
+                      <h3 className="font-[family-name:var(--font-cormorant)] text-2xl font-medium text-white drop-shadow-lg">
+                        {cat.label}
+                      </h3>
+                      <p className="font-[family-name:var(--font-montserrat)] text-sm text-white/85 mt-1">
+                        {cat.subtitle}
+                      </p>
+                      {/* Accent bar */}
+                      <div
+                        className="mt-4 h-0.5 w-12 transition-all duration-300 group-hover:w-full"
+                        style={{ backgroundColor: accent }}
+                      />
+                    </div>
+                  </motion.div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </section>
 
