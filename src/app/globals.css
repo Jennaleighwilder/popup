@@ -142,15 +142,15 @@ body {
   filter: sepia(0.05) saturate(1.05);
 }
 
-/* Section padding - luxury whitespace */
+/* Section padding - luxury whitespace, bolder presence */
 .section-luxury {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 @media (min-width: 768px) {
   .section-luxury {
-    padding-top: 7.5rem;
-    padding-bottom: 7.5rem;
+    padding-top: 9rem;
+    padding-bottom: 9rem;
   }
 }
 

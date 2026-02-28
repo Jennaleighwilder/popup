@@ -85,8 +85,6 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
     window.open(url, "_blank");
   };
 
-  const heroGradient = `linear-gradient(to top, ${theme.colors.bg} 0%, transparent 40%)`;
-
   const highlights = event.highlights ?? [];
   const hosts = event.hosts ?? [];
   const schedule = event.schedule ?? [];
@@ -100,6 +98,16 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
   const themeId = themeOverride || event.theme || "";
   const isBrutalist = themeId === "brutalist";
   const isMaximalist = themeId === "maximalist";
+  const isNeon = themeId === "neon";
+  const isDarkTheme = isNeon || isBrutalist || isMaximalist || themeId === "soiree";
+
+  const heroGradient = isDarkTheme
+    ? `linear-gradient(to top, ${theme.colors.bg} 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0.4) 50%, transparent 70%)`
+    : `linear-gradient(to top, ${theme.colors.bg} 0%, transparent 40%)`;
+
+  const heroTextShadow = isDarkTheme
+    ? "0 0 40px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,0.8)"
+    : undefined;
 
   const wrapperStyle: React.CSSProperties = {
     fontFamily: "var(--theme-body-font)",
@@ -111,13 +119,23 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
     }),
     ...(isBrutalist && { background: theme.colors.bg, minHeight: "100vh" }),
     ...(isMaximalist && { background: `linear-gradient(to bottom, ${theme.colors.bg} 0%, ${theme.colors.bgAlt} 100%)`, minHeight: "100vh" }),
+    ...(isNeon && { background: "linear-gradient(to bottom, #0A0A0F 0%, #12121A 100%)", minHeight: "100vh" }),
   };
 
   return (
     <div className={`min-h-screen ${isBrutalist ? "theme-uppercase-headings" : ""}`} style={wrapperStyle}>
       {/* Nav - Popup wordmark */}
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
-        <Link href="/" className="font-light italic" style={{ fontFamily: "var(--theme-display-font)", fontSize: "24px", color: theme.colors.text }}>
+        <Link
+          href="/"
+          className="font-light italic"
+          style={{
+            fontFamily: "var(--theme-display-font)",
+            fontSize: "24px",
+            color: theme.colors.text,
+            textShadow: isDarkTheme ? "0 0 20px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.9)" : undefined,
+          }}
+        >
           Popup
         </Link>
       </nav>
@@ -125,7 +143,14 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
       {/* Hero - Ken Burns, gradient overlay, typography */}
       <section className="relative min-h-screen flex flex-col justify-end overflow-hidden">
         <div className="absolute inset-0 ken-burns">
-          <Image src={event.heroImage} alt="" fill className="object-cover event-hero-image" sizes="100vw" priority />
+          <Image
+            src={event.heroImage}
+            alt=""
+            fill
+            className={`object-cover ${isDarkTheme ? "" : "event-hero-image"}`}
+            sizes="100vw"
+            priority
+          />
         </div>
         <div className="absolute inset-0" style={{ background: heroGradient }} />
         {cat === "wellness" && <div className="absolute inset-0 pointer-events-none wellness-hero-pattern" />}
@@ -154,12 +179,21 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
           >
             <motion.h1
               className="font-light leading-tight mb-4 flex items-start gap-3"
-              style={{ fontFamily: "var(--theme-display-font)", fontSize: "clamp(2.5rem, 6vw, 4.5rem)" }}
+              style={{
+                fontFamily: "var(--theme-display-font)",
+                fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+                color: theme.colors.text,
+                textShadow: heroTextShadow,
+              }}
             >
               {cat === "art" && <span className="w-2 h-2 rounded-full shrink-0 mt-4" style={{ backgroundColor: "#E63946" }} />}
               {event.name}
             </motion.h1>
-            <motion.p className="text-lg md:text-xl mb-6 max-w-2xl" style={{ color: theme.colors.textMuted }} transition={{ delay: 0.2 }}>
+            <motion.p
+              className="text-lg md:text-xl mb-6 max-w-2xl"
+              style={{ color: theme.colors.textMuted, textShadow: heroTextShadow }}
+              transition={{ delay: 0.2 }}
+            >
               {event.tagline}
             </motion.p>
             {event.scarcityMessage && (
@@ -173,7 +207,12 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
             )}
             <motion.p
               className="text-sm uppercase mb-8"
-              style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.textMuted, letterSpacing: "0.1em" }}
+              style={{
+                fontFamily: "var(--theme-mono-font)",
+                color: theme.colors.textMuted,
+                letterSpacing: "0.1em",
+                textShadow: heroTextShadow,
+              }}
               transition={{ delay: 0.4 }}
             >
               {event.date} · {event.venue} · {event.city}
@@ -182,11 +221,26 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
               <a
                 href="#tickets"
                 className="px-8 py-4 text-white font-medium tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(26,23,20,0.12)]"
-                style={{ backgroundColor: theme.colors.accent, borderRadius: `${theme.buttonRadius}px` }}
+                style={{
+                  backgroundColor: theme.colors.accent,
+                  borderRadius: `${theme.buttonRadius}px`,
+                  color: isNeon || isBrutalist ? "#0A0A0F" : "white",
+                }}
               >
                 {getCtaLabel(cat)} →
               </a>
-              <a href="#experience" className="px-8 py-4 font-medium tracking-wider uppercase transition-colors" style={{ color: theme.colors.text }}>
+              <a
+                href="#experience"
+                className="px-8 py-4 font-medium tracking-wider uppercase transition-colors"
+                style={{
+                  color: theme.colors.text,
+                  textShadow: heroTextShadow,
+                  ...(isDarkTheme && {
+                    border: "1px solid rgba(255,255,255,0.5)",
+                    backgroundColor: "rgba(0,0,0,0.3)",
+                  }),
+                }}
+              >
                 Learn More ↓
               </a>
             </motion.div>
@@ -215,7 +269,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
           <a
             href="#tickets"
             className="px-6 py-3 font-medium tracking-wider uppercase shrink-0"
-            style={{ backgroundColor: theme.colors.accent, color: isBrutalist ? "#0D0D0D" : "white", borderRadius: `${theme.buttonRadius}px` }}
+            style={{ backgroundColor: theme.colors.accent, color: isBrutalist || isNeon ? "#0A0A0F" : "white", borderRadius: `${theme.buttonRadius}px` }}
           >
             {getCtaLabel(cat)} →
           </a>
@@ -229,8 +283,20 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
           <div className={`grid grid-cols-1 gap-8 ${cat === "music" ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
             {highlights.map((h, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}>
-                <div className="p-8 h-full transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_12px_40px_rgba(26,23,20,0.08)]" style={{ backgroundColor: theme.colors.card, border: `1px solid ${theme.colors.cardBorder}`, borderRadius: `${theme.cardRadius}px`, ...(cat === "wellness" && { borderLeft: `4px solid ${theme.colors.accent}` }), ...(cat === "music" && !isBrutalist && { borderColor: "rgba(212,175,55,0.25)", borderLeft: "3px solid #D4AF37" }), ...(cat === "food" && { borderLeft: `4px solid ${theme.colors.accent}` }) }}>
-                  <div className="w-10 h-px mb-6" style={{ backgroundColor: theme.colors.accent }} />
+                <div
+                  className="p-8 h-full transition-all duration-300 hover:scale-[1.02]"
+                  style={{
+                    backgroundColor: theme.colors.card,
+                    border: isDarkTheme ? `2px solid ${theme.colors.cardBorder}` : `1px solid ${theme.colors.cardBorder}`,
+                    borderRadius: `${theme.cardRadius}px`,
+                    boxShadow: isDarkTheme ? "0 8px 32px rgba(0,0,0,0.4)" : "0 8px 30px rgba(26,23,20,0.12)",
+                    ...(cat === "wellness" && { borderLeft: `4px solid ${theme.colors.accent}` }),
+                    ...(cat === "music" && !isBrutalist && { borderColor: "rgba(212,175,55,0.35)", borderLeft: "4px solid #D4AF37" }),
+                    ...(cat === "food" && { borderLeft: `4px solid ${theme.colors.accent}` }),
+                    ...(isNeon && { borderColor: "rgba(0,255,136,0.2)", boxShadow: "0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(0,255,136,0.05)" }),
+                  }}
+                >
+                  <div className="w-12 h-0.5 mb-6" style={{ backgroundColor: theme.colors.accent }} />
                   <h3 className="text-xl font-light mb-3" style={{ fontFamily: "var(--theme-display-font)" }}>{h.title}</h3>
                   <p className="max-w-[320px]" style={{ color: theme.colors.textMuted }}>{h.desc}</p>
                 </div>
