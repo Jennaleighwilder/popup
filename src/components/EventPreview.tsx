@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "@/components/ThemeProvider";
+import { SectionDivider } from "@/components/SectionDivider";
 import { CATEGORY_LABELS } from "@/types/event";
 import type { EventData } from "@/types/event";
 import { Calendar, Share2 } from "lucide-react";
@@ -272,8 +273,9 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
         </div>
       </section>
 
-      {/* Gradient transition zone */}
+      {/* Gradient transition zone + theme divider */}
       <div className="h-20" style={{ background: `linear-gradient(to bottom, transparent, ${theme.colors.bgAlt})` }} />
+      <SectionDivider themeId={themeId || event.theme || "atelier"} />
 
       {/* Sticky ticket CTA - appears after hero, hides when tickets in view */}
       {stickyVisible && !ticketsInView && (
@@ -303,12 +305,25 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
       {/* About / Highlights */}
       <section id="experience" className={`px-6 ${cat === "art" ? "py-[140px]" : "section-luxury"} ${isBrutalist ? "theme-uppercase-headings" : ""}`} style={{ backgroundColor: theme.colors.bgAlt }}>
         <div className="max-w-[1200px] mx-auto">
-          <SectionReveal><h2 className="font-light mb-16" style={{ fontFamily: "var(--theme-display-font)", fontSize: "clamp(2rem, 4vw, 4rem)", ...(cat === "music" && { background: "linear-gradient(135deg, #D4AF37, #F5E6A3, #D4AF37)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }) }}>{labels.about}</h2></SectionReveal>
+          <SectionReveal>
+            <div className="w-12 h-0.5 mb-8" style={{ backgroundColor: theme.colors.accent }} />
+            <h2
+              className="font-light mb-16"
+              style={{
+                fontFamily: "var(--theme-display-font)",
+                fontSize: "clamp(2rem, 4vw, 4rem)",
+                ...(cat === "music" && !isBrutalist && { background: "linear-gradient(135deg, #D4AF37, #F5E6A3, #D4AF37)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }),
+                ...(isNeon && { background: "linear-gradient(135deg, #00FF88, #FF00AA)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }),
+              }}
+            >
+              {labels.about}
+            </h2>
+          </SectionReveal>
           <div className={`grid grid-cols-1 gap-8 ${cat === "music" ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
             {highlights.map((h, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}>
                 <div
-                  className="p-8 h-full transition-all duration-300 hover:scale-[1.02]"
+                  className={`p-8 h-full transition-all duration-300 hover:scale-[1.02] ${isNeon ? "card-hover-glow" : ""}`}
                   style={{
                     backgroundColor: theme.colors.card,
                     border: isDarkTheme ? `2px solid ${theme.colors.cardBorder}` : `1px solid ${theme.colors.cardBorder}`,
@@ -329,6 +344,8 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
           </div>
         </div>
       </section>
+
+      <SectionDivider themeId={themeId || event.theme || "atelier"} />
 
       {/* Fashion: Brand marquee - every 3rd in editorial red */}
       {cat === "fashion" && brands.length > 0 && (
@@ -357,6 +374,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
           <div className="max-w-[1200px] mx-auto">
             <SectionReveal>
               <div className="mb-16">
+                <div className="w-12 h-0.5 mb-6" style={{ backgroundColor: theme.colors.accent }} />
                 {cat === "fashion" && (
                   <div className="w-10 h-0.5 mb-4 bg-[#C7402D]" />
                 )}
@@ -365,8 +383,14 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
                   style={{
                     fontFamily: "var(--theme-display-font)",
                     fontSize: "clamp(2rem, 4vw, 4rem)",
-                    ...(cat === "music" && {
+                    ...(cat === "music" && !isBrutalist && {
                       background: "linear-gradient(135deg, #D4AF37, #F5E6A3, #D4AF37)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }),
+                    ...(isNeon && {
+                      background: "linear-gradient(135deg, #00FF88, #FF00AA)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
@@ -477,7 +501,21 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
       {(schedule.length > 0 || menu.length > 0 || journey.length > 0 || (cat === "market" && event.whatsHappening?.length)) && (
         <section className="section-luxury px-6" style={{ backgroundColor: theme.colors.bgAlt }}>
           <div className={cat === "food" ? "max-w-[640px] mx-auto" : "max-w-3xl mx-auto"}>
-            <SectionReveal><h2 className="font-light mb-16" style={{ fontFamily: "var(--theme-display-font)", fontSize: "clamp(2rem, 4vw, 4rem)", ...(cat === "music" && !isBrutalist ? { background: "linear-gradient(135deg, #D4AF37, #F5E6A3)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" } : { color: theme.colors.accent }) }}>{labels.schedule}</h2></SectionReveal>
+            <SectionReveal>
+              <div className="w-12 h-0.5 mb-6" style={{ backgroundColor: theme.colors.accent }} />
+              <h2
+                className="font-light mb-16"
+                style={{
+                  fontFamily: "var(--theme-display-font)",
+                  fontSize: "clamp(2rem, 4vw, 4rem)",
+                  color: theme.colors.accent,
+                  ...(cat === "music" && !isBrutalist && { background: "linear-gradient(135deg, #D4AF37, #F5E6A3)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }),
+                  ...(isNeon && { background: "linear-gradient(135deg, #00FF88, #FF00AA)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }),
+                }}
+              >
+                {labels.schedule}
+              </h2>
+            </SectionReveal>
             {menu.length > 0 ? (
               <div className="py-12 px-8 md:py-16 md:px-12 rounded-sm" style={{ backgroundColor: theme.colors.card, border: `2px solid ${theme.colors.accent}`, boxShadow: `0 8px 32px ${theme.colors.accent}20` }}>
                 {menu.map((m, i) => (
@@ -856,11 +894,23 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
         </div>
       </section>
 
+      <SectionDivider themeId={themeId || event.theme || "atelier"} />
+
       {/* Tickets */}
       <section id="tickets" ref={ticketsRef} className="section-luxury px-6" style={{ backgroundColor: theme.colors.bgAlt }}>
         <div className="max-w-[1200px] mx-auto">
           <SectionReveal>
-            <h2 className="font-light text-center mb-4" style={{ fontFamily: "var(--theme-display-font)", fontSize: "clamp(2rem, 4vw, 4rem)" }}>{labels.tickets}</h2>
+            <div className="w-12 h-0.5 mx-auto mb-6" style={{ backgroundColor: theme.colors.accent }} />
+            <h2
+              className="font-light text-center mb-4"
+              style={{
+                fontFamily: "var(--theme-display-font)",
+                fontSize: "clamp(2rem, 4vw, 4rem)",
+                ...(isNeon && { background: "linear-gradient(135deg, #00FF88, #FF00AA)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }),
+              }}
+            >
+              {labels.tickets}
+            </h2>
             {event.capacity ? (
               <p className="text-center text-sm uppercase tracking-wider mb-12" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.accent }}>
                 Limited to {event.capacity} guests
