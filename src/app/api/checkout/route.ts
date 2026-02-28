@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
 
     const { data: eventRow, error: eventErr } = await supabase
       .from("events")
-      .select("id, name, hero_image, status, content")
+      .select("id, user_id, name, hero_image, status, content")
       .eq("slug", slug)
       .single();
 
@@ -158,7 +158,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const session = await stripe.checkout.sessions.create({
+    let stripeConnectId: string | null = null;
+    const userId = (eventRow as { user_id?: string }).user_id;
+    if (userId) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("stripe_connect_id")
+        .eq("id", userId)
+        .single();
+      stripeConnectId = (profile as { stripe_connect_id?: string })?.stripe_connect_id ?? null;
+    }
+
+    const sessionConfig: Stripe.Checkout.SessionCreateParams = {
       mode: "payment",
       payment_method_types: ["card"],
       line_items: [
@@ -186,7 +197,15 @@ export async function POST(request: NextRequest) {
         event_slug: slug,
         attendee_id: attendee.id,
       },
-    });
+    };
+
+    if (stripeConnectId) {
+      sessionConfig.payment_intent_data = {
+        transfer_data: { destination: stripeConnectId },
+      };
+    }
+
+    const session = await stripe.checkout.sessions.create(sessionConfig);
 
     return NextResponse.json({
       success: true,
