@@ -154,6 +154,17 @@ body {
   }
 }
 
+/* Form inputs - ensure visible text on light backgrounds (fixes white-on-white on mobile) */
+input:not([type="range"]):not([type="checkbox"]):not([type="radio"]),
+textarea,
+select {
+  color: #1A1714;
+}
+input::placeholder,
+textarea::placeholder {
+  color: rgba(140, 133, 120, 0.6);
+}
+
 /* Form input focus - old money glow */
 input:focus,
 textarea:focus,

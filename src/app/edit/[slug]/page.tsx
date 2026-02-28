@@ -303,14 +303,14 @@ export default function EditPage() {
                         placeholder="Title"
                         value={highlights[i]?.title ?? ""}
                         onChange={(e) => updateHighlight(i, "title", e.target.value)}
-                        className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm"
+                        className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#1A1714]"
                       />
                       <textarea
                         placeholder="Description"
                         value={highlights[i]?.desc ?? ""}
                         onChange={(e) => updateHighlight(i, "desc", e.target.value)}
                         rows={2}
-                        className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm resize-none"
+                        className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#1A1714] resize-none"
                       />
                     </div>
                   ))}
@@ -328,14 +328,14 @@ export default function EditPage() {
                         placeholder="Question"
                         value={f.q}
                         onChange={(e) => updateFaq(i, "q", e.target.value)}
-                        className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm"
+                        className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#1A1714]"
                       />
                       <textarea
                         placeholder="Answer"
                         value={f.a}
                         onChange={(e) => updateFaq(i, "a", e.target.value)}
                         rows={2}
-                        className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm resize-none"
+                        className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#1A1714] resize-none"
                       />
                     </div>
                   ))}
@@ -367,21 +367,21 @@ export default function EditPage() {
                           placeholder="Name"
                           value={h.name}
                           onChange={(e) => updateHost(i, "name", e.target.value)}
-                          className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm"
+                          className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#1A1714]"
                         />
                         <input
                           type="text"
                           placeholder="Role"
                           value={h.role}
                           onChange={(e) => updateHost(i, "role", e.target.value)}
-                          className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm"
+                          className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#1A1714]"
                         />
                         <textarea
                           placeholder="Bio"
                           value={h.bio}
                           onChange={(e) => updateHost(i, "bio", e.target.value)}
                           rows={2}
-                          className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm resize-none"
+                          className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#1A1714] resize-none"
                         />
                       </div>
                     ))
@@ -414,14 +414,14 @@ export default function EditPage() {
                           placeholder="Time"
                           value={s.time}
                           onChange={(e) => updateScheduleItem(i, "time", e.target.value)}
-                          className="w-24 px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm"
+                          className="w-24 px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#1A1714]"
                         />
                         <input
                           type="text"
                           placeholder="Title"
                           value={s.title}
                           onChange={(e) => updateScheduleItem(i, "title", e.target.value)}
-                          className="flex-1 px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm"
+                          className="flex-1 px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#1A1714]"
                         />
                       </div>
                     ))
@@ -449,7 +449,7 @@ export default function EditPage() {
                         placeholder="Tier name"
                         value={t.name}
                         onChange={(e) => updateTicket(i, "name", e.target.value)}
-                        className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm"
+                        className="w-full px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#1A1714]"
                       />
                       <div className="flex gap-2">
                         <input
@@ -459,14 +459,14 @@ export default function EditPage() {
                           onChange={(e) =>
                             updateTicket(i, "price", parseInt(e.target.value, 10) || 0)
                           }
-                          className="w-24 px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm"
+                          className="w-24 px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#1A1714]"
                         />
                         <input
                           type="text"
                           placeholder="Description"
                           value={t.desc}
                           onChange={(e) => updateTicket(i, "desc", e.target.value)}
-                          className="flex-1 px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm"
+                          className="flex-1 px-3 py-2 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm text-[#1A1714]"
                         />
                       </div>
                     </div>

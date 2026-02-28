@@ -305,7 +305,7 @@ export default function CreatePage() {
                       setScrapeError("");
                     }}
                     placeholder="https://..."
-                    className="flex-1 px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] text-sm focus:outline-none focus:border-[#C4A574] placeholder:text-[#8C8578]/60"
+                    className="flex-1 px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] text-sm text-[#1A1714] focus:outline-none focus:border-[#C4A574] placeholder:text-[#8C8578]/60"
                   />
                   <button
                     type="button"
@@ -351,7 +351,7 @@ export default function CreatePage() {
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData((f) => ({ ...f, name: e.target.value }))}
-                      className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
+                      className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] text-[#1A1714] focus:outline-none focus:border-[#C4A574]"
                       placeholder="My Amazing Event"
                     />
                   </div>
@@ -363,7 +363,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.tagline}
                     onChange={(e) => setFormData((f) => ({ ...f, tagline: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
+                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] text-[#1A1714] focus:outline-none focus:border-[#C4A574]"
                     placeholder="Three days of designer fashion at up to 70% off"
                   />
                 </div>
@@ -374,7 +374,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.city}
                     onChange={(e) => setFormData((f) => ({ ...f, city: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
+                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] text-[#1A1714] focus:outline-none focus:border-[#C4A574]"
                     placeholder="New York"
                     required
                   />
@@ -387,7 +387,7 @@ export default function CreatePage() {
                       type="date"
                       value={formData.dateStart}
                       onChange={(e) => setFormData((f) => ({ ...f, dateStart: e.target.value }))}
-                      className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
+                      className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] text-[#1A1714] focus:outline-none focus:border-[#C4A574]"
                       required
                     />
                   </div>
@@ -397,7 +397,7 @@ export default function CreatePage() {
                       type="date"
                       value={formData.dateEnd}
                       onChange={(e) => setFormData((f) => ({ ...f, dateEnd: e.target.value }))}
-                      className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
+                      className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] text-[#1A1714] focus:outline-none focus:border-[#C4A574]"
                     />
                   </div>
                 </div>
@@ -408,7 +408,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.time}
                     onChange={(e) => setFormData((f) => ({ ...f, time: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
+                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] text-[#1A1714] focus:outline-none focus:border-[#C4A574]"
                     placeholder="10:00 AM - 7:00 PM"
                     required
                   />
@@ -420,7 +420,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.venue}
                     onChange={(e) => setFormData((f) => ({ ...f, venue: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
+                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] text-[#1A1714] focus:outline-none focus:border-[#C4A574]"
                     placeholder="The Loft on Spring"
                   />
                 </div>
@@ -431,7 +431,7 @@ export default function CreatePage() {
                     type="text"
                     value={formData.address}
                     onChange={(e) => setFormData((f) => ({ ...f, address: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574]"
+                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] text-[#1A1714] focus:outline-none focus:border-[#C4A574]"
                     placeholder="161 Spring Street, SoHo"
                   />
                 </div>
@@ -472,7 +472,7 @@ export default function CreatePage() {
                   <textarea
                     value={formData.extra}
                     onChange={(e) => setFormData((f) => ({ ...f, extra: e.target.value }))}
-                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] focus:outline-none focus:border-[#C4A574] min-h-[100px]"
+                    className="w-full px-4 py-3 bg-white border border-[#5C4033] font-[family-name:var(--font-body)] text-[#1A1714] focus:outline-none focus:border-[#C4A574] min-h-[100px]"
                     placeholder="Additional notes for your event..."
                   />
                 </div>
