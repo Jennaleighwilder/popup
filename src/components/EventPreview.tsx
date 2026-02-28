@@ -114,7 +114,7 @@ export function EventPreview({ event, showFooter = true }: { event: EventData; s
       )}
 
       {/* People: Hosts / Brands / Chef / Artist / Guide / Vendors */}
-      {hosts.length > 0 && (
+      {(hosts.length > 0 || (cat === "market" && vendors.length > 0)) && (
         <section className="section-luxury px-6" style={{ backgroundColor: theme.colors.bg }}>
           <div className="max-w-[1200px] mx-auto">
             <SectionReveal><h2 className="font-light mb-16" style={{ fontFamily: "var(--theme-display-font)", fontSize: "clamp(2rem, 4vw, 4rem)" }}>{labels.people}</h2></SectionReveal>

@@ -130,7 +130,7 @@ const SHOWCASE_EVENTS = [
     image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop",
     gridClass: "md:col-span-1",
     featured: false,
-    slug: null,
+    slug: "the-long-table",
   },
   {
     title: "First Friday Art Walk",
@@ -148,9 +148,29 @@ const SHOWCASE_EVENTS = [
     date: "June 22, 2026",
     category: "WELLNESS",
     image: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&h=600&fit=crop",
-    gridClass: "md:col-span-2 md:col-start-1",
+    gridClass: "md:col-span-1",
     featured: false,
-    slug: null,
+    slug: "morning-rituals",
+  },
+  {
+    title: "The Makers Market",
+    location: "Brooklyn",
+    date: "June 14–15, 2026",
+    category: "MARKET",
+    image: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=600&h=400&fit=crop",
+    gridClass: "md:col-span-1",
+    featured: false,
+    slug: "the-makers-market",
+  },
+  {
+    title: "Golden Hour Sessions",
+    location: "Los Angeles",
+    date: "June 28, 2026",
+    category: "MUSIC",
+    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=400&fit=crop",
+    gridClass: "md:col-span-1",
+    featured: false,
+    slug: "golden-hour-sessions",
   },
 ];
 
@@ -250,6 +270,8 @@ const CATEGORY_COLORS: Record<string, string> = {
   FOOD: "#8B4513",
   ART: "#111111",
   WELLNESS: "#5C7C50",
+  MARKET: "#8B4513",
+  MUSIC: "#D4AF37",
 };
 
 const TESTIMONIALS = [
