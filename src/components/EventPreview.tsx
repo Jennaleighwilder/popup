@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "@/components/ThemeProvider";
 import { CATEGORY_LABELS } from "@/types/event";
@@ -32,7 +31,7 @@ export function EventPreview({
   const sectionClass = `section-luxury ${theme.specialEffects?.extraWhitespace ? "py-[200px]" : "py-24"} px-6`;
   const cardClass = `card-hover-glow p-6 border bg-[var(--theme-card)] transition-all duration-[var(--theme-animation-duration)]`;
   const headingClass = theme.specialEffects?.uppercaseHeadings ? "uppercase tracking-wider" : "";
-  const gradientClass = theme.specialEffects?.gradientText ? "data-gradient-text" : "";
+  const gradientAttr = theme.specialEffects?.gradientText;
   const imgClass = theme.specialEffects?.sepiaImages ? "theme-sepia-images" : "";
   const monoLabelClass = theme.specialEffects?.typewriterMono ? "font-[family-name:var(--theme-mono-font)]" : "";
 
@@ -54,7 +53,7 @@ export function EventPreview({
     if (theme.heroStyle === "typographic") {
       return (
         <section className="min-h-[70vh] flex flex-col justify-center px-6 py-24">
-          <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] ${headingClass} ${gradientClass}`} style={{ fontFamily: "var(--theme-display-font)" }}>
+          <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] ${headingClass}`} data-gradient-text={gradientAttr ? "" : undefined} style={{ fontFamily: "var(--theme-display-font)" }}>
             {event.name}
           </h1>
           <p className="mt-6 text-lg md:text-xl opacity-80" style={{ color: theme.colors.textMuted }}>
@@ -73,11 +72,11 @@ export function EventPreview({
         <section className="relative min-h-[50vh] flex flex-col justify-end px-6 py-16">
           {event.heroImage && (
             <div className={`absolute inset-0 ${imgClass}`}>
-              <Image src={event.heroImage} alt="" fill className="object-cover opacity-85" sizes="100vw" unoptimized />
+              <img src={event.heroImage} alt="" className="absolute inset-0 w-full h-full object-cover opacity-85" />
             </div>
           )}
           <div className="relative z-10 max-w-2xl">
-            <h1 className={`text-4xl md:text-5xl font-semibold ${headingClass} ${gradientClass}`} style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>
+            <h1 className={`text-4xl md:text-5xl font-semibold ${headingClass}`} data-gradient-text={gradientAttr ? "" : undefined} style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>
               {event.name}
             </h1>
             <p className="mt-4 text-lg" style={{ color: theme.colors.textMuted }}>{event.tagline}</p>
@@ -93,12 +92,12 @@ export function EventPreview({
         <section className="relative min-h-[60vh] overflow-hidden px-6 py-16">
           {event.heroImage && (
             <div className={`absolute inset-0 ${imgClass}`}>
-              <Image src={event.heroImage} alt="" fill className="object-cover" sizes="100vw" unoptimized />
+              <img src={event.heroImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
             </div>
           )}
           <div className="absolute inset-0 bg-black/30" />
           <div className="relative z-10 flex flex-col justify-end min-h-[50vh]">
-            <h1 className={`text-4xl md:text-6xl font-bold ${headingClass} ${gradientClass}`} style={{ fontFamily: "var(--theme-display-font)", color: "white" }}>
+            <h1 className={`text-4xl md:text-6xl font-bold ${headingClass}`} data-gradient-text={gradientAttr ? "" : undefined} style={{ fontFamily: "var(--theme-display-font)", color: "white" }}>
               {event.name}
             </h1>
             <p className="mt-4 text-xl text-white/90">{event.tagline}</p>
@@ -113,12 +112,12 @@ export function EventPreview({
       <section className="relative min-h-[60vh] flex flex-col justify-end">
         {event.heroImage && (
           <div className={`absolute inset-0 ${imgClass}`}>
-            <Image src={event.heroImage} alt="" fill className="object-cover" sizes="100vw" unoptimized />
+            <img src={event.heroImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
         <div className="relative z-10 px-6 py-16 max-w-4xl">
-          <h1 className={`text-4xl md:text-6xl font-semibold ${headingClass} ${gradientClass}`} style={{ fontFamily: "var(--theme-display-font)", color: "white" }}>
+          <h1 className={`text-4xl md:text-6xl font-semibold ${headingClass}`} data-gradient-text={gradientAttr ? "" : undefined} style={{ fontFamily: "var(--theme-display-font)", color: "white" }}>
             {event.name}
           </h1>
           <p className="mt-4 text-xl text-white/90">{event.tagline}</p>
@@ -141,7 +140,7 @@ export function EventPreview({
         <>
           <section className={sectionClass} style={{ backgroundColor: theme.colors.bg }}>
             <div className={maxContentWidth}>
-              <h2 className={`text-2xl font-semibold mb-8 ${headingClass} ${gradientClass}`} style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>
+              <h2 className={`text-2xl font-semibold mb-8 ${headingClass}`} data-gradient-text={gradientAttr ? "" : undefined} style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>
                 {labels.about}
               </h2>
               <div className={`grid gap-6 ${highlights.length >= 3 ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
@@ -170,7 +169,7 @@ export function EventPreview({
         <>
           <section className={sectionClass} style={{ backgroundColor: theme.colors.bgAlt }}>
             <div className={maxContentWidth}>
-              <h2 className={`text-2xl font-semibold mb-8 ${headingClass} ${gradientClass}`} style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>
+              <h2 className={`text-2xl font-semibold mb-8 ${headingClass}`} data-gradient-text={gradientAttr ? "" : undefined} style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>
                 {labels.people}
               </h2>
               {hosts.length > 0 ? (
@@ -183,7 +182,7 @@ export function EventPreview({
                     >
                       {h.image && (
                         <div className="w-20 h-20 rounded-full overflow-hidden flex-shrink-0">
-                          <Image src={h.image} alt={h.name} width={80} height={80} className={`object-cover w-full h-full ${imgClass}`} unoptimized />
+                          <img src={h.image} alt={h.name} className={`object-cover w-full h-full ${imgClass}`} width={80} height={80} />
                         </div>
                       )}
                       <div>
@@ -204,7 +203,7 @@ export function EventPreview({
                     >
                       {v.image && (
                         <div className="w-16 h-16 rounded overflow-hidden mb-3">
-                          <Image src={v.image} alt={v.name} width={64} height={64} className={`object-cover w-full h-full ${imgClass}`} unoptimized />
+                          <img src={v.image} alt={v.name} className={`object-cover w-full h-full ${imgClass}`} width={64} height={64} />
                         </div>
                       )}
                       <h3 className="font-semibold" style={{ color: theme.colors.text }}>{v.name}</h3>
@@ -223,7 +222,7 @@ export function EventPreview({
         <>
           <section className={sectionClass} style={{ backgroundColor: theme.colors.bg }}>
             <div className={maxContentWidth}>
-              <h2 className={`text-2xl font-semibold mb-8 ${headingClass} ${gradientClass}`} style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>
+              <h2 className={`text-2xl font-semibold mb-8 ${headingClass}`} data-gradient-text={gradientAttr ? "" : undefined} style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>
                 {labels.schedule}
               </h2>
               {schedule.length > 0 && (
@@ -275,7 +274,7 @@ export function EventPreview({
         <>
           <section id="tickets" className={sectionClass} style={{ backgroundColor: theme.colors.bgAlt }}>
             <div className={maxContentWidth}>
-              <h2 className={`text-2xl font-semibold mb-8 ${headingClass} ${gradientClass}`} style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>
+              <h2 className={`text-2xl font-semibold mb-8 ${headingClass}`} data-gradient-text={gradientAttr ? "" : undefined} style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>
                 {labels.tickets}
               </h2>
               <div className="grid gap-4 md:grid-cols-2">
@@ -320,8 +319,8 @@ export function EventPreview({
       {faqs.length > 0 && (
         <section className={sectionClass} style={{ backgroundColor: theme.colors.bg }}>
           <div className={maxContentWidth}>
-            <h2 className={`text-2xl font-semibold mb-8 ${headingClass} ${gradientClass}`} style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>
-              {labels.faq}
+<h2 className={`text-2xl font-semibold mb-8 ${headingClass}`} data-gradient-text={gradientAttr ? "" : undefined} style={{ fontFamily: "var(--theme-display-font)", color: theme.colors.text }}>
+                {labels.faq}
             </h2>
             <div className="space-y-6">
               {faqs.map((f, i) => (
