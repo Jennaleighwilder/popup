@@ -16,14 +16,14 @@ export async function signIn(email: string, password: string) {
   return supabase.auth.signInWithPassword({ email, password });
 }
 
-export async function signInWithGoogle() {
+export async function signInWithGoogle(next?: string) {
   const supabase = createClient();
   if (!supabase) {
     return { error: { message: "Supabase not configured" } };
   }
-  // Use current origin so we always redirect back to Popup (not Launchpad)
   const origin = typeof window !== "undefined" ? window.location.origin : process.env.NEXT_PUBLIC_APP_URL;
-  const redirectTo = origin ? `${origin}/auth/callback` : undefined;
+  const nextPath = next || "/create";
+  const redirectTo = origin ? `${origin}/auth/callback?next=${encodeURIComponent(nextPath)}` : undefined;
   return supabase.auth.signInWithOAuth({
     provider: "google",
     options: { redirectTo },

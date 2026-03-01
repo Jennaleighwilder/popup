@@ -74,7 +74,7 @@ export default function CreatePage() {
   const [scrapeError, setScrapeError] = useState("");
 
   useEffect(() => {
-    if (!loading && !user && !demoMode) router.push("/login");
+    if (!loading && !user && !demoMode) router.push("/login?next=/create");
   }, [user, loading, demoMode, router]);
 
   useEffect(() => {
