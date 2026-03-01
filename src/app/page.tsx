@@ -120,6 +120,14 @@ export default function Home() {
             Log In
           </Link>
           <Link
+            href="/m"
+            className="text-[11px] uppercase tracking-[0.15em] hover:underline hidden sm:inline"
+            style={{ fontFamily: "var(--font-body)", color: "#8C8578" }}
+            title="View mobile-optimized site"
+          >
+            Mobile
+          </Link>
+          <Link
             href="/create"
             className="rounded-full px-5 py-2.5 text-[11px] font-medium uppercase tracking-wider transition-all hover:-translate-y-0.5 hover:shadow-md"
             style={{ backgroundColor: "#C4956A", color: "#FFF", fontFamily: "var(--font-body)" }}
@@ -441,6 +449,13 @@ export default function Home() {
           <p className="mt-2 font-[family-name:var(--font-cormorant)] italic" style={{ color: "#1A1714" }}>
             Popup
           </p>
+          <Link
+            href="/m"
+            className="mt-6 inline-block text-[11px] uppercase tracking-[0.15em] hover:text-[#C4956A] transition-colors"
+            style={{ fontFamily: "var(--font-body)", color: "#8C8578" }}
+          >
+            View Mobile Site →
+          </Link>
         </div>
       </footer>
     </div>
