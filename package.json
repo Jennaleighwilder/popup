@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "screenshots": "node scripts/capture-screenshots.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.8.0",
@@ -22,6 +23,7 @@
     "stripe": "^20.4.0"
   },
   "devDependencies": {
+    "playwright": "^1.49.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
