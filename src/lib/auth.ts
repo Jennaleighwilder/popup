@@ -21,12 +21,11 @@ export async function signInWithGoogle() {
   if (!supabase) {
     return { error: { message: "Supabase not configured" } };
   }
-  const redirectTo =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/auth/callback`
-      : process.env.NEXT_PUBLIC_APP_URL
-        ? `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`
-        : undefined;
+  // Always use NEXT_PUBLIC_APP_URL in production so we redirect to Popup, not Launchpad
+  const baseUrl =
+    process.env.NEXT_PUBLIC_APP_URL ||
+    (typeof window !== "undefined" ? window.location.origin : undefined);
+  const redirectTo = baseUrl ? `${baseUrl}/auth/callback` : undefined;
   return supabase.auth.signInWithOAuth({
     provider: "google",
     options: { redirectTo },
