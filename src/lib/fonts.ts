@@ -24,9 +24,28 @@ import {
   Fira_Code,
   Libre_Baskerville,
   Source_Serif_4,
+  Cinzel,
+  Lora,
+  Bodoni_Moda,
+  Archivo,
+  Syne,
+  Noto_Serif_JP,
 } from "next/font/google";
 
-// Atelier
+// Atelier — Vogue/Didot: high-contrast serif + clean sans
+export const bodoniModa = Bodoni_Moda({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-bodoni-moda",
+});
+
+export const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-archivo",
+});
+
 export const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
@@ -123,11 +142,23 @@ export const firaMono = Fira_Mono({
   variable: "--font-fira-mono",
 });
 
-// Brutalist
+// Brutalist — raw geometric grotesque
 export const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-space-grotesk",
+});
+
+export const syne = Syne({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-syne",
+});
+
+export const notoSerifJP = Noto_Serif_JP({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700"],
+  variable: "--font-noto-serif-jp",
 });
 
 export const jetbrainsMono = JetBrains_Mono({
@@ -170,7 +201,20 @@ export const firaCode = Fira_Code({
   variable: "--font-fira-code",
 });
 
-// Vintage
+// Vintage — classic serif, aged paper feel
+export const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-cinzel",
+});
+
+export const lora = Lora({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-lora",
+});
+
 export const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -217,6 +261,12 @@ export const themeFontVariables: Record<string, string> = {
   "Fira Code": "var(--font-fira-code)",
   "Libre Baskerville": "var(--font-libre-baskerville)",
   "Source Serif 4": "var(--font-source-serif-4)",
+  Cinzel: "var(--font-cinzel)",
+  Lora: "var(--font-lora)",
+  "Bodoni Moda": "var(--font-bodoni-moda)",
+  Archivo: "var(--font-archivo)",
+  Syne: "var(--font-syne)",
+  "Noto Serif JP": "var(--font-noto-serif-jp)",
 };
 
 export const allThemeFontClasses = [
@@ -244,4 +294,10 @@ export const allThemeFontClasses = [
   firaCode.variable,
   libreBaskerville.variable,
   sourceSerif4.variable,
+  cinzel.variable,
+  lora.variable,
+  bodoniModa.variable,
+  archivo.variable,
+  syne.variable,
+  notoSerifJP.variable,
 ].join(" ");

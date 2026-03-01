@@ -8,8 +8,8 @@ export const THEME_TO_DEMO_SLUG: Record<ThemeId, string> = {
   gallery: "first-friday-art-walk",
   botanica: "morning-rituals",
   soiree: "golden-hour-sessions",
-  brutalist: "the-edit-spring-sample-sale",
-  zen: "morning-rituals",
+  brutalist: "first-friday-art-walk",
+  zen: "the-stone-room",
   maximalist: "the-red-room",
   neon: "neon-nights",
   vintage: "the-makers-market",
@@ -22,6 +22,7 @@ export const DEMO_EVENT_SLUGS = [
   "the-red-room",
   "first-friday-art-walk",
   "morning-rituals",
+  "the-stone-room",
   "the-makers-market",
   "golden-hour-sessions",
   "neon-nights",
@@ -39,7 +40,7 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     address: "161 Spring Street, SoHo",
     date: "May 15-17, 2026",
     time: "10:00 AM - 7:00 PM",
-    heroImage: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1920&h=1080&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1920&h=1080&fit=crop",
     venueImage: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&h=800&fit=crop",
     highlights: [
       { title: "Curated Designers", desc: "40+ independent designers from NYC, LA, and London" },
@@ -130,7 +131,7 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     date: "June 6, 2026",
     time: "5:00 PM – 9:00 PM",
     heroImage: "https://images.unsplash.com/photo-1577720643272-265f09367456?w=1920&h=1080&fit=crop",
-    venueImage: "https://images.unsplash.com/photo-1577720643272-265f09367456?w=1920&h=800&fit=crop",
+    venueImage: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1920&h=800&fit=crop",
     highlights: [
       { title: "Six Studios", desc: "28 working artists opening their doors for one night" },
       { title: "New Work", desc: "Fresh pieces, live demonstrations, and conversation" },
@@ -167,6 +168,64 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     ],
   },
 
+  "the-stone-room": {
+    slug: "the-stone-room",
+    name: "The Stone Room",
+    tagline: "A morning of tea, silence, and presence — wabi-sabi in the garden",
+    category: "wellness",
+    theme: "zen",
+    city: "Kyoto",
+    venue: "The Stone Room",
+    address: "Gion, Higashiyama-ku",
+    date: "September 14, 2026",
+    time: "6:00 AM – 10:00 AM",
+    heroImage: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1920&h=1080&fit=crop",
+    venueImage: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&h=800&fit=crop",
+    capacity: 12,
+    highlights: [
+      { title: "Tea Ceremony", desc: "Traditional matcha in a contemplative setting" },
+      { title: "Silent Sitting", desc: "Zazen practice — no instruction, just presence" },
+      { title: "Stone Garden", desc: "Time in the karesansui before the city wakes" },
+    ],
+    hosts: [
+      {
+        name: "Sōen Tanaka",
+        role: "Tea Master",
+        bio: "Tea practitioner for 40 years. Trained in Urasenke. Brings wabi-sabi to the morning.",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+      },
+    ],
+    schedule: [],
+    journey: [
+      { step: "Arrival", desc: "We gather in silence as the light changes. No words. The garden receives us.", image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop" },
+      { step: "Tea", desc: "A single bowl of matcha. Prepared with care. Received with gratitude.", image: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&h=400&fit=crop" },
+      { step: "Sitting", desc: "Twenty minutes of zazen. The stone garden. The breath. Nothing to do.", image: "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=600&h=400&fit=crop" },
+      { step: "Walking", desc: "Kinhin through the garden. Slow. Each step the only step.", image: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=600&h=400&fit=crop" },
+      { step: "Closing", desc: "A shared moment of stillness. Then we leave as we came — in silence.", image: "https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=600&h=400&fit=crop" },
+    ],
+    whatToBring: ["Loose, dark clothing", "Nothing else"],
+    whatsProvided: ["Matcha", "Cushions", "The garden"],
+    landscapeImages: [
+      "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?w=800&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=800&h=500&fit=crop",
+    ],
+    testimonials: [
+      { quote: "No yoga. No breathwork. Just tea and silence. Exactly what I needed.", author: "— Yuki, Osaka", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" },
+      { quote: "The Stone Room feels like another world. Sōen creates space without filling it.", author: "— James, London", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face" },
+      { quote: "I've done tea ceremonies before. This was different. Simpler. Deeper.", author: "— Mei, San Francisco", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face" },
+    ],
+    tickets: [
+      { name: "Morning Session", price: 85, desc: "Tea ceremony, sitting, garden" },
+      { name: "Early Bird", price: 65, desc: "Book 3+ weeks in advance" },
+    ],
+    faqs: [
+      { q: "Do I need meditation experience?", a: "No. We sit in silence. There is nothing to learn." },
+      { q: "What should I wear?", a: "Dark, loose clothing. No bright colors or logos." },
+      { q: "Is it silent the whole time?", a: "Yes. From arrival to departure." },
+    ],
+  },
+
   "morning-rituals": {
     slug: "morning-rituals",
     name: "Morning Rituals",
@@ -179,7 +238,7 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     date: "June 22, 2026",
     time: "7:00 AM – 12:00 PM",
     heroImage: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1920&h=1080&fit=crop",
-    venueImage: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1920&h=800&fit=crop",
+    venueImage: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=1920&h=800&fit=crop",
     highlights: [
       { title: "Breathwork", desc: "Gentle pranayama to arrive fully in your body" },
       { title: "Movement", desc: "Slow vinyasa flow — all levels welcome" },
@@ -196,7 +255,7 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     schedule: [],
     journey: [
       { step: "Arrival", desc: "We begin in stillness. As the desert sun rises, we gather in a circle for opening breathwork — a gentle pranayama practice to arrive fully in our bodies.", image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=400&fit=crop" },
-      { step: "Movement", desc: "We move into a slow, intentional vinyasa flow. This isn't a workout — it's a conversation with your body. All levels welcome.", image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop" },
+      { step: "Movement", desc: "We move into a slow, intentional vinyasa flow. This isn't a workout — it's a conversation with your body. All levels welcome.", image: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?w=600&h=400&fit=crop" },
       { step: "Sound Bath", desc: "A sound bath follows. Crystal singing bowls tuned to the chakras fill the space as you rest in savasana.", image: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&h=400&fit=crop" },
       { step: "Cacao & Intention", desc: "We close with a cacao ceremony and journaling. Hot ceremonial cacao, a writing prompt, and space to set an intention for the month ahead.", image: "https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=600&h=400&fit=crop" },
       { step: "Breakfast", desc: "We share a light breakfast together — fresh fruit, granola, herbal tea — as the morning warmth settles in.", image: "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=600&h=400&fit=crop" },
@@ -204,9 +263,9 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     whatToBring: ["Yoga mat", "Water bottle", "Journal", "Layers", "Sunscreen", "An open heart"],
     whatsProvided: ["Ceremonial cacao", "Light breakfast", "Blankets and props", "Sound healing instruments", "All materials for journaling"],
     landscapeImages: [
-      "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&h=500&fit=crop",
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&h=500&fit=crop",
       "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?w=800&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&h=500&fit=crop",
     ],
     testimonials: [
       { quote: "I've done retreats all over the world, and this was the most grounding experience I've ever had.", author: "— Maya, Los Angeles", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" },
@@ -237,7 +296,7 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     address: "Brook Street, Mayfair",
     date: "August 3, 2026",
     time: "7:00 PM",
-    heroImage: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&h=1080&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1920&h=1080&fit=crop",
     venueImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=800&fit=crop",
     capacity: 20,
     highlights: [
@@ -287,7 +346,7 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     date: "July 12, 2026",
     time: "7:30 PM",
     heroImage: "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=1920&h=1080&fit=crop",
-    venueImage: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&h=800&fit=crop",
+    venueImage: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1920&h=800&fit=crop",
     capacity: 24,
     highlights: [
       { title: "Spice-First Menu", desc: "Saffron, cardamom, sumac, harissa — each course tells a story" },
@@ -335,8 +394,8 @@ export const DEMO_EVENTS: Record<string, EventData> = {
     address: "141 Flushing Ave",
     date: "June 14-15, 2026",
     time: "10:00 AM – 6:00 PM",
-    heroImage: "https://images.unsplash.com/photo-1761289731268-900eba5cf09f?w=1920&h=1080&fit=crop",
-    venueImage: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=1920&h=800&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=1920&h=1080&fit=crop",
+    venueImage: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=1920&h=800&fit=crop",
     highlights: [
       { title: "60+ Vendors", desc: "Ceramics, fashion, food, art, and more" },
       { title: "Live Demos", desc: "Knife-sharpening, printmaking, and craft workshops" },

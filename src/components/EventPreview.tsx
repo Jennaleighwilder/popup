@@ -102,14 +102,19 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
   const isMaximalist = themeId === "maximalist";
   const isNeon = themeId === "neon";
   const isDarkTheme = isNeon || isBrutalist || isMaximalist || themeId === "soiree";
+  const isVintage = themeId === "vintage";
 
-  const heroGradient = isDarkTheme
-    ? `linear-gradient(to top, ${theme.colors.bg} 0%, rgba(0,0,0,0.45) 35%, rgba(0,0,0,0.2) 55%, transparent 75%)`
-    : `linear-gradient(to top, ${theme.colors.bg} 0%, transparent 40%)`;
+  // ALL themes: hero images vary — always use strong overlay + text shadow for readability
+  const needsStrongHeroContrast = true;
 
-  const heroTextShadow = isDarkTheme
-    ? "0 0 20px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.8), 0 2px 6px rgba(0,0,0,0.95), 1px 1px 0 rgba(0,0,0,0.9), -1px -1px 0 rgba(0,0,0,0.9), 1px -1px 0 rgba(0,0,0,0.9), -1px 1px 0 rgba(0,0,0,0.9)"
-    : undefined;
+  const heroGradient = isVintage
+    ? `linear-gradient(to top, rgba(42,31,20,0.98) 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.2) 85%, transparent 100%)`
+    : `linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.78) 25%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.25) 75%, transparent 100%)`;
+
+  const heroTextShadow = "0 1px 3px rgba(0,0,0,1), 0 2px 12px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,1)";
+
+  const heroTextColor = "#FFFFFF";
+  const heroMutedColor = "rgba(255,255,255,0.88)";
 
   const wrapperStyle: React.CSSProperties = {
     fontFamily: "var(--theme-body-font)",
@@ -134,8 +139,12 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
           style={{
             fontFamily: "var(--theme-display-font)",
             fontSize: "24px",
-            color: theme.colors.text,
-            textShadow: isDarkTheme ? "0 0 16px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.7)" : undefined,
+            color: needsStrongHeroContrast ? "#F5EDE4" : theme.colors.text,
+            textShadow: needsStrongHeroContrast
+              ? isVintage
+                ? "0 1px 2px rgba(0,0,0,0.5), 0 0 12px rgba(255,255,255,0.4)"
+                : "0 0 16px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.7)"
+              : undefined,
           }}
         >
           Popup
@@ -180,22 +189,25 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
             transition={{ duration: 0.6, staggerChildren: 0.2 }}
           >
             <motion.h1
-              className="font-light leading-tight mb-4 flex items-start gap-3"
+              className="leading-tight mb-4 flex items-start gap-3"
               style={{
                 fontFamily: "var(--theme-display-font)",
                 fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
-                color: theme.colors.text,
+                fontWeight: 400,
+                color: heroTextColor,
                 textShadow: heroTextShadow,
+                letterSpacing: "-0.02em",
               }}
             >
               {cat === "art" && <span className="w-2 h-2 rounded-full shrink-0 mt-4" style={{ backgroundColor: "#E63946" }} />}
               {event.name}
             </motion.h1>
             <motion.p
-              className="text-lg md:text-xl mb-6 max-w-2xl"
+              className="text-lg md:text-xl mb-6 max-w-2xl font-normal"
               style={{
-                color: isDarkTheme ? theme.colors.text : theme.colors.textMuted,
+                color: heroMutedColor,
                 textShadow: heroTextShadow,
+                fontWeight: 400,
               }}
               transition={{ delay: 0.2 }}
             >
@@ -211,12 +223,13 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
               </motion.p>
             )}
             <motion.p
-              className="text-sm uppercase mb-8"
+              className="text-sm uppercase mb-8 font-medium"
               style={{
                 fontFamily: "var(--theme-mono-font)",
-                color: isDarkTheme ? theme.colors.text : theme.colors.textMuted,
-                letterSpacing: "0.1em",
+                color: heroMutedColor,
+                letterSpacing: "0.12em",
                 textShadow: heroTextShadow,
+                fontWeight: 500,
               }}
               transition={{ delay: 0.4 }}
             >
@@ -236,14 +249,10 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
               </a>
               <a
                 href="#experience"
-                className="px-8 py-4 font-medium tracking-wider uppercase transition-colors"
+                className="px-8 py-4 font-medium tracking-wider uppercase transition-colors border border-white/40"
                 style={{
-                  color: theme.colors.text,
-                  textShadow: heroTextShadow,
-                  ...(isDarkTheme && {
-                    border: "1px solid rgba(255,255,255,0.35)",
-                    backgroundColor: "rgba(0,0,0,0.15)",
-                  }),
+                  color: heroTextColor,
+                  backgroundColor: "rgba(0,0,0,0.4)",
                 }}
               >
                 Learn More ↓
@@ -253,7 +262,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
                   type="button"
                   onClick={handleAddToCalendar}
                   className="p-3 transition-colors hover:opacity-80"
-                  style={{ color: theme.colors.text, textShadow: heroTextShadow }}
+                  style={{ color: heroTextColor, textShadow: heroTextShadow }}
                   title="Add to calendar"
                 >
                   <Calendar className="w-5 h-5" strokeWidth={1.5} />
@@ -262,7 +271,7 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
                   type="button"
                   onClick={handleShare}
                   className="p-3 transition-colors hover:opacity-80"
-                  style={{ color: theme.colors.text, textShadow: heroTextShadow }}
+                  style={{ color: heroTextColor, textShadow: heroTextShadow }}
                   title="Share event"
                 >
                   <Share2 className="w-5 h-5" strokeWidth={1.5} />
@@ -884,10 +893,10 @@ export function EventPreview({ event, showFooter = true, isDemo = false, themeOv
           <SectionReveal>
             <div className="relative aspect-[21/9] overflow-hidden rounded-sm">
               <Image src={event.venueImage} alt={event.venue} fill className="object-cover event-hero-image" sizes="100vw" />
-              <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12" style={{ background: `linear-gradient(to top, ${theme.colors.bg} 0%, transparent 60%)` }}>
-                <h2 className="text-2xl md:text-4xl font-light mb-2" style={{ fontFamily: "var(--theme-display-font)" }}>{event.venue}</h2>
-                <p className="text-sm mb-4" style={{ fontFamily: "var(--theme-mono-font)", color: theme.colors.textMuted }}>{event.address}</p>
-                {event.address && <a href={`https://maps.google.com/?q=${encodeURIComponent(event.address)}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-medium tracking-wider uppercase w-fit" style={{ color: theme.colors.accent }}>Get Directions →</a>}
+              <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 40%, transparent 70%)" }}>
+                <h2 className="text-2xl md:text-4xl font-light mb-2 text-white" style={{ fontFamily: "var(--theme-display-font)", textShadow: "0 2px 8px rgba(0,0,0,0.8)" }}>{event.venue}</h2>
+                <p className="text-sm mb-4 text-white/90" style={{ fontFamily: "var(--theme-mono-font)", textShadow: "0 1px 4px rgba(0,0,0,0.8)" }}>{event.address}</p>
+                {event.address && <a href={`https://maps.google.com/?q=${encodeURIComponent(event.address)}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-medium tracking-wider uppercase w-fit text-white hover:text-white/90" style={{ color: "#F5EDE4", textShadow: "0 1px 4px rgba(0,0,0,0.8)" }}>Get Directions →</a>}
               </div>
             </div>
           </SectionReveal>
