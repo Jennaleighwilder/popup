@@ -21,11 +21,9 @@ export async function signInWithGoogle() {
   if (!supabase) {
     return { error: { message: "Supabase not configured" } };
   }
-  // Always use NEXT_PUBLIC_APP_URL in production so we redirect to Popup, not Launchpad
-  const baseUrl =
-    process.env.NEXT_PUBLIC_APP_URL ||
-    (typeof window !== "undefined" ? window.location.origin : undefined);
-  const redirectTo = baseUrl ? `${baseUrl}/auth/callback` : undefined;
+  // Use current origin so we always redirect back to Popup (not Launchpad)
+  const origin = typeof window !== "undefined" ? window.location.origin : process.env.NEXT_PUBLIC_APP_URL;
+  const redirectTo = origin ? `${origin}/auth/callback` : undefined;
   return supabase.auth.signInWithOAuth({
     provider: "google",
     options: { redirectTo },
