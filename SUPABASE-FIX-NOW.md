@@ -24,6 +24,16 @@
 
 ---
 
+## Or run in terminal (one command)
+
+```bash
+cd /Users/jenniferwest/popup
+SUPABASE_ACCESS_TOKEN=your_token ./fix-supabase-redirect.sh
+```
+(Get token: https://supabase.com/dashboard/account/tokens)
+
+---
+
 ## Done
 
-Try signing in with Google again. You should land on the create page, not the login page.
+Redeploy, then try sign-in again (desktop + mobile).

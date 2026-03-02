@@ -24,8 +24,8 @@ function LoginForm() {
       setError(error.message);
       return;
     }
-    router.push("/dashboard");
-    router.refresh();
+    // Full page nav so session is picked up (fixes mobile loop)
+    window.location.href = nextPath.startsWith("/") ? nextPath : `/${nextPath}`;
   };
 
   const handleGoogleSignIn = async () => {

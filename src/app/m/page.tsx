@@ -83,7 +83,7 @@ export default function MobileHome() {
         </span>
         <div className="flex items-center gap-2">
           <Link
-            href="/login"
+            href="/login?next=/create"
             className="text-xs font-medium px-3 py-2.5 min-h-[44px] flex items-center"
             style={{ fontFamily: "var(--font-body)", color: "#8C8578" }}
           >
@@ -352,7 +352,7 @@ export default function MobileHome() {
         <div className="flex flex-wrap justify-center gap-6 mb-6" style={{ fontFamily: "var(--font-body)", fontSize: "13px", color: "#8C8578" }}>
           <Link href="/" className="hover:text-[#C4956A] transition-colors">About</Link>
           <Link href="#pricing" className="hover:text-[#C4956A] transition-colors">Pricing</Link>
-          <Link href="/login" className="hover:text-[#C4956A] transition-colors">Log In</Link>
+          <Link href="/login?next=/create" className="hover:text-[#C4956A] transition-colors">Log In</Link>
           <Link href="/" className="hover:text-[#C4956A] transition-colors">Contact</Link>
         </div>
         <p className="text-center text-[11px]" style={{ fontFamily: "var(--font-body)", color: "#8C8578" }}>
