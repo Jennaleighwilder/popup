@@ -19,7 +19,7 @@ curl -s -X PATCH "https://api.supabase.com/v1/projects/${PROJECT_REF}/config/aut
   -H "Content-Type: application/json" \
   -d '{
     "site_url": "https://popup-tawny-nu.vercel.app",
-    "uri_allow_list": "https://popup-tawny-nu.vercel.app,https://popup-tawny-nu.vercel.app/**,https://launchpad-conference-platform.vercel.app,https://launchpad-conference-platform.vercel.app/**"
+    "uri_allow_list": "https://popup-tawny-nu.vercel.app,https://popup-tawny-nu.vercel.app/**"
   }' | head -20
 
 echo ""
