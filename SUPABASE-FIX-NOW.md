@@ -4,10 +4,10 @@
 
 ---
 
-## Steps
+## Steps (in your Popup Supabase project)
 
 1. Go to **https://supabase.com/dashboard**
-2. Open your project (the one with `zqtnmznyyzjstmtqcscv` in the URL)
+2. Open your **Popup** project (`oistyeccgqnshsdnmxqzm`)
 3. Click **Authentication** (left sidebar)
 4. Click **URL Configuration**
 5. Under **Redirect URLs**, click **Add URL**
