@@ -21,9 +21,15 @@ export async function signInWithGoogle(next?: string) {
   if (!supabase) {
     return { error: { message: "Supabase not configured" } };
   }
-  const origin = typeof window !== "undefined" ? window.location.origin : process.env.NEXT_PUBLIC_APP_URL;
+  const baseUrl =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : process.env.NEXT_PUBLIC_APP_URL || "https://popup-tawny-nu.vercel.app";
   const nextPath = next || "/create";
-  const redirectTo = origin ? `${origin}/auth/callback?next=${encodeURIComponent(nextPath)}` : undefined;
+  if (typeof window !== "undefined") {
+    sessionStorage.setItem("auth_next", nextPath);
+  }
+  const redirectTo = `${baseUrl.replace(/\/$/, "")}/auth/callback?next=${encodeURIComponent(nextPath)}`;
   return supabase.auth.signInWithOAuth({
     provider: "google",
     options: { redirectTo },

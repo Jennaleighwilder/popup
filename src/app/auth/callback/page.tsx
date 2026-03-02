@@ -10,7 +10,13 @@ function AuthCallbackContent() {
 
   useEffect(() => {
     const code = searchParams.get("code");
-    const next = searchParams.get("next") ?? "/create";
+    const nextFromUrl = searchParams.get("next");
+    const nextFromStorage =
+      typeof window !== "undefined" ? sessionStorage.getItem("auth_next") : null;
+    const next = nextFromUrl ?? nextFromStorage ?? "/create";
+    if (typeof window !== "undefined" && nextFromStorage) {
+      sessionStorage.removeItem("auth_next");
+    }
 
     const supabase = createClient();
     if (!supabase) {
@@ -24,7 +30,7 @@ function AuthCallbackContent() {
           router.replace("/login?error=auth");
         } else {
           // Full page nav so AuthProvider picks up the new session
-          window.location.href = next;
+          window.location.href = next.startsWith("/") ? next : `/${next}`;
         }
       });
     } else {
