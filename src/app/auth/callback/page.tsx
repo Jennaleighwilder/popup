@@ -10,6 +10,8 @@ function AuthCallbackContent() {
 
   useEffect(() => {
     const code = searchParams.get("code");
+    const hash = typeof window !== "undefined" ? window.location.hash : "";
+    const hasImplicitTokens = hash.includes("access_token=");
     const nextFromUrl = searchParams.get("next");
     const nextFromStorage =
       typeof window !== "undefined" ? sessionStorage.getItem("auth_next") : null;
@@ -24,14 +26,30 @@ function AuthCallbackContent() {
       return;
     }
 
+    // Implicit flow: tokens in URL hash, client parses automatically
+    if (hasImplicitTokens) {
+      const sub = supabase.auth.onAuthStateChange((_event, session) => {
+        if (session) {
+          sub.data.subscription.unsubscribe();
+          window.location.href = next.startsWith("/") ? next : `/${next}`;
+        }
+      });
+      // Fallback: if no event fires, check session after parse
+      const t = setTimeout(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          if (session) window.location.href = next.startsWith("/") ? next : `/${next}`;
+        });
+      }, 500);
+      return () => clearTimeout(t);
+    }
+
+    // PKCE flow (fallback)
     if (code) {
       supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
         if (error) {
-          // Pass error for debugging (e.g. PKCE code_verifier missing on mobile)
           const errParam = encodeURIComponent(error.message);
           router.replace(`/login?error=auth&details=${errParam}`);
         } else {
-          // Full page nav so AuthProvider picks up the new session
           window.location.href = next.startsWith("/") ? next : `/${next}`;
         }
       });

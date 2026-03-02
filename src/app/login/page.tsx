@@ -63,6 +63,11 @@ function LoginForm() {
               {errorDetails}
             </p>
           )}
+          {urlError && (
+            <p className="text-xs text-[#A89070] mt-3">
+              Tip: If you opened this from Gmail or another app, tap the share icon → &quot;Open in Safari&quot; and try again.
+            </p>
+          )}
           <div>
             <label
               htmlFor="email"

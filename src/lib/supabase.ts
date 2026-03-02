@@ -1,5 +1,4 @@
 import { createClient as createSupabaseClient, type SupabaseClient } from "@supabase/supabase-js";
-import { createBrowserClient } from "@supabase/ssr";
 
 let browserClient: SupabaseClient | null = null;
 
@@ -17,8 +16,15 @@ export function createClient() {
     return browserClient;
   }
 
-  // createBrowserClient uses cookies - fixes PKCE code_verifier loss on mobile
-  browserClient = createBrowserClient(supabaseUrl, supabaseKey);
+  // Implicit flow: no code_verifier needed - works when PKCE fails on mobile
+  // (in-app browsers, Gmail WebView, etc. often lose PKCE storage across redirects)
+  browserClient = createSupabaseClient(supabaseUrl, supabaseKey, {
+    auth: {
+      flowType: "implicit",
+      detectSessionInUrl: true,
+      persistSession: true,
+    },
+  });
   return browserClient;
 }
 
