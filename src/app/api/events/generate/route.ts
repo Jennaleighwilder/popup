@@ -2,24 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { selectThemeForCategory } from "@/lib/themes";
 import { getServiceRoleClient } from "@/lib/supabase";
-
-const CATEGORY_IMAGES: Record<string, string> = {
-  fashion: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1920&h=1080&fit=crop",
-  food: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&h=1080&fit=crop",
-  art: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=1920&h=1080&fit=crop",
-  wellness: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=1920&h=1080&fit=crop",
-  music: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1920&h=1080&fit=crop",
-  market: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=1920&h=1080&fit=crop",
-};
-
-const VENUE_IMAGES: Record<string, string> = {
-  fashion: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&h=800&fit=crop",
-  food: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1920&h=800&fit=crop",
-  art: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1920&h=800&fit=crop",
-  wellness: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1920&h=800&fit=crop",
-  music: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1920&h=800&fit=crop",
-  market: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=1920&h=800&fit=crop",
-};
+import { getHeroImageForCategory, getVenueImageForCategory } from "@/image-governor";
 
 function slugify(text: string): string {
   return text
@@ -59,8 +42,8 @@ function templateEvent(params: {
 
   const name = params.name?.trim() || defaultNames[mapKey] || "Your Event";
   const slug = generateSlug(name);
-  const heroImage = CATEGORY_IMAGES[mapKey] || CATEGORY_IMAGES.fashion;
-  const venueImage = VENUE_IMAGES[mapKey] || VENUE_IMAGES.fashion;
+  const heroImage = getHeroImageForCategory(mapKey);
+  const venueImage = getVenueImageForCategory(mapKey);
 
   const dateStr = params.dateEnd
     ? `${params.dateStart} – ${params.dateEnd}`
@@ -291,8 +274,8 @@ Create 3 highlights, 2-4 hosts, 4-6 schedule items, 2-3 ticket tiers, 3-5 FAQs. 
 
   const name = parsed.name || params.name || "Your Event";
   const slug = generateSlug(name);
-  const heroImage = CATEGORY_IMAGES[mapKey] || CATEGORY_IMAGES.fashion;
-  const venueImage = VENUE_IMAGES[mapKey] || VENUE_IMAGES.fashion;
+  const heroImage = getHeroImageForCategory(mapKey);
+  const venueImage = getVenueImageForCategory(mapKey);
   const dateStr = params.dateEnd ? `${params.dateStart} – ${params.dateEnd}` : params.dateStart;
 
   const hostsWithImages = (parsed.hosts || []).map((h: { name: string; role: string; bio: string }, i: number) => ({

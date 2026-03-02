@@ -1,23 +1,6 @@
 import { selectThemeForCategory, themes } from "@/lib/themes";
 import type { EventData } from "@/types/event";
-
-const CATEGORY_IMAGES: Record<string, string> = {
-  fashion: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1920&h=1080&fit=crop",
-  food: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&h=1080&fit=crop",
-  art: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=1920&h=1080&fit=crop",
-  wellness: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=1920&h=1080&fit=crop",
-  music: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1920&h=1080&fit=crop",
-  market: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=1920&h=1080&fit=crop",
-};
-
-const VENUE_IMAGES: Record<string, string> = {
-  fashion: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&h=800&fit=crop",
-  food: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1920&h=800&fit=crop",
-  art: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1920&h=800&fit=crop",
-  wellness: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1920&h=800&fit=crop",
-  music: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1920&h=800&fit=crop",
-  market: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=1920&h=800&fit=crop",
-};
+import { getHeroImageForCategory, getVenueImageForCategory } from "@/image-governor";
 
 const DEFAULT_NAMES: Record<string, string> = {
   fashion: "The Edit — Spring Sample Sale",
@@ -289,8 +272,8 @@ export function buildEventFromForm(
     : (formData.name?.trim() || DEFAULT_NAMES[mapKey] || "Your Event");
 
   const slug = slugify(name) || `event-${Date.now().toString(36)}`;
-  const heroImage = CATEGORY_IMAGES[mapKey] || CATEGORY_IMAGES.fashion;
-  const venueImage = VENUE_IMAGES[mapKey] || VENUE_IMAGES.fashion;
+  const heroImage = getHeroImageForCategory(mapKey);
+  const venueImage = getVenueImageForCategory(mapKey);
 
   const dateStr = formatDateRange(formData.dateStart, formData.dateEnd || undefined);
   const tagline =
