@@ -13,6 +13,8 @@ function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const nextPath = searchParams.get("next") || "/create";
+  const urlError = searchParams.get("error") === "auth";
+  const errorDetails = searchParams.get("details");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,9 +53,14 @@ function LoginForm() {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {error && (
+          {(error || urlError) && (
             <p className="text-sm text-[#C7402D] font-[family-name:var(--font-body)]">
-              {error}
+              {error || "Sign-in failed. Try again or use email/password."}
+            </p>
+          )}
+          {errorDetails && (
+            <p className="text-xs text-[#A89070] font-mono mt-2 break-all">
+              {errorDetails}
             </p>
           )}
           <div>

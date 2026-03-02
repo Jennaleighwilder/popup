@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Popup — Beautiful event pages for pop-ups, tastings, and experiences",
   description:
     "Create stunning event pages for pop-ups, tastings, openings, and experiences. AI builds it in 60 seconds. You make it yours.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://popup.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://popup-tawny-nu.vercel.app"),
   openGraph: { title: "Popup", description: "Beautiful event pages. AI builds it in 60 seconds." },
   other: {
     "design-by": "Jenna Leigh West",

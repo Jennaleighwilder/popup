@@ -27,7 +27,9 @@ function AuthCallbackContent() {
     if (code) {
       supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
         if (error) {
-          router.replace("/login?error=auth");
+          // Pass error for debugging (e.g. PKCE code_verifier missing on mobile)
+          const errParam = encodeURIComponent(error.message);
+          router.replace(`/login?error=auth&details=${errParam}`);
         } else {
           // Full page nav so AuthProvider picks up the new session
           window.location.href = next.startsWith("/") ? next : `/${next}`;
