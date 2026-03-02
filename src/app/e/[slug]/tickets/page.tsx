@@ -95,9 +95,14 @@ export default function EventTicketsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: theme.colors.bg }}>
-        <div className="w-10 h-px animate-pulse" style={{ backgroundColor: theme.colors.accent }} />
-      </div>
+      <ThemeProvider theme={theme}>
+        <div className="min-h-screen flex flex-col items-center justify-center gap-6" style={{ backgroundColor: theme.colors.bg }}>
+          <Link href="/" className="text-sm uppercase tracking-wider" style={{ color: theme.colors.textMuted }}>
+            ← Home
+          </Link>
+          <div className="w-10 h-px animate-pulse" style={{ backgroundColor: theme.colors.accent }} />
+        </div>
+      </ThemeProvider>
     );
   }
 
@@ -105,6 +110,7 @@ export default function EventTicketsPage() {
     return (
       <ThemeProvider theme={theme}>
         <div className="min-h-screen flex flex-col items-center justify-center px-6" style={{ backgroundColor: theme.colors.bg }}>
+          <Link href="/" className="mb-6 text-sm uppercase tracking-wider" style={{ color: theme.colors.textMuted }}>← Home</Link>
           <h1 className="text-2xl font-light mb-4" style={{ fontFamily: "var(--theme-display-font)" }}>Ticket not found</h1>
           <Link href={`/e/${slug}`} className="px-6 py-3 font-medium tracking-wider uppercase" style={{ backgroundColor: theme.colors.accent, color: "white" }}>
             Back to event
@@ -118,6 +124,7 @@ export default function EventTicketsPage() {
     return (
       <ThemeProvider theme={theme}>
         <div className="min-h-screen flex flex-col items-center justify-center px-6" style={{ backgroundColor: theme.colors.bg }}>
+          <Link href="/" className="mb-6 text-sm uppercase tracking-wider" style={{ color: theme.colors.textMuted }}>← Home</Link>
           <h1 className="text-2xl font-light mb-4 text-center" style={{ fontFamily: "var(--theme-display-font)" }}>
             This is a demo event
           </h1>
@@ -143,9 +150,14 @@ export default function EventTicketsPage() {
     <ThemeProvider theme={theme}>
       <div className="min-h-screen py-16 px-6" style={{ backgroundColor: theme.colors.bg, fontFamily: "var(--theme-body-font)" }}>
         <div className="max-w-md mx-auto">
-          <Link href={`/e/${slug}#tickets`} className="text-sm uppercase tracking-wider mb-8 inline-block" style={{ color: theme.colors.textMuted }}>
-            ← Back to event
-          </Link>
+          <div className="flex items-center gap-6 mb-8">
+            <Link href={`/e/${slug}#tickets`} className="text-sm uppercase tracking-wider" style={{ color: theme.colors.textMuted }}>
+              ← Back to event
+            </Link>
+            <Link href="/" className="text-sm uppercase tracking-wider" style={{ color: theme.colors.textMuted }}>
+              ← Home
+            </Link>
+          </div>
           <h1 className="text-2xl font-light mb-2" style={{ fontFamily: "var(--theme-display-font)" }}>{event.name}</h1>
           <p className="text-lg mb-8" style={{ color: theme.colors.accent, fontFamily: "var(--theme-mono-font)" }}>
             {tier.name} — {tier.price === 0 ? "Free" : `$${tier.price}`}

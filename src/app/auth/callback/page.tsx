@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useEffect } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 
@@ -59,7 +60,10 @@ function AuthCallbackContent() {
   }, [router, searchParams]);
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center">
+    <div className="min-h-screen bg-[#FAF7F2] flex flex-col items-center justify-center gap-6">
+      <Link href="/" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
+        ← Home
+      </Link>
       <p className="font-[family-name:var(--font-body)] text-[#8C8578]">Completing sign in...</p>
     </div>
   );
@@ -68,7 +72,8 @@ function AuthCallbackContent() {
 export default function AuthCallbackPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FAF7F2] flex flex-col items-center justify-center gap-6">
+        <Link href="/" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">← Home</Link>
         <p className="font-[family-name:var(--font-body)] text-[#8C8578]">Completing sign in...</p>
       </div>
     }>

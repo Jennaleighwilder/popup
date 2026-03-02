@@ -79,9 +79,14 @@ export default function PublishPage() {
         <Link href="/create" className="px-8 py-4 bg-[#C4956A] text-white font-[family-name:var(--font-body)] text-sm tracking-wider uppercase">
           Create Event
         </Link>
-        <Link href="/dashboard" className="mt-6 font-[family-name:var(--font-body)] text-sm text-[#8C8578]">
-          ← Dashboard
-        </Link>
+        <div className="mt-6 flex flex-col gap-2">
+          <Link href="/dashboard" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
+            ← Dashboard
+          </Link>
+          <Link href="/" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
+            ← Home
+          </Link>
+        </div>
       </div>
     );
   }
@@ -120,7 +125,7 @@ export default function PublishPage() {
             </p>
           )}
 
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 items-center">
             <button
               onClick={handlePublish}
               disabled={publishing}
@@ -133,6 +138,9 @@ export default function PublishPage() {
               className="px-10 py-4 border border-[#E8E2D9] font-[family-name:var(--font-body)] text-sm hover:border-[#C4956A] transition-colors"
             >
               Back to editor
+            </Link>
+            <Link href="/" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
+              ← Home
             </Link>
           </div>
         </motion.div>

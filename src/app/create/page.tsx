@@ -218,6 +218,11 @@ export default function CreatePage() {
 
   return (
     <div className="min-h-screen bg-[#2D2420] overflow-x-hidden">
+      <div className="fixed top-6 left-6 z-40">
+        <Link href="/" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#F5EDE4] transition-colors">
+          ← Home
+        </Link>
+      </div>
       <div className="fixed top-6 right-6 z-40 font-[family-name:var(--font-mono)] text-xs text-[#8C8578] tracking-widest uppercase">
         {step} / 4
       </div>
@@ -580,6 +585,9 @@ export default function CreatePage() {
               </>
             ) : (
               <div className="min-h-screen flex flex-col items-center justify-center px-6">
+                <Link href="/" className="mb-8 font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#F5EDE4]">
+                  ← Home
+                </Link>
                 <div className="w-10 h-px bg-[#8B2500] mb-8" />
                 <h1 className="font-[family-name:var(--font-display)] text-2xl font-light text-[#F5EDE4] mb-4">Something went wrong</h1>
                 <p className="font-[family-name:var(--font-body)] text-[#8C8578] text-sm mb-8">Your event could not be generated. Please try again.</p>

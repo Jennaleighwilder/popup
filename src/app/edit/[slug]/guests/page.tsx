@@ -71,12 +71,17 @@ export default function GuestsPage() {
     <div className="min-h-screen bg-[#FAF7F2]">
       <nav className="border-b border-[#E8E2D9] px-6 py-5">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link
-            href={`/edit/${slug}`}
-            className="flex items-center gap-2 font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]"
-          >
-            <ArrowLeft className="w-4 h-4" /> Back to editor
-          </Link>
+          <div className="flex items-center gap-6">
+            <Link
+              href={`/edit/${slug}`}
+              className="flex items-center gap-2 font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]"
+            >
+              <ArrowLeft className="w-4 h-4" /> Back to editor
+            </Link>
+            <Link href="/" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
+              ← Home
+            </Link>
+          </div>
           <Link href="/dashboard" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
             Dashboard
           </Link>

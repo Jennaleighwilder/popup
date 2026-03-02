@@ -42,6 +42,9 @@ function LoginForm() {
   return (
     <div className="min-h-screen bg-[#2D2420] flex flex-col justify-center px-6 py-24">
       <div className="max-w-md mx-auto w-full">
+        <Link href="/" className="inline-block font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#F5EDE4] mb-8 transition-colors">
+          ← Home
+        </Link>
         <div className="w-10 h-px bg-[#8B2500] mb-8" />
         <h1
           className="font-[family-name:var(--font-display)] text-4xl font-light text-[#F5EDE4] mb-2"

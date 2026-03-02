@@ -189,9 +189,14 @@ export default function EditPage() {
         >
           Create Event
         </Link>
-        <Link href="/dashboard" className="mt-6 font-[family-name:var(--font-body)] text-sm text-[#8C8578]">
-          ← Dashboard
-        </Link>
+        <div className="mt-6 flex flex-col gap-2">
+          <Link href="/dashboard" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
+            ← Dashboard
+          </Link>
+          <Link href="/" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
+            ← Home
+          </Link>
+        </div>
       </div>
     );
   }
@@ -207,9 +212,14 @@ export default function EditPage() {
       {/* Left: Live preview 60% */}
       <div className="w-[60%] min-h-screen overflow-auto border-r border-[#E8E2D9]">
         <div className="sticky top-0 z-10 bg-[#FAF7F2]/95 backdrop-blur-sm border-b border-[#E8E2D9] px-6 py-3 flex items-center justify-between">
-          <span className="font-[family-name:var(--font-mono)] text-xs text-[#8C8578]">
-            Live preview
-          </span>
+          <div className="flex items-center gap-4">
+            <Link href="/" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
+              ← Home
+            </Link>
+            <span className="font-[family-name:var(--font-mono)] text-xs text-[#8C8578]">
+              Live preview
+            </span>
+          </div>
           <div className="flex items-center gap-3">
             <a
               href={`/e/${slug}`}

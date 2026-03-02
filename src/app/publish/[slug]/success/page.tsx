@@ -99,9 +99,14 @@ export default function PublishSuccessPage() {
           </a>
         </div>
 
-        <Link href="/dashboard" className="mt-12 inline-block font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
-          ← Dashboard
-        </Link>
+        <div className="mt-12 flex flex-col gap-2">
+          <Link href="/dashboard" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
+            ← Dashboard
+          </Link>
+          <Link href="/" className="font-[family-name:var(--font-body)] text-sm text-[#8C8578] hover:text-[#1A1714]">
+            ← Home
+          </Link>
+        </div>
       </motion.div>
     </div>
   );
